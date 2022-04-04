@@ -43,7 +43,11 @@
         Добавить панель
       </base-button>
 
-      <button v-if="settingsMode && showWorkspaceSettings" @click="test" class="btn icon-btn">
+      <button
+        v-if="settingsMode && showWorkspaceSettings"
+        @click="openWorkspaceSettings"
+        class="btn icon-btn"
+      >
         <svg
           width="24"
           height="24"
@@ -104,11 +108,15 @@ export default {
     },
   },
   methods: {
-    test() {
+    openWorkspaceSettings() {
       const workspaceGuid = this.workspaceSystem.getGUID();
-      this.eventSystem.instance.publishEvent(workspaceGuid, 'WorkspaceCellClicked', {
-        guid: workspaceGuid,
-      });
+      Application.getSystem('EventSystem', '0.4.0').publishEvent(
+        workspaceGuid,
+        'WorkspaceCellClicked',
+        {
+          guid: workspaceGuid,
+        }
+      );
     },
     setPanelSettings(settings) {
       for (let key in settings) {
