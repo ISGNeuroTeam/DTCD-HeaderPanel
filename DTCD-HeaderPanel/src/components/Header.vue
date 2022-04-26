@@ -1,7 +1,7 @@
 <template>
-  <div class="workspace-header-wrapper" @click.stop>
-    <div class="workspace-header-menu">
-      <div class="workspace-header-logo">
+  <header class="HeaderWrapper" @click.stop>
+    <nav class="HeaderNav">
+      <div>
         <svg
           width="80"
           height="18"
@@ -59,12 +59,12 @@
           />
         </svg>
       </div>
+      <div class="HeaderNavItem">Дашборды</div>
+      <div class="HeaderNavItem">Помощь</div>
+    </nav>
 
-      <div class="workspace-header-item">Дашборды</div>
-      <div class="workspace-header-item">Помощь</div>
-    </div>
-    <div class="workspace-header-right-menu">
-      <svg
+    <div class="HeaderNavRight">
+      <svg class="IconNotification"
         width="18"
         height="18"
         viewBox="0 0 18 18"
@@ -76,83 +76,415 @@
           fill="white"
         />
       </svg>
-      <div class="user-icon"></div>
-      <div class="username">Username</div>
-      <svg
-        width="18"
-        height="18"
-        viewBox="0 0 18 18"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        @click="logout"
+      <div class="IconUser" style="background-image: url(https://playcontestofchampions.com/wp-content/uploads/2021/11/champion-iron-man-infinity-war-720x720.jpg);"></div>
+      <base-dropdown 
+        class="DropdownSelect"
+        alignment="right"
       >
-        <path
-          d="M8.99993 11.7848L13.5074 7.27725L12.4477 6.216L8.99993 9.666L5.55293 6.216L4.49243 7.2765L8.99993 11.7848Z"
-          fill="white"
-        />
-      </svg>
+        <span class="DropdownUsername" slot="toggle-btn">Username</span>
+        <nav class="DropdownList type_dropdown">
+          <a class="DropdownListItem">
+            <svg 
+              width="20" 
+              height="20" 
+              viewBox="0 0 20 20" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path 
+                d="M5.83301 6.66667C5.83301 4.36548 7.69849 2.5 9.99967 2.5C12.3009 2.5 14.1663 4.36548 14.1663 6.66667C14.1663 8.96785 12.3009 10.8333 9.99967 10.8333C7.69849 10.8333 5.83301 8.96785 5.83301 6.66667ZM9.99967 9.16667C11.3804 9.16667 12.4997 8.04738 12.4997 6.66667C12.4997 5.28595 11.3804 4.16667 9.99967 4.16667C8.61896 4.16667 7.49967 5.28595 7.49967 6.66667C7.49967 8.04738 8.61896 9.16667 9.99967 9.16667Z" 
+                fill="#17569B"
+              />
+              <path 
+                d="M5.28563 13.6193C4.03539 14.8695 3.33301 16.5652 3.33301 18.3333H4.99967C4.99967 17.0073 5.52646 15.7355 6.46414 14.7978C7.40182 13.8601 8.67359 13.3333 9.99967 13.3333C11.3258 13.3333 12.5975 13.8601 13.5352 14.7978C14.4729 15.7355 14.9997 17.0073 14.9997 18.3333H16.6663C16.6663 16.5652 15.964 14.8695 14.7137 13.6193C13.4635 12.369 11.7678 11.6667 9.99967 11.6667C8.23156 11.6667 6.53587 12.369 5.28563 13.6193Z" 
+                fill="#17569B"
+              />
+            </svg>
+            <span class="Text">Профиль</span>
+          </a>
+          <a class="DropdownListItem">
+            <svg 
+              width="20" 
+              height="20" 
+              iewBox="0 0 20 20" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path 
+                d="M5.83301 6.66667C5.83301 4.36548 7.69849 2.5 9.99967 2.5C12.3009 2.5 14.1663 4.36548 14.1663 6.66667C14.1663 8.96785 12.3009 10.8333 9.99967 10.8333C7.69849 10.8333 5.83301 8.96785 5.83301 6.66667ZM9.99967 9.16667C11.3804 9.16667 12.4997 8.04738 12.4997 6.66667C12.4997 5.28595 11.3804 4.16667 9.99967 4.16667C8.61896 4.16667 7.49967 5.28595 7.49967 6.66667C7.49967 8.04738 8.61896 9.16667 9.99967 9.16667Z" 
+                fill="#17569B"/>
+              <path 
+                d="M5.28563 13.6193C4.03539 14.8695 3.33301 16.5652 3.33301 18.3333H4.99967C4.99967 17.0073 5.52646 15.7355 6.46414 14.7978C7.40182 13.8601 8.67359 13.3333 9.99967 13.3333C11.3258 13.3333 12.5975 13.8601 13.5352 14.7978C14.4729 15.7355 14.9997 17.0073 14.9997 18.3333H16.6663C16.6663 16.5652 15.964 14.8695 14.7137 13.6193C13.4635 12.369 11.7678 11.6667 9.99967 11.6667C8.23156 11.6667 6.53587 12.369 5.28563 13.6193Z" 
+                fill="#17569B"/>
+              <path 
+                fill-rule="evenodd" 
+                clip-rule="evenodd" 
+                d="M14.4801 7.50001H14.7922C14.9535 7.49988 15.093 7.39089 15.1275 7.23801L15.2694 6.61168C15.3647 6.57105 15.4576 6.52531 15.5477 6.47468C15.6335 6.4263 15.7165 6.37344 15.7964 6.31634L16.4279 6.51134C16.5817 6.55879 16.7488 6.49596 16.8295 6.36034L17.4548 5.30934C17.5346 5.17352 17.5071 5.00217 17.3885 4.89634L16.8989 4.46301C16.9212 4.26671 16.9212 4.06864 16.8989 3.87234L17.3885 3.43901C17.5071 3.33318 17.5346 3.16184 17.4548 3.02601L16.8295 1.97501C16.7488 1.8394 16.5817 1.77657 16.4279 1.82401L15.7964 2.01901C15.7175 1.96246 15.6354 1.91027 15.5504 1.86268C15.4595 1.81104 15.3655 1.76452 15.2691 1.72334L15.1275 1.09568C15.0931 0.942666 14.9536 0.833508 14.7922 0.833344H13.5417C13.3802 0.833508 13.2407 0.942666 13.2063 1.09568L13.0662 1.72301C12.9748 1.76129 12.8856 1.80424 12.7989 1.85168C12.7086 1.90242 12.6213 1.95806 12.5374 2.01834L11.9063 1.82334C11.7524 1.77572 11.5851 1.83858 11.5043 1.97434L11.3096 2.30174C11.9851 2.50408 12.5948 2.85897 13.0985 3.32641C13.3505 3.02557 13.7349 2.83334 14.1656 2.83334C14.9245 2.83334 15.5398 3.4303 15.5398 4.16668C15.5398 4.82542 15.0474 5.37259 14.4002 5.48064C14.5019 5.8588 14.5562 6.25639 14.5562 6.66665C14.5562 6.95129 14.5301 7.22983 14.4801 7.50001Z" 
+                fill="#17569B"/>
+            </svg>
+            <span class="Text">Панель администратора</span>
+          </a>
+          <a class="DropdownListItem">
+            <svg 
+              width="20" 
+              height="20" 
+              viewBox="0 0 20 20" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg">
+              <path 
+                d="M4.16667 2.5L11.6667 2.5C12.5871 2.5 13.3333 3.24619 13.3333 4.16667L13.3333 7.5L11.6667 7.5L11.6667 4.16667L4.16667 4.16666L4.16667 15.8333L11.6667 15.8333L11.6667 12.5L13.3333 12.5L13.3333 15.8333C13.3333 16.7538 12.5871 17.5 11.6667 17.5L4.16667 17.5C3.24619 17.5 2.5 16.7538 2.5 15.8333L2.5 4.16666C2.5 3.24619 3.24619 2.5 4.16667 2.5ZM10 6.66667L10 9.16667L17.5 9.16667L17.5 10.8333L10 10.8333L10 13.3333L5.83333 10L10 6.66667Z" 
+                fill="#17569B"/>
+            </svg>
+            <span class="Text">Выход</span>
+          </a>
+        </nav> 
+      </base-dropdown>
+      <div 
+        class="BurgerButton" 
+        @click="changeVisibility()" 
+        :class="{ 'active': burgerVisibility }"
+      >
+        <span class="BurgerBar"></span>
+        <span class="BurgerBar"></span>
+        <span class="BurgerBar"></span>
+      </div>
+      <nav 
+        class="MenuWrapper" 
+        :class="{ 'open': burgerVisibility }" 
+      >
+        <div class="Menu">
+          <div class="MenuUserData">
+            <div class="MenuUserPhoto" style="background-image: url(https://playcontestofchampions.com/wp-content/uploads/2021/11/champion-iron-man-infinity-war-720x720.jpg);"></div>
+            <div>
+              <span class="MenuUserPosition">Администратор</span>
+              <p class="MenuUsername">Георгий Арановский</p>
+            </div> 
+          </div>
+          <ul class="MenuList">
+            <li class="MenuListItem"><a class="MenuLink" href="#">Домашняя страница</a></li>
+            <li class="MenuListItem"><a class="MenuLink" href="#">Профиль</a></li>
+            <li class="MenuListItem"><a class="MenuLink" href="#">Дашборды</a></li>
+            <li class="MenuListItem"><a class="MenuLink" href="#">Приложения</a></li>
+            <li class="MenuListItem"><a class="MenuLink" href="#">Настройки</a></li>
+            <li class="MenuListItem"><a class="MenuLink" href="#">Помощь</a></li>
+          </ul>
+          <button class="ButtonBack">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4.16667 2.5L11.6667 2.5C12.5871 2.5 13.3333 3.24619 13.3333 4.16667L13.3333 7.5L11.6667 7.5L11.6667 4.16667L4.16667 4.16666L4.16667 15.8333L11.6667 15.8333L11.6667 12.5L13.3333 12.5L13.3333 15.8333C13.3333 16.7538 12.5871 17.5 11.6667 17.5L4.16667 17.5C3.24619 17.5 2.5 16.7538 2.5 15.8333L2.5 4.16666C2.5 3.24619 3.24619 2.5 4.16667 2.5ZM10 6.66667L10 9.16667L17.5 9.16667L17.5 10.8333L10 10.8333L10 13.3333L5.83333 10L10 6.66667Z" fill="#17569B"/>
+            </svg>
+            <span class="Text">Выход</span>
+          </button>
+        </div>
+      </nav>
     </div>
-  </div>
+  </header>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      burgerVisibility: false,
+    }
+  },
   methods: {
     async logout() {
       await Application.getSystem('AuthSystem', '0.1.0').logout();
       Application.getSystem('RouteSystem', '0.1.0').navigate('/login');
     },
+    changeVisibility() {
+      this.burgerVisibility = !this.burgerVisibility;
+    },
   },
 };
 </script>
 
-<style scoped>
-.workspace-header-wrapper {
+<style lang="scss" scoped>
+
+.HeaderWrapper {
   background-color: #272a3a;
   color: #fff;
-  width: 100%;
+  width: 100vw;
   height: 30px;
   display: flex;
   justify-content: space-between;
-  padding: 0 15px;
+  padding: 0 20px;
   box-sizing: border-box;
-}
+  font-family: 'Proxima Nova';
 
-.workspace-header-menu {
-  height: 30px;
-  display: flex;
-  align-items: center;
-  column-gap: 40px;
-}
+  &,
+  *,
+  *::after,
+  *::before {
+    box-sizing: border-box;
+  }  
 
-.workspace-header-logo {
-  font-size: 18px;
-  font-weight: 800;
-}
+  .HeaderNav {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    column-gap: 30px;
+  }
 
-.workspace-header-item {
-  font-size: 13px;
-  /* cursor: pointer; */
-}
+  .HeaderNavItem {
+    font-size: 13px;
+    cursor: pointer;
 
-.workspace-header-right-menu {
-  height: 30px;
-  display: flex;
-  align-items: center;
-}
+    @media (max-width: 576px) {
+      display: none
+    }      
+  }
 
-.user-icon {
-  height: 18px;
-  width: 18px;
-  background-color: #af52de;
-  border-radius: 50%;
-  margin-left: 29px;
-}
+  .HeaderNavRight {
+    height: 30px;
+    display: flex;
+    align-items: center;
 
-.username {
-  font-size: 13px;
-  font-weight: 600;
-  margin-left: 6px;
-  margin-right: 9px;
+    .IconNotification {
+      cursor: pointer;
+    }
+
+    .IconUser {
+      margin-left: 30px;
+      cursor: pointer;
+      width: 18px;
+      border-radius: 50%;
+      display: flex;
+
+      @media (max-width: 576px) {
+        display: none;
+      }
+    }
+
+    .DropdownSelect {
+      fill: var(--header_content);
+      display: contents;
+
+      & > * {
+        cursor: pointer;
+      }
+
+      @media (max-width: 576px) {
+        display: none
+      }    
+    }
+
+    .DropdownUsername {
+      font-size: 13px;
+      font-weight: 600;
+      margin-left: 6px;
+      margin-right: 9px;
+      color: var(--header_content);
+    }
+
+    .DropdownList {
+
+      &.type_dropdown {
+        background-color: var(--background_main);
+        border: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        box-shadow: 1px 1px 2px rgba(8, 18, 55, 0.12), 0px 4px 12px rgba(8, 18, 55, 0.12);
+        border-radius: 8px;
+        padding: 16px;
+
+        svg {
+          path {
+            fill: var(--accent);
+          }
+        }
+          
+        .DropdownListItem {
+          padding-bottom: 8px;
+          display: flex;
+          font-size: 14px;
+          line-height: 22px;
+          line-height: 1.58;
+          color: var(--text_main);
+          cursor: pointer;
+
+          &:hover {
+            color: var(--button_primary);
+          }
+
+          &:last-child {
+            padding-bottom: 0;
+          }
+        }
+      }
+    }
+
+    .Text {
+      padding-left: 8px;
+    } 
+
+    .BurgerButton {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 18px;
+      height: 18px;
+      gap: 1.8px;
+      cursor: pointer;
+      padding-left: 16px;
+
+      @media (min-width: 576px) {
+        display: none
+      } 
+
+      .BurgerBar {
+        width: 13.5px;
+        height: 1.8px;
+        background-color: #fff;
+        transition: all ease .2s;
+      }
+
+      &.active .BurgerBar:nth-of-type(1) {
+        transform: translateY(3.2px) rotate(-45deg);
+      }
+
+      &.active .BurgerBar:nth-of-type(2) {
+        opacity: 0;
+      }
+
+      &.active .BurgerBar:nth-of-type(3) {
+        transform: translateY(-4px) rotate(45deg);
+      }
+    }
+
+    .MenuWrapper {
+      height: 100%;
+      width: 100%;
+      position: fixed;
+      right: 0;
+      top: 30px;
+      display: none;
+      z-index: 1;
+      background-color: var(--accent);
+      overflow-y: auto;
+
+      &.open {
+        display: block;
+      }
+    }
+
+    .Menu {
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    .MenuList {
+      list-style: none;
+      height: 100%;
+      padding: 58px 0 0 20px;
+      margin: 0;
+    }
+
+    .MenuListItem {
+      width: 100%;
+      display: block;
+      margin: 0 auto;
+      padding-bottom: 24px;
+
+      &:last-child {
+        padding-bottom: 0;
+      }
+    }
+
+    .MenuLink {
+      display: inline-block;
+      text-decoration: none;
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--background_main);
+
+      &:hover {
+        color: var(--border);
+      }
+    }
+
+    .MenuUserData {
+      background-color: #2C67A6;
+      padding: 20px 30px;
+      display: flex;
+      align-items: center;
+    }
+
+    .MenuUserPhoto {
+      display: flex;
+      max-width: 50px;
+      border-radius: 8px;
+      background-color: var(--button_primary_24);
+      margin-right: 13px;
+      width: 100%;
+    }
+
+    .IconUser,
+    .MenuUserPhoto {
+      position: relative;
+      overflow: hidden;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+
+      &::before {
+        content: '';
+        display: block;
+        padding-top: 100%;
+        float: left;
+      }
+
+      &::after {
+        content: '';
+        display: block;
+        clear: both;
+      }
+    }
+
+    .MenuUserPosition {
+      font-size: 14px;
+      color: var(--border);
+    }
+
+    .MenuUsername {
+      margin: 0;
+      font-size: 20px;
+      color: var(--background_main);
+      line-height: 1.19;
+    }
+
+    .ButtonBack {
+      border: none;
+      background-color: transparent;
+      display: flex;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 17px;
+      align-items: center;
+      margin-top: auto;
+      color: var(--background_main);
+      padding: 58px 0 63px 30px;
+      font-family: 'Proxima Nova';
+
+      svg {
+        path {
+          fill: var(--background_main);
+        }
+      }
+
+      &:hover {
+        color: var(--border);
+
+        svg {
+          path {
+            fill: var(--border);
+          }
+        }
+      }
+    }
+  }
 }
 </style>
