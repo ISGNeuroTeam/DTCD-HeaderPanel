@@ -161,12 +161,8 @@
             </div> 
           </div>
           <ul class="MenuList">
-            <li class="MenuListItem"><a class="MenuLink" href="#">Домашняя страница</a></li>
             <li class="MenuListItem"><a class="MenuLink" href="#">Профиль</a></li>
-            <li class="MenuListItem"><a class="MenuLink" href="#">Дашборды</a></li>
-            <li class="MenuListItem"><a class="MenuLink" href="#">Приложения</a></li>
-            <li class="MenuListItem"><a class="MenuLink" href="#">Настройки</a></li>
-            <li class="MenuListItem"><a class="MenuLink" href="#">Помощь</a></li>
+            <li class="MenuListItem"><a class="MenuLink" href="#">Панель администратора</a></li>
           </ul>
           <button class="ButtonBack">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
