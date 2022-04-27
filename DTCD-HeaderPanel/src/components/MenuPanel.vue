@@ -76,11 +76,9 @@
           />
         </svg>
       </button>
-      <div 
-        v-if="showSettingsButton" 
-        @click="toggleSetting" 
-      >
-        <button class="ButtonIcon type_settings">
+      
+        <button v-if="showSettingsButton" 
+        @click="toggleSetting" class="ButtonIcon type_settings">
           <svg
             width="20"
             height="20"
@@ -94,7 +92,7 @@
             />
           </svg>
         </button>
-      </div>
+      
     </div>
     <!-- <div class="ButtonsGroup">
       <base-button 
@@ -195,6 +193,7 @@ export default {
   width: 100vw
   height: 100%
   display: flex
+  height: 40px
   padding: 0 20px
   background-color: var(--background_main)
   justify-content: space-between
@@ -217,7 +216,7 @@ export default {
     border-left: 1px solid var(--background_secondary)
     border-right: 1px solid var(--background_secondary)
     display: flex
-    padding: 9.5px 0
+
 
   .ButtonIcon
     border: none
@@ -230,8 +229,7 @@ export default {
       margin-left: 9px
 
     &.type_settings
-      padding: 0 9px
-      display: flex
+      height: 100%
 
       @media (max-width: 576px) 
         display: none

@@ -87,7 +87,7 @@
           slot="toggle-btn"
         >
           <div class="IconUser" style="background-image: url(https://playcontestofchampions.com/wp-content/uploads/2021/11/champion-iron-man-infinity-war-720x720.jpg);"></div>
-          Username
+          <div class="UsernameWrapper">Username</div>
         </span>
         <nav class="DropdownMenu type_dropdown">
           <a class="DropdownItem">
@@ -173,7 +173,7 @@
           </ul>
           <button class="ButtonBack">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M4.16667 2.5L11.6667 2.5C12.5871 2.5 13.3333 3.24619 13.3333 4.16667L13.3333 7.5L11.6667 7.5L11.6667 4.16667L4.16667 4.16666L4.16667 15.8333L11.6667 15.8333L11.6667 12.5L13.3333 12.5L13.3333 15.8333C13.3333 16.7538 12.5871 17.5 11.6667 17.5L4.16667 17.5C3.24619 17.5 2.5 16.7538 2.5 15.8333L2.5 4.16666C2.5 3.24619 3.24619 2.5 4.16667 2.5ZM10 6.66667L10 9.16667L17.5 9.16667L17.5 10.8333L10 10.8333L10 13.3333L5.83333 10L10 6.66667Z" fill="#17569B"/>
+              <path d="M4.16667 2.5L11.6667 2.5C12.5871 2.5 13.3333 3.24619 13.3333 4.16667L13.3333 7.5L11.6667 7.5L11.6667 4.16667L4.16667 4.16666L4.16667 15.8333L11.6667 15.8333L11.6667 12.5L13.3333 12.5L13.3333 15.8333C13.3333 16.7538 12.5871 17.5 11.6667 17.5L4.16667 17.5C3.24619 17.5 2.5 16.7538 2.5 15.8333L2.5 4.16666C2.5 3.24619 3.24619 2.5 4.16667 2.5ZM10 6.66667L10 9.16667L17.5 9.16667L17.5 10.8333L10 10.8333L10 13.3333L5.83333 10L10 6.66667Z" fill="white"/>
             </svg>
             <span @click="changeVisibility()" class="Text">Выход</span>
           </button>
@@ -211,7 +211,7 @@ export default {
   display: flex;
   justify-content: space-between;
   padding: 0 20px;
-  height: 35px;
+  height: 30px;
   font-family: 'Proxima Nova';
 
   &,
@@ -247,6 +247,7 @@ export default {
       border: none;
       background-color: transparent;
       padding: 0;
+      margin-right: 30px;
 
       @media (max-width: 576px) {
         margin-right: 16px;
@@ -278,12 +279,18 @@ export default {
       }    
     }
 
+    .UsernameWrapper {
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-width: 150px;
+      white-space: nowrap;
+    }
+
     .DropdownUsername {
       display: flex;
       align-items: center;
       font-size: 13px;
       font-weight: 600;
-      margin-left: 30px;
       margin-right: 9px;
       color: var(--header_content);
     }
@@ -338,7 +345,7 @@ export default {
       gap: 1.8px;
       cursor: pointer;
 
-      @media (min-width: 576px) {
+      @media not screen and (max-width: 576px) {
         display: none
       } 
 
@@ -412,7 +419,7 @@ export default {
       font-size: 17px;
       font-weight: 700;
       line-height: 1.3;
-      color: var(--background_main);
+      color: var(--general_white);
 
       &:hover {
         color: var(--border);
@@ -465,7 +472,7 @@ export default {
     .MenuUsername {
       margin: 0;
       font-size: 20px;
-      color: var(--background_main);
+      color: var(--general_white);
       line-height: 1.19;
     }
 
@@ -478,13 +485,13 @@ export default {
       font-size: 17px;
       align-items: center;
       margin-top: auto;
-      color: var(--background_main);
+      color: var(--general_white);
       padding: 58px 0 63px 30px;
       font-family: 'Proxima Nova';
 
       svg {
         path {
-          fill: var(--background_main);
+          fill: var(--general_white);
         }
       }
 
