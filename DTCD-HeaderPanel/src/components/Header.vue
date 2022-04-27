@@ -1,5 +1,5 @@
 <template>
-  <header class="HeaderWrapper" @click.stop>
+  <div class="HeaderWrapper" @click.stop>
     <nav class="HeaderNav">
       <div>
         <svg
@@ -64,26 +64,33 @@
     </nav>
 
     <div class="HeaderNavRight">
-      <svg class="IconNotification"
-        width="18"
-        height="18"
-        viewBox="0 0 18 18"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M9 16.5C8.17204 16.4959 7.50069 15.8279 7.4925 15H10.4925C10.4941 15.2005 10.4558 15.3994 10.38 15.585C10.1832 16.0365 9.78136 16.3658 9.3 16.47H9.29625H9.285H9.2715H9.26475C9.17761 16.4881 9.08899 16.4982 9 16.5ZM15 14.25H3V12.75L4.5 12V7.875C4.46049 6.81684 4.69945 5.76684 5.193 4.83C5.68428 3.96113 6.52402 3.34416 7.5 3.135V1.5H10.5V3.135C12.4342 3.5955 13.5 5.2785 13.5 7.875V12L15 12.75V14.25Z"
-          fill="white"
-        />
-      </svg>
-      <div class="IconUser" style="background-image: url(https://playcontestofchampions.com/wp-content/uploads/2021/11/champion-iron-man-infinity-war-720x720.jpg);"></div>
+      <button class="IconNotification">
+        <svg 
+          width="18"
+          height="18"
+          viewBox="0 0 18 18"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M9 16.5C8.17204 16.4959 7.50069 15.8279 7.4925 15H10.4925C10.4941 15.2005 10.4558 15.3994 10.38 15.585C10.1832 16.0365 9.78136 16.3658 9.3 16.47H9.29625H9.285H9.2715H9.26475C9.17761 16.4881 9.08899 16.4982 9 16.5ZM15 14.25H3V12.75L4.5 12V7.875C4.46049 6.81684 4.69945 5.76684 5.193 4.83C5.68428 3.96113 6.52402 3.34416 7.5 3.135V1.5H10.5V3.135C12.4342 3.5955 13.5 5.2785 13.5 7.875V12L15 12.75V14.25Z"
+            fill="white"
+          />
+        </svg>
+      </button>
       <base-dropdown 
         class="DropdownSelect"
         alignment="right"
       >
-        <span class="DropdownUsername" slot="toggle-btn">Username</span>
-        <nav class="DropdownList type_dropdown">
-          <a class="DropdownListItem">
+        <span 
+          class="DropdownUsername" 
+          slot="toggle-btn"
+        >
+          <div class="IconUser" style="background-image: url(https://playcontestofchampions.com/wp-content/uploads/2021/11/champion-iron-man-infinity-war-720x720.jpg);"></div>
+          Username
+        </span>
+        <nav class="DropdownMenu type_dropdown">
+          <a class="DropdownItem">
             <svg 
               width="20" 
               height="20" 
@@ -102,7 +109,7 @@
             </svg>
             <span class="Text">Профиль</span>
           </a>
-          <a class="DropdownListItem">
+          <a class="DropdownItem">
             <svg 
               width="20" 
               height="20" 
@@ -124,7 +131,7 @@
             </svg>
             <span class="Text">Панель администратора</span>
           </a>
-          <a class="DropdownListItem">
+          <a class="DropdownItem">
             <svg 
               width="20" 
               height="20" 
@@ -168,12 +175,12 @@
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M4.16667 2.5L11.6667 2.5C12.5871 2.5 13.3333 3.24619 13.3333 4.16667L13.3333 7.5L11.6667 7.5L11.6667 4.16667L4.16667 4.16666L4.16667 15.8333L11.6667 15.8333L11.6667 12.5L13.3333 12.5L13.3333 15.8333C13.3333 16.7538 12.5871 17.5 11.6667 17.5L4.16667 17.5C3.24619 17.5 2.5 16.7538 2.5 15.8333L2.5 4.16666C2.5 3.24619 3.24619 2.5 4.16667 2.5ZM10 6.66667L10 9.16667L17.5 9.16667L17.5 10.8333L10 10.8333L10 13.3333L5.83333 10L10 6.66667Z" fill="#17569B"/>
             </svg>
-            <span class="Text">Выход</span>
+            <span @click="changeVisibility()" class="Text">Выход</span>
           </button>
         </div>
       </nav>
     </div>
-  </header>
+  </div>
 </template>
 
 <script>
@@ -201,11 +208,10 @@ export default {
   background-color: #272a3a;
   color: #fff;
   width: 100vw;
-  height: 30px;
   display: flex;
   justify-content: space-between;
   padding: 0 20px;
-  box-sizing: border-box;
+  height: 35px;
   font-family: 'Proxima Nova';
 
   &,
@@ -216,10 +222,10 @@ export default {
   }  
 
   .HeaderNav {
-    height: 30px;
     display: flex;
     align-items: center;
     column-gap: 30px;
+    margin-right: 10%;
   }
 
   .HeaderNavItem {
@@ -232,20 +238,27 @@ export default {
   }
 
   .HeaderNavRight {
-    height: 30px;
     display: flex;
     align-items: center;
 
     .IconNotification {
+      display: flex;
       cursor: pointer;
+      border: none;
+      background-color: transparent;
+      padding: 0;
+
+      @media (max-width: 576px) {
+        margin-right: 16px;
+      }
     }
 
     .IconUser {
-      margin-left: 30px;
       cursor: pointer;
-      width: 18px;
+      min-width: 18px;
       border-radius: 50%;
       display: flex;
+      margin-right: 6px;
 
       @media (max-width: 576px) {
         display: none;
@@ -266,14 +279,16 @@ export default {
     }
 
     .DropdownUsername {
+      display: flex;
+      align-items: center;
       font-size: 13px;
       font-weight: 600;
-      margin-left: 6px;
+      margin-left: 30px;
       margin-right: 9px;
       color: var(--header_content);
     }
 
-    .DropdownList {
+    .DropdownMenu {
 
       &.type_dropdown {
         background-color: var(--background_main);
@@ -290,11 +305,10 @@ export default {
           }
         }
           
-        .DropdownListItem {
+        .DropdownItem {
           padding-bottom: 8px;
           display: flex;
           font-size: 14px;
-          line-height: 22px;
           line-height: 1.58;
           color: var(--text_main);
           cursor: pointer;
@@ -323,7 +337,6 @@ export default {
       height: 18px;
       gap: 1.8px;
       cursor: pointer;
-      padding-left: 16px;
 
       @media (min-width: 576px) {
         display: none
@@ -362,6 +375,10 @@ export default {
 
       &.open {
         display: block;
+
+        @media (min-width: 576px) {
+          display: none;
+        } 
       }
     }
 
@@ -374,7 +391,7 @@ export default {
     .MenuList {
       list-style: none;
       height: 100%;
-      padding: 58px 0 0 20px;
+      padding: 58px 20px 0;
       margin: 0;
     }
 

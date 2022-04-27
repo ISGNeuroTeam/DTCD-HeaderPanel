@@ -79,7 +79,6 @@
       <div 
         v-if="showSettingsButton" 
         @click="toggleSetting" 
-        class="SettingsGroup"
       >
         <button class="ButtonIcon type_settings">
           <svg
@@ -196,7 +195,6 @@ export default {
   width: 100vw
   height: 100%
   display: flex
-  align-items: center
   padding: 0 20px
   background-color: var(--background_main)
   justify-content: space-between
@@ -218,20 +216,23 @@ export default {
   .HomeGroup
     border-left: 1px solid var(--background_secondary)
     border-right: 1px solid var(--background_secondary)
-    height: 40px
+    display: flex
+    padding: 9.5px 0
 
   .ButtonIcon
     border: none
     cursor: pointer
     background-color: transparent
-    width: 38px
-    height: 40px
+    padding: 0 12px
 
     &.type_buttonBack
       width: auto
       margin-left: 9px
 
     &.type_settings
+      padding: 0 9px
+      display: flex
+
       @media (max-width: 576px) 
         display: none
 
@@ -242,12 +243,11 @@ export default {
     display: flex
     align-items: center
     padding: 0px 5px
-    height: 40px
     font-family: Proxima Nova
     font-style: normal
     font-weight: bold
     font-size: 17px
-    line-height: 21px
+    line-height: 1
     color: var(--text_main)
     padding: 0px 5px 0 15px
     
