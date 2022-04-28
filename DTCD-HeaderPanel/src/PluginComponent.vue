@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="HeaderPanel">
     <Header />
     <MenuPanel />
   </div>
@@ -13,3 +13,14 @@ export default {
   components: { Header, MenuPanel },
 };
 </script>
+
+<style lang="scss" scoped>
+.HeaderPanel {
+  &,
+  *,
+  *::after,
+  *::before {
+    box-sizing: border-box;
+  }
+}
+</style>

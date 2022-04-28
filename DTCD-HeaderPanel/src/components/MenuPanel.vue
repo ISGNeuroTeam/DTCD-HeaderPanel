@@ -1,25 +1,30 @@
 <template>
-  <div class="container" @click.stop="">
-    <div style="display: flex">
-      <vl class="divider" />
-      <div class="home-group">
-        <button class="btn icon-btn" @click="goToHomePage">
+  <div class="HeaderBottom">
+    <div class="MenuPanel">
+      <div class="HomeGroup">
+        <button 
+          class="ButtonIcon" 
+          @click="goToHomePage"
+        >
           <svg
             width="14"
             height="17"
             viewBox="0 0 14 17"
-            fill="none"
+            
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M0.577663 6.92251L6.411 1.08917C6.73641 0.763855 7.26391 0.763855 7.58933 1.08917L13.4227 6.92251C13.579 7.07875 13.6668 7.29068 13.6668 7.51167V15.5C13.6668 15.9602 13.2937 16.3333 12.8335 16.3333H8.66683V10.5H5.3335V16.3333H1.16683C0.706592 16.3333 0.333496 15.9602 0.333496 15.5V7.51167C0.333496 7.29068 0.421372 7.07875 0.577663 6.92251Z"
-              fill="#51515C"
+              
             />
           </svg>
         </button>
       </div>
-      <vl class="divider" />
-      <button v-if="showBackButton" class="btn icon-btn" @click="goBack">
+      <button 
+        v-if="showBackButton" 
+        class="ButtonIcon type_buttonBack" 
+        @click="goBack"
+      >
         <svg
           width="24"
           height="24"
@@ -34,19 +39,26 @@
         </svg>
       </button>
 
-      <div v-if="showPageTitle" class="title-group">
-        <div class="title">{{ routeTitle }}</div>
+      <div 
+        v-if="showPageTitle" 
+        class="TitleGroup"
+      >
+        <div>{{ routeTitle }}</div>
       </div>
     </div>
-    <div style="display: flex; align-items: center">
-      <base-button v-if="settingsMode && showAddPanelButton" size="small" @click="addEmptyCell">
+    <div class="EditMenuPanel">
+      <base-button 
+        v-if="settingsMode && showAddPanelButton" 
+        size="small" 
+        @click="addEmptyCell"
+      >
         Добавить панель
       </base-button>
 
       <button
         v-if="settingsMode && showWorkspaceSettings"
         @click="openWorkspaceSettings"
-        class="btn icon-btn"
+        class="ButtonIcon"
       >
         <svg
           width="24"
@@ -61,8 +73,9 @@
           />
         </svg>
       </button>
-      <div v-if="showSettingsButton" @click="toggleSetting" class="settings-group">
-        <button class="btn icon-btn">
+      
+        <button v-if="showSettingsButton" 
+        @click="toggleSetting" class="ButtonIcon type_settings">
           <svg
             width="20"
             height="20"
@@ -76,8 +89,23 @@
             />
           </svg>
         </button>
-      </div>
+      
     </div>
+    <!-- <div class="ButtonsGroup">
+      <base-button 
+        class="ButtonCancel" 
+        size="small" 
+        theme="theme_secondary"
+      >
+      Отменить
+      </base-button>
+      <base-button 
+        size="small" 
+        theme="theme_green"
+      >
+      Сохранить
+      </base-button>
+    </div> -->
   </div>
 </template>
 
@@ -157,61 +185,70 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-
-.container
-  width: 100%
-  height: 100%
+.HeaderBottom
+  width: 100vw
   display: flex
-  align-items: center
-  padding: 0 10px 0 20px
-  box-sizing: border-box
-  background: #FEFEFE
+  height: 40px
+  padding: 0 20px
+  background-color: var(--background_main)
   justify-content: space-between
+  font-family: 'Proxima Nova'
+
+  &,
+  *,
+  *::after,
+  *::before 
+    box-sizing: border-box
+
+  svg 
+    path 
+      fill: var(--text_main)
+
+  .MenuPanel
+    display: flex
+    
+  .HomeGroup
+    border-left: 1px solid var(--background_secondary)
+    border-right: 1px solid var(--background_secondary)
+    display: flex
 
 
-  .btn
+  .ButtonIcon
     border: none
     cursor: pointer
     background-color: transparent
+    padding: 0 12px
+
+    &.type_buttonBack
+      width: auto
+      margin-left: 9px
+
+    &.type_settings
+      height: 100%
+
+      @media (max-width: 576px) 
+        display: none
 
     &:hover
       background: rgba(198, 198, 212, 0.2)
 
-
-  .divider
-    border-left: 1px solid #F4F4FA
-    height: 40px
-
-  .icon-btn
-    width: 38px
-    height: 40px
-
-  .home-group
-    // border-right: 1px solid #C6C6D4
-
-  .title-group
+  .TitleGroup
     display: flex
     align-items: center
     padding: 0px 5px
-    height: 40px
     font-family: Proxima Nova
     font-style: normal
     font-weight: bold
     font-size: 17px
-    line-height: 21px
-    color: #51515C
-    // border-right: 1px solid #C6C6D4
+    line-height: 1
+    color: var(--text_main)
+    padding: 0px 5px 0 15px
+    
+  .EditMenuPanel  
+    display: flex
+    align-items: center
 
-
-  .settings-group_change
-    .cancel-btn
-      color: #51515C
-      padding: 4px 13px
-      background: rgba(198, 198, 212, 0.12)
-
-    .accept-btn
-      color: #4CD964
-      padding: 4px 13px
-      background: rgba(76, 217, 100, 0.12)
-      margin-right:20px
+  .ButtonsGroup
+    .ButtonCancel
+      padding-right: 20px
 </style>
