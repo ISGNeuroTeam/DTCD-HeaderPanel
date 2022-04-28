@@ -90,7 +90,7 @@
           <div class="UsernameWrapper">Username</div>
         </span>
         <nav class="DropdownMenu type_dropdown">
-          <a class="DropdownItem">
+          <a class="DropdownItem" @click="router.navigate('/profile')">
             <svg 
               width="20" 
               height="20" 
@@ -131,7 +131,7 @@
             </svg>
             <span class="Text">Панель администратора</span>
           </a>
-          <a class="DropdownItem">
+          <a class="DropdownItem" @click="logout">
             <svg 
               width="20" 
               height="20" 
@@ -168,14 +168,14 @@
             </div> 
           </div>
           <ul class="MenuList">
-            <li class="MenuListItem"><a class="MenuLink" href="#">Профиль</a></li>
-            <li class="MenuListItem"><a class="MenuLink" href="#">Панель администратора</a></li>
+            <li class="MenuListItem"><a class="MenuLink" @click="router.navigate('/profile')">Профиль</a></li>
+            <li class="MenuListItem"><a class="MenuLink" >Панель администратора</a></li>
           </ul>
-          <button class="ButtonBack">
+          <button class="ButtonBack" @click="logout">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M4.16667 2.5L11.6667 2.5C12.5871 2.5 13.3333 3.24619 13.3333 4.16667L13.3333 7.5L11.6667 7.5L11.6667 4.16667L4.16667 4.16666L4.16667 15.8333L11.6667 15.8333L11.6667 12.5L13.3333 12.5L13.3333 15.8333C13.3333 16.7538 12.5871 17.5 11.6667 17.5L4.16667 17.5C3.24619 17.5 2.5 16.7538 2.5 15.8333L2.5 4.16666C2.5 3.24619 3.24619 2.5 4.16667 2.5ZM10 6.66667L10 9.16667L17.5 9.16667L17.5 10.8333L10 10.8333L10 13.3333L5.83333 10L10 6.66667Z" fill="white"/>
             </svg>
-            <span @click="changeVisibility()" class="Text">Выход</span>
+            <span  class="Text">Выход</span>
           </button>
         </div>
       </nav>
@@ -185,8 +185,9 @@
 
 <script>
 export default {
-  data() {
+  data({$root}) {
     return {
+      router: $root.router,
       burgerVisibility: false,
     }
   },
