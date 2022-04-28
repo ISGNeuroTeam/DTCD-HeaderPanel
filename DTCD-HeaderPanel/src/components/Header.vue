@@ -90,7 +90,7 @@
           <div class="UsernameWrapper">Username</div>
         </span>
         <nav class="NavList type_dropdown">
-          <a class="NavItem">
+          <a class="NavItem" @click="router.navigate('/profile')">
             <svg 
               width="20" 
               height="20" 
@@ -131,7 +131,7 @@
             </svg>
             <span class="Text">Панель администратора</span>
           </a>
-          <a class="NavItem">
+          <a class="NavItem" @click="logout">
             <svg 
               width="20" 
               height="20" 
@@ -183,7 +183,7 @@
 
         <div class="MenuFooter">
           <button 
-            @click="changeVisibility()" 
+            @click="logout"
             class="ButtonBack"
           >
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -199,8 +199,9 @@
 
 <script>
 export default {
-  data() {
+  data({$root}) {
     return {
+      router: $root.router,
       burgerVisibility: false,
     }
   },
@@ -219,7 +220,7 @@ export default {
 <style lang="scss" scoped>
 .HeaderTop {
   background-color: #272a3a;
-  color: var(--general_white, var(--button-text-color));
+  color: var(--general_white);
   width: 100vw;
   display: flex;
   justify-content: space-between;
