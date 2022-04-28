@@ -209,7 +209,7 @@ export default {
 
 .HeaderWrapper {
   background-color: #272a3a;
-  color: var(--general_white, var(--button-text-color));
+  color: var(--general_white);
   width: 100vw;
   display: flex;
   justify-content: space-between;
@@ -489,14 +489,14 @@ export default {
       font-weight: 700;
       font-size: 17px;
       align-items: center;
-      color: var(--general_white, var(--button-text-color));
+      color: var(--general_white);
       margin: auto auto 63px 30px;
       font-family: 'Proxima Nova';
       padding: 0;
 
       svg {
         path {
-          fill: var(--general_white, var(--button-text-color));
+          fill: var(--general_white);
         }
       }
 
