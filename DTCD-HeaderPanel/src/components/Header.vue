@@ -89,8 +89,8 @@
           <div class="IconUser" style="background-image: url(https://playcontestofchampions.com/wp-content/uploads/2021/11/champion-iron-man-infinity-war-720x720.jpg);"></div>
           <div class="UsernameWrapper">Username</div>
         </span>
-        <nav class="DropdownMenu type_dropdown">
-          <a class="DropdownItem" @click="router.navigate('/profile')">
+        <nav class="NavList type_dropdown">
+          <a class="NavItem" @click="router.navigate('/profile')">
             <svg 
               width="20" 
               height="20" 
@@ -109,7 +109,7 @@
             </svg>
             <span class="Text">Профиль</span>
           </a>
-          <a class="DropdownItem">
+          <a class="NavItem">
             <svg 
               width="20" 
               height="20" 
@@ -131,7 +131,7 @@
             </svg>
             <span class="Text">Панель администратора</span>
           </a>
-          <a class="DropdownItem" @click="logout">
+          <a class="NavItem" @click="logout">
             <svg 
               width="20" 
               height="20" 
@@ -171,11 +171,14 @@
             <li class="MenuListItem"><a class="MenuLink" @click="router.navigate('/profile')">Профиль</a></li>
             <li class="MenuListItem"><a class="MenuLink" >Панель администратора</a></li>
           </ul>
-          <button class="ButtonBack" @click="logout">
+          <button 
+            @click="logout"
+            class="ButtonBack"
+          >
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M4.16667 2.5L11.6667 2.5C12.5871 2.5 13.3333 3.24619 13.3333 4.16667L13.3333 7.5L11.6667 7.5L11.6667 4.16667L4.16667 4.16666L4.16667 15.8333L11.6667 15.8333L11.6667 12.5L13.3333 12.5L13.3333 15.8333C13.3333 16.7538 12.5871 17.5 11.6667 17.5L4.16667 17.5C3.24619 17.5 2.5 16.7538 2.5 15.8333L2.5 4.16666C2.5 3.24619 3.24619 2.5 4.16667 2.5ZM10 6.66667L10 9.16667L17.5 9.16667L17.5 10.8333L10 10.8333L10 13.3333L5.83333 10L10 6.66667Z" fill="white"/>
             </svg>
-            <span  class="Text">Выход</span>
+            <span class="Text">Выход</span>
           </button>
         </div>
       </nav>
@@ -207,7 +210,7 @@ export default {
 
 .HeaderWrapper {
   background-color: #272a3a;
-  color: #fff;
+  color: var(--general_white);
   width: 100vw;
   display: flex;
   justify-content: space-between;
@@ -296,7 +299,7 @@ export default {
       color: var(--header_content);
     }
 
-    .DropdownMenu {
+    .NavList {
 
       &.type_dropdown {
         background-color: var(--background_main);
@@ -313,7 +316,7 @@ export default {
           }
         }
           
-        .DropdownItem {
+        .NavItem {
           padding-bottom: 8px;
           display: flex;
           font-size: 14px;
@@ -377,12 +380,13 @@ export default {
       right: 0;
       top: 30px;
       display: none;
-      z-index: 1;
+      z-index: 10;
       background-color: var(--accent);
       overflow-y: auto;
 
       &.open {
         display: block;
+
 
         @media (min-width: 576px) {
           display: none;
@@ -401,6 +405,7 @@ export default {
       height: 100%;
       padding: 58px 20px 0;
       margin: 0;
+      margin-bottom: 58px;
     }
 
     .MenuListItem {
@@ -485,10 +490,10 @@ export default {
       font-weight: 700;
       font-size: 17px;
       align-items: center;
-      margin-top: auto;
       color: var(--general_white);
-      padding: 58px 0 63px 30px;
+      margin: auto auto 63px 30px;
       font-family: 'Proxima Nova';
+      padding: 0;
 
       svg {
         path {
