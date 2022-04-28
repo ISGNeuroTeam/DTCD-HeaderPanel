@@ -1,5 +1,5 @@
 <template>
-  <div class="HeaderWrapper" @click.stop>
+  <div class="HeaderTop">
     <nav class="HeaderNav">
       <div>
         <svg
@@ -155,22 +155,33 @@
         <span class="BurgerBar"></span>
         <span class="BurgerBar"></span>
       </div>
-      <nav 
-        class="MenuWrapper" 
-        :class="{ 'open': burgerVisibility }" 
-      >
-        <div class="Menu">
-          <div class="MenuUserData">
-            <div class="MenuUserPhoto" style="background-image: url(https://playcontestofchampions.com/wp-content/uploads/2021/11/champion-iron-man-infinity-war-720x720.jpg);"></div>
-            <div>
-              <span class="MenuUserPosition">Администратор</span>
-              <p class="MenuUsername">Георгий Арановский</p>
-            </div> 
-          </div>
-          <ul class="MenuList">
-            <li class="MenuListItem"><a class="MenuLink" href="#">Профиль</a></li>
-            <li class="MenuListItem"><a class="MenuLink" href="#">Панель администратора</a></li>
-          </ul>
+    </div>
+
+    <section 
+      class="Menu" 
+      :class="{ 'open': burgerVisibility }" 
+    >
+      <div class="MenuWrapper">
+        <div class="MenuHeader">
+          <div class="MenuUserPhoto" style="background-image: url(https://playcontestofchampions.com/wp-content/uploads/2021/11/champion-iron-man-infinity-war-720x720.jpg);"></div>
+          <div>
+            <p class="MenuUserRole">Администратор</p>
+            <p class="MenuUsername">Георгий Арановский</p>
+          </div> 
+        </div>
+
+        <div class="MenuBody">
+          <nav class="MenuList">
+            <li class="MenuListItem">
+              <a class="MenuLink" href="#">Профиль</a>
+            </li>
+            <li class="MenuListItem">
+              <a class="MenuLink" href="#">Панель администратора</a>
+            </li>
+          </nav>
+        </div>
+
+        <div class="MenuFooter">
           <button 
             @click="changeVisibility()" 
             class="ButtonBack"
@@ -181,8 +192,8 @@
             <span class="Text">Выход</span>
           </button>
         </div>
-      </nav>
-    </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -206,8 +217,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-.HeaderWrapper {
+.HeaderTop {
   background-color: #272a3a;
   color: var(--general_white, var(--button-text-color));
   width: 100vw;
@@ -222,291 +232,286 @@ export default {
   *::after,
   *::before {
     box-sizing: border-box;
-  }  
-
-  .HeaderNav {
-    display: flex;
-    align-items: center;
-    column-gap: 30px;
-    margin-right: 10%;
   }
+}
 
-  .HeaderNavItem {
-    font-size: 13px;
+.HeaderNav {
+  display: flex;
+  align-items: center;
+  column-gap: 30px;
+  margin-right: 10%;
+}
+
+.HeaderNavItem {
+  font-size: 13px;
+  cursor: pointer;
+
+  @media (max-width: 576px) {
+    display: none
+  }      
+}
+
+.HeaderNavRight {
+  display: flex;
+  align-items: center;
+}
+
+.IconNotification {
+  display: flex;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  margin-right: 30px;
+
+  @media (max-width: 576px) {
+    margin-right: 16px;
+  }
+}
+
+.IconUser {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  margin-right: 6px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+  @media (max-width: 576px) {
+    display: none;
+  }
+}
+
+.DropdownSelect {
+  fill: var(--header_content);
+  display: contents;
+
+  & > * {
     cursor: pointer;
-
-    @media (max-width: 576px) {
-      display: none
-    }      
   }
 
-  .HeaderNavRight {
+  @media (max-width: 576px) {
+    display: none
+  }    
+}
+
+.UsernameWrapper {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 150px;
+  white-space: nowrap;
+}
+
+.DropdownUsername {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 600;
+  margin-right: 9px;
+  color: var(--header_content);
+}
+
+.NavList {
+
+  &.type_dropdown {
+    background-color: var(--background_main);
+    border: 1px solid var(--border);
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    box-shadow: 1px 1px 2px rgba(8, 18, 55, 0.12), 0px 4px 12px rgba(8, 18, 55, 0.12);
+    border-radius: 8px;
+    padding: 16px;
 
-    .IconNotification {
-      display: flex;
-      cursor: pointer;
-      border: none;
-      background-color: transparent;
-      padding: 0;
-      margin-right: 30px;
-
-      @media (max-width: 576px) {
-        margin-right: 16px;
+    svg {
+      path {
+        fill: var(--accent);
       }
     }
-
-    .IconUser {
-      cursor: pointer;
-      min-width: 18px;
-      border-radius: 50%;
+      
+    .NavItem {
+      padding-bottom: 8px;
       display: flex;
-      margin-right: 6px;
-
-      @media (max-width: 576px) {
-        display: none;
-      }
-    }
-
-    .DropdownSelect {
-      fill: var(--header_content);
-      display: contents;
-
-      & > * {
-        cursor: pointer;
-      }
-
-      @media (max-width: 576px) {
-        display: none
-      }    
-    }
-
-    .UsernameWrapper {
-      text-overflow: ellipsis;
-      overflow: hidden;
-      max-width: 150px;
-      white-space: nowrap;
-    }
-
-    .DropdownUsername {
-      display: flex;
-      align-items: center;
-      font-size: 13px;
-      font-weight: 600;
-      margin-right: 9px;
-      color: var(--header_content);
-    }
-
-    .NavList {
-
-      &.type_dropdown {
-        background-color: var(--background_main);
-        border: 1px solid var(--border);
-        display: flex;
-        flex-direction: column;
-        box-shadow: 1px 1px 2px rgba(8, 18, 55, 0.12), 0px 4px 12px rgba(8, 18, 55, 0.12);
-        border-radius: 8px;
-        padding: 16px;
-
-        svg {
-          path {
-            fill: var(--accent);
-          }
-        }
-          
-        .NavItem {
-          padding-bottom: 8px;
-          display: flex;
-          font-size: 14px;
-          line-height: 1.58;
-          color: var(--text_main);
-          cursor: pointer;
-
-          &:hover {
-            color: var(--button_primary);
-          }
-
-          &:last-child {
-            padding-bottom: 0;
-          }
-        }
-      }
-    }
-
-    .Text {
-      padding-left: 8px;
-    } 
-
-    .BurgerButton {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      width: 18px;
-      height: 18px;
-      gap: 1.8px;
+      font-size: 14px;
+      line-height: 1.58;
+      color: var(--text_main);
       cursor: pointer;
 
-      @media not screen and (max-width: 576px) {
-        display: none
-      } 
-
-      .BurgerBar {
-        width: 13.5px;
-        height: 1.8px;
-        background-color: #fff;
-        transition: all ease .2s;
+      &:hover {
+        color: var(--button_primary);
       }
-
-      &.active .BurgerBar:nth-of-type(1) {
-        transform: translateY(3.2px) rotate(-45deg);
-      }
-
-      &.active .BurgerBar:nth-of-type(2) {
-        opacity: 0;
-      }
-
-      &.active .BurgerBar:nth-of-type(3) {
-        transform: translateY(-4px) rotate(45deg);
-      }
-    }
-
-    .MenuWrapper {
-      height: 100%;
-      width: 100%;
-      position: fixed;
-      right: 0;
-      top: 30px;
-      display: none;
-      z-index: 10;
-      background-color: var(--accent);
-      overflow-y: auto;
-
-      &.open {
-        display: block;
-
-
-        @media (min-width: 576px) {
-          display: none;
-        } 
-      }
-    }
-
-    .Menu {
-      display: flex;
-      flex-direction: column;
-      min-height: 100%;
-    }
-
-    .MenuList {
-      list-style: none;
-      height: 100%;
-      padding: 58px 20px 0;
-      margin: 0;
-      margin-bottom: 58px;
-    }
-
-    .MenuListItem {
-      width: 100%;
-      display: block;
-      margin: 0 auto;
-      padding-bottom: 24px;
 
       &:last-child {
         padding-bottom: 0;
       }
     }
+  }
+}
 
-    .MenuLink {
-      display: inline-block;
-      text-decoration: none;
-      font-size: 17px;
-      font-weight: 700;
-      line-height: 1.3;
-      color: var(--general_white);
+.Text {
+  padding-left: 8px;
+} 
 
-      &:hover {
-        color: var(--border);
-      }
+.BurgerButton {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 18px;
+  height: 18px;
+  gap: 1.8px;
+  cursor: pointer;
+
+  @media (max-width: 576px) {
+    display: flex;
+  }
+
+  .BurgerBar {
+    width: 13.5px;
+    height: 1.8px;
+    background-color: #fff;
+    transition: all ease .2s;
+  }
+
+  &.active .BurgerBar{
+    &:nth-of-type(1) {
+      transform: translateY(3.2px) rotate(-45deg);
     }
 
-    .MenuUserData {
-      background-color: #2C67A6;
-      padding: 20px 30px;
-      display: flex;
-      align-items: center;
+    &:nth-of-type(2) {
+      opacity: 0;
     }
 
-    .MenuUserPhoto {
-      display: flex;
-      max-width: 50px;
-      border-radius: 8px;
-      background-color: var(--button_primary_24);
-      margin-right: 13px;
-      width: 100%;
+    &:nth-of-type(3) {
+      transform: translateY(-4px) rotate(45deg);
     }
+  }
+}
 
-    .IconUser,
-    .MenuUserPhoto {
-      position: relative;
-      overflow: hidden;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center;
+.Menu {
+  --inner-horizontal-padding: 20px;
 
-      &::before {
-        content: '';
-        display: block;
-        padding-top: 100%;
-        float: left;
-      }
+  height: calc(100% - 30px);
+  width: 100%;
+  position: fixed;
+  right: 0;
+  top: 30px;
+  display: none;
+  z-index: 10;
+  background-color: var(--accent);
+  overflow-y: auto;
 
-      &::after {
-        content: '';
-        display: block;
-        clear: both;
-      }
+  &.open {
+    @media (max-width: 576px) {
+      display: block;
     }
+  }
 
-    .MenuUserPosition {
-      font-size: 14px;
+  .MenuWrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+  }
+
+  .MenuList {
+    list-style: none;
+    margin: 0;
+  }
+
+  .MenuListItem {
+    display: block;
+    margin-bottom: 24px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .MenuLink {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--general_white);
+
+    &:hover {
       color: var(--border);
     }
+  }
 
-    .MenuUsername {
-      margin: 0;
-      font-size: 20px;
-      color: var(--general_white);
-      line-height: 1.19;
+  .MenuHeader {
+    background-color: #2C67A6;
+    padding: 20px var(--inner-horizontal-padding);
+    display: flex;
+    align-items: center;
+  }
+
+  .MenuBody{
+    padding: 58px var(--inner-horizontal-padding);
+  }
+
+  .MenuFooter {
+    padding-left: var(--inner-horizontal-padding);
+    padding-right: var(--inner-horizontal-padding);
+    padding-bottom: 42px;
+    margin-top: auto;
+  }
+
+  .MenuUserPhoto {
+    flex: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    background-color: var(--button_primary_24);
+    margin-right: 13px;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .MenuUserRole {
+    font-size: 14px;
+    color: var(--border);
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .MenuUsername {
+    margin: 0;
+    font-size: 20px;
+    color: var(--general_white);
+    line-height: 1.19;
+  }
+
+  .ButtonBack {
+    border: none;
+    background-color: transparent;
+    display: flex;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 17px;
+    align-items: center;
+    color: var(--general_white, var(--button-text-color));
+    font-family: 'Proxima Nova';
+    padding: 0;
+
+    svg {
+      path {
+        fill: var(--general_white, var(--button-text-color));
+      }
     }
 
-    .ButtonBack {
-      border: none;
-      background-color: transparent;
-      display: flex;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 17px;
-      align-items: center;
-      color: var(--general_white, var(--button-text-color));
-      margin: auto auto 63px 30px;
-      font-family: 'Proxima Nova';
-      padding: 0;
+    &:hover {
+      color: var(--border);
 
       svg {
         path {
-          fill: var(--general_white, var(--button-text-color));
-        }
-      }
-
-      &:hover {
-        color: var(--border);
-
-        svg {
-          path {
-            fill: var(--border);
-          }
+          fill: var(--border);
         }
       }
     }

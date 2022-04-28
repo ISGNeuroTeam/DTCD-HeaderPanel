@@ -1,8 +1,5 @@
 <template>
-  <div 
-    class="MenuPanelWrapper" 
-    @click.stop=""
-  >
+  <div class="HeaderBottom">
     <div class="MenuPanel">
       <div class="HomeGroup">
         <button 
@@ -188,10 +185,8 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-
-.MenuPanelWrapper
+.HeaderBottom
   width: 100vw
-  height: 100%
   display: flex
   height: 40px
   padding: 0 20px
