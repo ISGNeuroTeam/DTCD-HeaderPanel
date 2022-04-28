@@ -173,10 +173,10 @@
         <div class="MenuBody">
           <nav class="MenuList">
             <li class="MenuListItem">
-              <a class="MenuLink" href="#">Профиль</a>
+              <a class="MenuLink" @click="router.navigate('/profile')">Профиль</a>
             </li>
             <li class="MenuListItem">
-              <a class="MenuLink" href="#">Панель администратора</a>
+              <a class="MenuLink">Панель администратора</a>
             </li>
           </nav>
         </div>
