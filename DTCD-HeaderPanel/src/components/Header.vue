@@ -437,6 +437,7 @@ export default {
     font-size: 17px;
     font-weight: 700;
     line-height: 1.3;
+    cursor: pointer;
     color: var(--general_white);
 
     &:hover {
@@ -497,13 +498,13 @@ export default {
     font-weight: 700;
     font-size: 17px;
     align-items: center;
-    color: var(--general_white, var(--button-text-color));
+    color: var(--general_white);
     font-family: 'Proxima Nova';
     padding: 0;
 
     svg {
       path {
-        fill: var(--general_white, var(--button-text-color));
+        fill: var(--general_white);
       }
     }
 
