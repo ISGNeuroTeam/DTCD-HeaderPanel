@@ -51,7 +51,7 @@
           class="DropdownSelect"
         >
           <span 
-            class="DropdownUsername" 
+            class="DropdownGroup" 
             slot="toggle-btn"
           >
             Визуализации
@@ -63,7 +63,7 @@
                 class="DropdownSelect"
               >
                 <span 
-                  class="DropdownUsername" 
+                  class="DropdownTitle" 
                   slot="toggle-btn"
                 >  
                   <div class="NavButton">
@@ -109,7 +109,7 @@
                 class="DropdownSelect"
               >
                 <span 
-                  class="DropdownUsername" 
+                  class="DropdownTitle" 
                   slot="toggle-btn"
                 >  
                   <div class="NavButton">
@@ -155,7 +155,7 @@
                 class="DropdownSelect"
               >
                 <span 
-                  class="DropdownUsername" 
+                  class="DropdownTitle" 
                   slot="toggle-btn"
                 >  
                   <div class="NavButton">
@@ -201,7 +201,7 @@
           class="DropdownSelect"
         >
           <span 
-            class="DropdownUsername" 
+            class="DropdownGroup" 
             slot="toggle-btn"
           >
             Функциональные блоки
@@ -412,7 +412,8 @@ export default {
     flex: none
 
     @media (max-width: 768px)
-      margin-right: 0
+      margin-right: 10px
+      font-size: 15px
 
   .AdditionalPages
     display: flex
@@ -420,7 +421,7 @@ export default {
     column-gap: 30px
 
     @media (max-width: 768px)
-      column-gap: 20px
+      column-gap: 10px
     
     @media (max-width: 576px)
       display: none
@@ -432,13 +433,19 @@ export default {
     & > * 
       cursor: pointer
 
-  .DropdownUsername
+  .DropdownGroup
+    margin-right: 5px
+
+  .DropdownTitle
+    margin: 3px 5px 3px 16px
+
+  .DropdownTitle,
+  .DropdownGroup
     font-size: 15px
     font-family: 'Proxima Nova'
     color: var(--text_main)
     display: flex
     align-items: center
-    margin: 3px 5px 3px 16px
 
     @media (max-width: 768px)
       font-size: 13px
@@ -486,8 +493,13 @@ export default {
     .Text 
       padding: 0 8px
 
+    svg 
+      path 
+        fill: var(--accent)
+
   .IconArrow
     margin-right: 16px
+    transform: rotateX( 180deg)
     
   .EditMenuPanel  
     display: flex
