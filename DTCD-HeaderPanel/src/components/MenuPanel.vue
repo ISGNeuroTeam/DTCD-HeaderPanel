@@ -59,7 +59,7 @@
           <nav class="NavList type_dropdown">
             <li class="NavItem">
               <base-dropdown 
-                placement="rightTop"
+                placement="rightStart"
                 class="DropdownSelect"
               >
                 <span 
@@ -105,7 +105,7 @@
 
             <li class="NavItem">
               <base-dropdown 
-                placement="rightTop"
+                placement="rightStart"
                 class="DropdownSelect"
               >
                 <span 
@@ -151,7 +151,7 @@
 
             <li class="NavItem">
               <base-dropdown 
-                placement="rightTop"
+                placement="rightStart"
                 class="DropdownSelect"
               >
                 <span 
