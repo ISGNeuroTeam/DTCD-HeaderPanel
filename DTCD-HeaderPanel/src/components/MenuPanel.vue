@@ -56,6 +56,9 @@
           >
             Визуализации
           </span>
+          <svg  slot="icon-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.00022 9.16572L10.5061 5.65989L9.6818 4.83447L7.00022 7.51781L4.31922 4.83447L3.49438 5.65931L7.00022 9.16572Z" fill="#51515C"/>
+          </svg>
           <nav class="NavList type_dropdown">
             <li class="NavItem">
               <base-dropdown 
@@ -206,6 +209,9 @@
           >
             Функциональные блоки
           </span>
+          <svg  slot="icon-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.00022 9.16572L10.5061 5.65989L9.6818 4.83447L7.00022 7.51781L4.31922 4.83447L3.49438 5.65931L7.00022 9.16572Z" fill="#51515C"/>
+          </svg>
         </base-dropdown>
       </div>
     </div>   
@@ -437,7 +443,7 @@ export default {
     margin-right: 5px
 
   .DropdownTitle
-    margin: 3px 5px 3px 16px
+    margin: 3px 8px 3px 16px
 
   .DropdownTitle,
   .DropdownGroup
@@ -478,7 +484,8 @@ export default {
       font-weight: 400
       color: var(--text_main)
       cursor: pointer
-      align-items: center   
+      align-items: center  
+      text-align: initial 
 
       &.without_dropdown
         padding: 3px 16px
@@ -491,7 +498,7 @@ export default {
           margin-bottom: 0 
 
     .Text 
-      padding: 0 8px
+      padding-left: 8px
 
     svg 
       path 
