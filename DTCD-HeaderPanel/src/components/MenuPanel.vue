@@ -137,7 +137,6 @@ export default {
   },
   methods: {
     openWorkspaceSettings() {
-      console.log('CLICKED');
       const workspaceGuid = this.workspaceSystem.getGUID();
       Application.getSystem('EventSystem', '0.4.0').publishEvent(
         workspaceGuid,
