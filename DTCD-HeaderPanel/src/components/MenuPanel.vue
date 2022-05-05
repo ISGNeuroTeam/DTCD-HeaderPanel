@@ -2,27 +2,27 @@
   <div class="HeaderBottom">
     <div class="MenuPanel">
       <div class="HomeGroup">
-        <button 
-          class="ButtonIcon" 
+        <button
+          class="ButtonIcon"
           @click="goToHomePage"
         >
           <svg
             width="14"
             height="17"
             viewBox="0 0 14 17"
-            
+
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M0.577663 6.92251L6.411 1.08917C6.73641 0.763855 7.26391 0.763855 7.58933 1.08917L13.4227 6.92251C13.579 7.07875 13.6668 7.29068 13.6668 7.51167V15.5C13.6668 15.9602 13.2937 16.3333 12.8335 16.3333H8.66683V10.5H5.3335V16.3333H1.16683C0.706592 16.3333 0.333496 15.9602 0.333496 15.5V7.51167C0.333496 7.29068 0.421372 7.07875 0.577663 6.92251Z"
-              
+
             />
           </svg>
         </button>
       </div>
-      <button 
-        v-if="showBackButton" 
-        class="ButtonIcon type_buttonBack" 
+      <button
+        v-if="showBackButton"
+        class="ButtonIcon type_buttonBack"
         @click="goBack"
       >
         <svg
@@ -39,25 +39,25 @@
         </svg>
       </button>
 
-      <div 
-        v-if="showPageTitle" 
+      <div
+        v-if="showPageTitle"
         class="TitleGroup"
       >
         <div>{{ routeTitle }}</div>
       </div>
     </div>
     <div class="EditMenuPanel">
-      <base-button 
-        v-if="settingsMode && showAddPanelButton" 
-        size="small" 
-        @click="addEmptyCell"
+      <base-button
+        v-if="settingsMode && showAddPanelButton"
+        size="small"
+        @click.stop="addEmptyCell"
       >
         Добавить панель
       </base-button>
 
       <button
         v-if="settingsMode && showWorkspaceSettings"
-        @click="openWorkspaceSettings"
+        @click.stop="openWorkspaceSettings"
         class="ButtonIcon"
       >
         <svg
@@ -73,8 +73,8 @@
           />
         </svg>
       </button>
-      
-        <button v-if="showSettingsButton" 
+
+        <button v-if="showSettingsButton"
         @click="toggleSetting" class="ButtonIcon type_settings">
           <svg
             width="20"
@@ -89,18 +89,18 @@
             />
           </svg>
         </button>
-      
+
     </div>
     <!-- <div class="ButtonsGroup">
-      <base-button 
-        class="ButtonCancel" 
-        size="small" 
+      <base-button
+        class="ButtonCancel"
+        size="small"
         theme="theme_secondary"
       >
       Отменить
       </base-button>
-      <base-button 
-        size="small" 
+      <base-button
+        size="small"
         theme="theme_green"
       >
       Сохранить
@@ -137,6 +137,7 @@ export default {
   },
   methods: {
     openWorkspaceSettings() {
+      console.log('CLICKED');
       const workspaceGuid = this.workspaceSystem.getGUID();
       Application.getSystem('EventSystem', '0.4.0').publishEvent(
         workspaceGuid,
@@ -153,6 +154,7 @@ export default {
     },
     addEmptyCell() {
       this.$root.workspaceSystem.createEmptyCell();
+      this.openWorkspaceSettings();
     },
     goToHomePage() {
       this.router.navigate('/workspaces');
@@ -197,16 +199,16 @@ export default {
   &,
   *,
   *::after,
-  *::before 
+  *::before
     box-sizing: border-box
 
-  svg 
-    path 
+  svg
+    path
       fill: var(--text_main)
 
   .MenuPanel
     display: flex
-    
+
   .HomeGroup
     border-left: 1px solid var(--background_secondary)
     border-right: 1px solid var(--background_secondary)
@@ -226,7 +228,7 @@ export default {
     &.type_settings
       height: 100%
 
-      @media (max-width: 576px) 
+      @media (max-width: 576px)
         display: none
 
     &:hover
@@ -243,8 +245,8 @@ export default {
     line-height: 1
     color: var(--text_main)
     padding: 0px 5px 0 15px
-    
-  .EditMenuPanel  
+
+  .EditMenuPanel
     display: flex
     align-items: center
 

@@ -13,3 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - html layout
 - css styles
 - script for Burger Menu
+
+### Fixed
+
+- opening workspace settings from header
