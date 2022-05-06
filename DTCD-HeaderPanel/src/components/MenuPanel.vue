@@ -2,29 +2,15 @@
   <div class="HeaderBottom">
     <div class="MenuPanel">
       <div class="HomeGroup">
-        <button 
-          class="ButtonIcon" 
-          @click="goToHomePage"
-        >
-          <svg
-            width="14"
-            height="17"
-            viewBox="0 0 14 17"
-            
-            xmlns="http://www.w3.org/2000/svg"
-          >
+        <button class="ButtonIcon" @click="goToHomePage">
+          <svg width="14" height="17" viewBox="0 0 14 17" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M0.577663 6.92251L6.411 1.08917C6.73641 0.763855 7.26391 0.763855 7.58933 1.08917L13.4227 6.92251C13.579 7.07875 13.6668 7.29068 13.6668 7.51167V15.5C13.6668 15.9602 13.2937 16.3333 12.8335 16.3333H8.66683V10.5H5.3335V16.3333H1.16683C0.706592 16.3333 0.333496 15.9602 0.333496 15.5V7.51167C0.333496 7.29068 0.421372 7.07875 0.577663 6.92251Z"
-              
             />
           </svg>
         </button>
       </div>
-      <button 
-        v-if="showBackButton" 
-        class="ButtonIcon type_buttonBack" 
-        @click="goBack"
-      >
+      <button v-if="showBackButton" class="ButtonIcon type_buttonBack" @click="goBack">
         <svg
           width="24"
           height="24"
@@ -39,195 +25,309 @@
         </svg>
       </button>
 
-      <div 
-        v-if="showPageTitle" 
-        class="CurrentPage"
-      >
+      <div v-if="showPageTitle" class="CurrentPage">
         <div>{{ routeTitle }}</div>
       </div>
 
       <div class="AdditionalPages">
-        <base-dropdown 
-          class="DropdownSelect"
-        >
-          <span 
-            class="DropdownGroup" 
-            slot="toggle-btn"
+        <base-dropdown class="DropdownSelect">
+          <span class="DropdownGroup" slot="toggle-btn"> Визуализации </span>
+          <svg
+            slot="icon-arrow"
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            Визуализации
-          </span>
-          <svg  slot="icon-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M7.00022 9.16572L10.5061 5.65989L9.6818 4.83447L7.00022 7.51781L4.31922 4.83447L3.49438 5.65931L7.00022 9.16572Z" fill="#51515C"/>
+            <path
+              d="M7.00022 9.16572L10.5061 5.65989L9.6818 4.83447L7.00022 7.51781L4.31922 4.83447L3.49438 5.65931L7.00022 9.16572Z"
+              fill="#51515C"
+            />
           </svg>
           <nav class="NavList type_dropdown">
             <li class="NavItem">
-              <base-dropdown 
-                placement="rightStart"
-                class="DropdownSelect"
-              >
-                <span 
-                  class="DropdownTitle" 
-                  slot="toggle-btn"
-                >  
+              <base-dropdown placement="rightStart" class="DropdownSelect">
+                <span class="DropdownTitle" slot="toggle-btn">
                   <div class="NavButton">
-                    <svg 
-                      width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12.0511 21.949C6.72623 21.9444 2.3389 17.7679 2.07231 12.4497C1.80572 7.13142 5.75338 2.53708 11.0511 2V6.04C8.04176 6.54858 5.89505 9.23721 6.06528 12.2845C6.23551 15.3318 8.66832 17.7646 11.7156 17.9349C14.7629 18.1051 17.4516 15.9584 17.9601 12.949H22.0001C21.4799 18.0555 17.1831 21.9421 12.0501 21.949H12.0511ZM22.0011 10.949H17.9611C17.5356 8.4347 15.5655 6.46506 13.0511 6.04V2C17.7782 2.48398 21.5156 6.22098 22.0001 10.948L22.0011 10.949Z" fill="#17569B"/>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12.0511 21.949C6.72623 21.9444 2.3389 17.7679 2.07231 12.4497C1.80572 7.13142 5.75338 2.53708 11.0511 2V6.04C8.04176 6.54858 5.89505 9.23721 6.06528 12.2845C6.23551 15.3318 8.66832 17.7646 11.7156 17.9349C14.7629 18.1051 17.4516 15.9584 17.9601 12.949H22.0001C21.4799 18.0555 17.1831 21.9421 12.0501 21.949H12.0511ZM22.0011 10.949H17.9611C17.5356 8.4347 15.5655 6.46506 13.0511 6.04V2C17.7782 2.48398 21.5156 6.22098 22.0001 10.948L22.0011 10.949Z"
+                        fill="#17569B"
+                      />
                     </svg>
                     <span class="Text">Диаграммы</span>
                   </div>
                 </span>
-                <svg class="IconArrow" slot="icon-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M9.16597 7.00003L5.66013 3.49419L4.83472 4.31844L7.51805 7.00003L4.83472 9.68103L5.65955 10.5059L9.16597 7.00003Z" fill="#51515C"/>
+                <svg
+                  class="IconArrow"
+                  slot="icon-arrow"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9.16597 7.00003L5.66013 3.49419L4.83472 4.31844L7.51805 7.00003L4.83472 9.68103L5.65955 10.5059L9.16597 7.00003Z"
+                    fill="#51515C"
+                  />
                 </svg>
                 <nav class="NavList type_dropdown">
                   <a class="NavButton without_dropdown">
-                    <svg 
-                      width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12.0511 21.949C6.72623 21.9444 2.3389 17.7679 2.07231 12.4497C1.80572 7.13142 5.75338 2.53708 11.0511 2V6.04C8.04176 6.54858 5.89505 9.23721 6.06528 12.2845C6.23551 15.3318 8.66832 17.7646 11.7156 17.9349C14.7629 18.1051 17.4516 15.9584 17.9601 12.949H22.0001C21.4799 18.0555 17.1831 21.9421 12.0501 21.949H12.0511ZM22.0011 10.949H17.9611C17.5356 8.4347 15.5655 6.46506 13.0511 6.04V2C17.7782 2.48398 21.5156 6.22098 22.0001 10.948L22.0011 10.949Z" fill="#17569B"/>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12.0511 21.949C6.72623 21.9444 2.3389 17.7679 2.07231 12.4497C1.80572 7.13142 5.75338 2.53708 11.0511 2V6.04C8.04176 6.54858 5.89505 9.23721 6.06528 12.2845C6.23551 15.3318 8.66832 17.7646 11.7156 17.9349C14.7629 18.1051 17.4516 15.9584 17.9601 12.949H22.0001C21.4799 18.0555 17.1831 21.9421 12.0501 21.949H12.0511ZM22.0011 10.949H17.9611C17.5356 8.4347 15.5655 6.46506 13.0511 6.04V2C17.7782 2.48398 21.5156 6.22098 22.0001 10.948L22.0011 10.949Z"
+                        fill="#17569B"
+                      />
                     </svg>
                     <span class="Text">Диграмма 1</span>
                   </a>
                   <a class="NavButton without_dropdown">
-                    <svg 
-                      width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M13 10V14H19V10H13ZM11 10H5V14H11V10ZM13 19H19V16H13V19ZM11 19V16H5V19H11ZM13 5V8H19V5H13ZM11 5H5V8H11V5ZM19 3C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H19Z" fill="#17569B"/>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M13 10V14H19V10H13ZM11 10H5V14H11V10ZM13 19H19V16H13V19ZM11 19V16H5V19H11ZM13 5V8H19V5H13ZM11 5H5V8H11V5ZM19 3C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H19Z"
+                        fill="#17569B"
+                      />
                     </svg>
                     <span class="Text">Диграмма 2</span>
                   </a>
                   <a class="NavButton without_dropdown">
-                    <svg 
-                      width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M21 21H4C3.44772 21 3 20.5523 3 20V3H5V19H21V21ZM8.373 16L7 14.656L11.856 9.9C12.2383 9.52848 12.8467 9.52848 13.229 9.9L15.456 12.081L19.627 8L21 9.344L16.144 14.1C15.7617 14.4715 15.1533 14.4715 14.771 14.1L12.543 11.918L8.374 16H8.373Z" fill="#17569B"/>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M21 21H4C3.44772 21 3 20.5523 3 20V3H5V19H21V21ZM8.373 16L7 14.656L11.856 9.9C12.2383 9.52848 12.8467 9.52848 13.229 9.9L15.456 12.081L19.627 8L21 9.344L16.144 14.1C15.7617 14.4715 15.1533 14.4715 14.771 14.1L12.543 11.918L8.374 16H8.373Z"
+                        fill="#17569B"
+                      />
                     </svg>
                     <span class="Text">Диграмма 3</span>
                   </a>
-                </nav> 
+                </nav>
               </base-dropdown>
             </li>
 
             <li class="NavItem">
-              <base-dropdown 
-                placement="rightStart"
-                class="DropdownSelect"
-              >
-                <span 
-                  class="DropdownTitle" 
-                  slot="toggle-btn"
-                >  
+              <base-dropdown placement="rightStart" class="DropdownSelect">
+                <span class="DropdownTitle" slot="toggle-btn">
                   <div class="NavButton">
-                    <svg 
-                      width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M13 10V14H19V10H13ZM11 10H5V14H11V10ZM13 19H19V16H13V19ZM11 19V16H5V19H11ZM13 5V8H19V5H13ZM11 5H5V8H11V5ZM19 3C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H19Z" fill="#17569B"/>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M13 10V14H19V10H13ZM11 10H5V14H11V10ZM13 19H19V16H13V19ZM11 19V16H5V19H11ZM13 5V8H19V5H13ZM11 5H5V8H11V5ZM19 3C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H19Z"
+                        fill="#17569B"
+                      />
                     </svg>
                     <span class="Text">Таблицы</span>
                   </div>
                 </span>
-                <svg class="IconArrow" slot="icon-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M9.16597 7.00003L5.66013 3.49419L4.83472 4.31844L7.51805 7.00003L4.83472 9.68103L5.65955 10.5059L9.16597 7.00003Z" fill="#51515C"/>
+                <svg
+                  class="IconArrow"
+                  slot="icon-arrow"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9.16597 7.00003L5.66013 3.49419L4.83472 4.31844L7.51805 7.00003L4.83472 9.68103L5.65955 10.5059L9.16597 7.00003Z"
+                    fill="#51515C"
+                  />
                 </svg>
                 <nav class="NavList type_dropdown">
                   <a class="NavButton without_dropdown">
-                    <svg 
-                      width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12.0511 21.949C6.72623 21.9444 2.3389 17.7679 2.07231 12.4497C1.80572 7.13142 5.75338 2.53708 11.0511 2V6.04C8.04176 6.54858 5.89505 9.23721 6.06528 12.2845C6.23551 15.3318 8.66832 17.7646 11.7156 17.9349C14.7629 18.1051 17.4516 15.9584 17.9601 12.949H22.0001C21.4799 18.0555 17.1831 21.9421 12.0501 21.949H12.0511ZM22.0011 10.949H17.9611C17.5356 8.4347 15.5655 6.46506 13.0511 6.04V2C17.7782 2.48398 21.5156 6.22098 22.0001 10.948L22.0011 10.949Z" fill="#17569B"/>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12.0511 21.949C6.72623 21.9444 2.3389 17.7679 2.07231 12.4497C1.80572 7.13142 5.75338 2.53708 11.0511 2V6.04C8.04176 6.54858 5.89505 9.23721 6.06528 12.2845C6.23551 15.3318 8.66832 17.7646 11.7156 17.9349C14.7629 18.1051 17.4516 15.9584 17.9601 12.949H22.0001C21.4799 18.0555 17.1831 21.9421 12.0501 21.949H12.0511ZM22.0011 10.949H17.9611C17.5356 8.4347 15.5655 6.46506 13.0511 6.04V2C17.7782 2.48398 21.5156 6.22098 22.0001 10.948L22.0011 10.949Z"
+                        fill="#17569B"
+                      />
                     </svg>
                     <span class="Text">Таблица 1</span>
                   </a>
                   <a class="NavButton without_dropdown">
-                    <svg 
-                      width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M13 10V14H19V10H13ZM11 10H5V14H11V10ZM13 19H19V16H13V19ZM11 19V16H5V19H11ZM13 5V8H19V5H13ZM11 5H5V8H11V5ZM19 3C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H19Z" fill="#17569B"/>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M13 10V14H19V10H13ZM11 10H5V14H11V10ZM13 19H19V16H13V19ZM11 19V16H5V19H11ZM13 5V8H19V5H13ZM11 5H5V8H11V5ZM19 3C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H19Z"
+                        fill="#17569B"
+                      />
                     </svg>
                     <span class="Text">Таблица 2</span>
                   </a>
                   <a class="NavButton without_dropdown">
-                    <svg 
-                      width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M21 21H4C3.44772 21 3 20.5523 3 20V3H5V19H21V21ZM8.373 16L7 14.656L11.856 9.9C12.2383 9.52848 12.8467 9.52848 13.229 9.9L15.456 12.081L19.627 8L21 9.344L16.144 14.1C15.7617 14.4715 15.1533 14.4715 14.771 14.1L12.543 11.918L8.374 16H8.373Z" fill="#17569B"/>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M21 21H4C3.44772 21 3 20.5523 3 20V3H5V19H21V21ZM8.373 16L7 14.656L11.856 9.9C12.2383 9.52848 12.8467 9.52848 13.229 9.9L15.456 12.081L19.627 8L21 9.344L16.144 14.1C15.7617 14.4715 15.1533 14.4715 14.771 14.1L12.543 11.918L8.374 16H8.373Z"
+                        fill="#17569B"
+                      />
                     </svg>
                     <span class="Text">Таблица 3</span>
                   </a>
-                </nav> 
+                </nav>
               </base-dropdown>
             </li>
 
             <li class="NavItem">
-              <base-dropdown 
-                placement="rightStart"
-                class="DropdownSelect"
-              >
-                <span 
-                  class="DropdownTitle" 
-                  slot="toggle-btn"
-                >  
+              <base-dropdown placement="rightStart" class="DropdownSelect">
+                <span class="DropdownTitle" slot="toggle-btn">
                   <div class="NavButton">
-                    <svg 
-                      width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M21 21H4C3.44772 21 3 20.5523 3 20V3H5V19H21V21ZM8.373 16L7 14.656L11.856 9.9C12.2383 9.52848 12.8467 9.52848 13.229 9.9L15.456 12.081L19.627 8L21 9.344L16.144 14.1C15.7617 14.4715 15.1533 14.4715 14.771 14.1L12.543 11.918L8.374 16H8.373Z" fill="#17569B"/>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M21 21H4C3.44772 21 3 20.5523 3 20V3H5V19H21V21ZM8.373 16L7 14.656L11.856 9.9C12.2383 9.52848 12.8467 9.52848 13.229 9.9L15.456 12.081L19.627 8L21 9.344L16.144 14.1C15.7617 14.4715 15.1533 14.4715 14.771 14.1L12.543 11.918L8.374 16H8.373Z"
+                        fill="#17569B"
+                      />
                     </svg>
                     <span class="Text">Графики</span>
                   </div>
                 </span>
-                <svg class="IconArrow" slot="icon-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M9.16597 7.00003L5.66013 3.49419L4.83472 4.31844L7.51805 7.00003L4.83472 9.68103L5.65955 10.5059L9.16597 7.00003Z" fill="#51515C"/>
+                <svg
+                  class="IconArrow"
+                  slot="icon-arrow"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9.16597 7.00003L5.66013 3.49419L4.83472 4.31844L7.51805 7.00003L4.83472 9.68103L5.65955 10.5059L9.16597 7.00003Z"
+                    fill="#51515C"
+                  />
                 </svg>
                 <nav class="NavList type_dropdown">
                   <a class="NavButton without_dropdown">
-                    <svg 
-                      width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12.0511 21.949C6.72623 21.9444 2.3389 17.7679 2.07231 12.4497C1.80572 7.13142 5.75338 2.53708 11.0511 2V6.04C8.04176 6.54858 5.89505 9.23721 6.06528 12.2845C6.23551 15.3318 8.66832 17.7646 11.7156 17.9349C14.7629 18.1051 17.4516 15.9584 17.9601 12.949H22.0001C21.4799 18.0555 17.1831 21.9421 12.0501 21.949H12.0511ZM22.0011 10.949H17.9611C17.5356 8.4347 15.5655 6.46506 13.0511 6.04V2C17.7782 2.48398 21.5156 6.22098 22.0001 10.948L22.0011 10.949Z" fill="#17569B"/>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M12.0511 21.949C6.72623 21.9444 2.3389 17.7679 2.07231 12.4497C1.80572 7.13142 5.75338 2.53708 11.0511 2V6.04C8.04176 6.54858 5.89505 9.23721 6.06528 12.2845C6.23551 15.3318 8.66832 17.7646 11.7156 17.9349C14.7629 18.1051 17.4516 15.9584 17.9601 12.949H22.0001C21.4799 18.0555 17.1831 21.9421 12.0501 21.949H12.0511ZM22.0011 10.949H17.9611C17.5356 8.4347 15.5655 6.46506 13.0511 6.04V2C17.7782 2.48398 21.5156 6.22098 22.0001 10.948L22.0011 10.949Z"
+                        fill="#17569B"
+                      />
                     </svg>
                     <span class="Text">График 1</span>
                   </a>
                   <a class="NavButton without_dropdown">
-                    <svg 
-                      width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M13 10V14H19V10H13ZM11 10H5V14H11V10ZM13 19H19V16H13V19ZM11 19V16H5V19H11ZM13 5V8H19V5H13ZM11 5H5V8H11V5ZM19 3C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H19Z" fill="#17569B"/>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M13 10V14H19V10H13ZM11 10H5V14H11V10ZM13 19H19V16H13V19ZM11 19V16H5V19H11ZM13 5V8H19V5H13ZM11 5H5V8H11V5ZM19 3C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H19Z"
+                        fill="#17569B"
+                      />
                     </svg>
                     <span class="Text">График 2</span>
                   </a>
                   <a class="NavButton without_dropdown">
-                    <svg 
-                      width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M21 21H4C3.44772 21 3 20.5523 3 20V3H5V19H21V21ZM8.373 16L7 14.656L11.856 9.9C12.2383 9.52848 12.8467 9.52848 13.229 9.9L15.456 12.081L19.627 8L21 9.344L16.144 14.1C15.7617 14.4715 15.1533 14.4715 14.771 14.1L12.543 11.918L8.374 16H8.373Z" fill="#17569B"/>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M21 21H4C3.44772 21 3 20.5523 3 20V3H5V19H21V21ZM8.373 16L7 14.656L11.856 9.9C12.2383 9.52848 12.8467 9.52848 13.229 9.9L15.456 12.081L19.627 8L21 9.344L16.144 14.1C15.7617 14.4715 15.1533 14.4715 14.771 14.1L12.543 11.918L8.374 16H8.373Z"
+                        fill="#17569B"
+                      />
                     </svg>
                     <span class="Text">График 3</span>
                   </a>
-                </nav> 
+                </nav>
               </base-dropdown>
             </li>
-          </nav> 
+          </nav>
         </base-dropdown>
 
-        <base-dropdown 
-          class="DropdownSelect"
-        >
-          <span 
-            class="DropdownGroup" 
-            slot="toggle-btn"
+        <base-dropdown class="DropdownSelect">
+          <span class="DropdownGroup" slot="toggle-btn"> Функциональные блоки </span>
+          <svg
+            slot="icon-arrow"
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            Функциональные блоки
-          </span>
-          <svg  slot="icon-arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M7.00022 9.16572L10.5061 5.65989L9.6818 4.83447L7.00022 7.51781L4.31922 4.83447L3.49438 5.65931L7.00022 9.16572Z" fill="#51515C"/>
+            <path
+              d="M7.00022 9.16572L10.5061 5.65989L9.6818 4.83447L7.00022 7.51781L4.31922 4.83447L3.49438 5.65931L7.00022 9.16572Z"
+              fill="#51515C"
+            />
           </svg>
         </base-dropdown>
       </div>
-    </div>   
+    </div>
 
     <div class="EditMenuPanel">
-      <base-button 
-        v-if="settingsMode && showAddPanelButton" 
-        size="small" 
-        @click="addEmptyCell"
+      <base-button
+        v-if="settingsMode && showAddPanelButton"
+        size="small"
+        @click.stop="addEmptyCell"
       >
         Добавить панель
       </base-button>
 
       <button
         v-if="settingsMode && showWorkspaceSettings"
-        @click="openWorkspaceSettings"
+        @click.stop="openWorkspaceSettings"
         class="ButtonIcon"
       >
         <svg
@@ -243,11 +343,8 @@
           />
         </svg>
       </button>
-      
-      <button 
-        v-if="showSettingsButton" 
-        @click="toggleSetting" 
-        class="ButtonIcon type_settings">
+
+      <button v-if="showSettingsButton" @click="toggleSetting" class="ButtonIcon type_settings">
         <svg
           width="20"
           height="20"
@@ -260,19 +357,19 @@
             fill="#51515C"
           />
         </svg>
-      </button>  
+      </button>
     </div>
 
     <!-- <div class="ButtonsGroup">
-      <base-button 
-        class="ButtonCancel" 
-        size="small" 
+      <base-button
+        class="ButtonCancel"
+        size="small"
         theme="theme_secondary"
       >
       Отменить
       </base-button>
-      <base-button 
-        size="small" 
+      <base-button
+        size="small"
         theme="theme_green"
       >
       Сохранить
@@ -325,6 +422,7 @@ export default {
     },
     addEmptyCell() {
       this.$root.workspaceSystem.createEmptyCell();
+      this.openWorkspaceSettings();
     },
     goToHomePage() {
       this.router.navigate('/workspaces');
@@ -369,16 +467,16 @@ export default {
   &,
   *,
   *::after,
-  *::before 
+  *::before
     box-sizing: border-box
 
-  svg 
-    path 
+  svg
+    path
       fill: var(--text_main)
 
   .MenuPanel
     display: flex
-    
+
   .HomeGroup
     border-left: 1px solid var(--background_secondary)
     border-right: 1px solid var(--background_secondary)
@@ -400,7 +498,7 @@ export default {
     &.type_settings
       height: 100%
 
-      @media (max-width: 576px) 
+      @media (max-width: 576px)
         display: none
 
     &:hover
@@ -428,7 +526,7 @@ export default {
 
     @media (max-width: 768px)
       column-gap: 10px
-    
+
     @media (max-width: 576px)
       display: none
 
@@ -436,7 +534,7 @@ export default {
     fill: var(--text_main)
     display: contents
 
-    & > * 
+    & > *
       cursor: pointer
 
   .DropdownGroup
@@ -456,9 +554,9 @@ export default {
     @media (max-width: 768px)
       font-size: 13px
 
-  .NavList 
+  .NavList
 
-    &.type_dropdown 
+    &.type_dropdown
       background-color: var(--background_main)
       border: 1px solid var(--border)
       display: flex
@@ -471,44 +569,44 @@ export default {
       margin-bottom: 8px
       list-style: none
 
-      &:hover 
+      &:hover
         background-color: var(--button_primary_12)
 
-      &:last-child 
-        margin-bottom: 0 
-      
-    .NavButton 
+      &:last-child
+        margin-bottom: 0
+
+    .NavButton
       display: flex
       font-size: 14px
       line-height: 1.58
       font-weight: 400
       color: var(--text_main)
       cursor: pointer
-      align-items: center  
-      text-align: initial 
+      align-items: center
+      text-align: initial
 
       &.without_dropdown
         padding: 3px 16px
         margin-bottom: 8px
 
-        &:hover 
+        &:hover
           background-color: var(--button_primary_12)
 
-        &:last-child 
-          margin-bottom: 0 
+        &:last-child
+          margin-bottom: 0
 
-    .Text 
+    .Text
       padding-left: 8px
 
-    svg 
-      path 
+    svg
+      path
         fill: var(--accent)
 
   .IconArrow
     margin-right: 16px
     transform: rotateX( 180deg)
-    
-  .EditMenuPanel  
+
+  .EditMenuPanel
     display: flex
     align-items: center
 
