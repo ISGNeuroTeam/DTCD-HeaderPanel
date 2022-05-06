@@ -30,8 +30,8 @@
       </div>
 
       <div class="AdditionalPages">
-        <base-dropdown class="DropdownSelect">
-          <span class="DropdownGroup" slot="toggle-btn"> Визуализации </span>
+        <base-dropdown v-if="showPanelSelect" class="DropdownSelect" ref="panelDropdown">
+          <span class="DropdownGroup" slot="toggle-btn"> Панели </span>
           <svg
             slot="icon-arrow"
             width="14"
@@ -46,23 +46,11 @@
             />
           </svg>
           <nav class="NavList type_dropdown">
-            <li class="NavItem">
+            <li class="NavItem" v-for="panel in sortedPanels" :key="panels[panel].title">
               <base-dropdown placement="rightStart" class="DropdownSelect">
                 <span class="DropdownTitle" slot="toggle-btn">
                   <div class="NavButton">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M12.0511 21.949C6.72623 21.9444 2.3389 17.7679 2.07231 12.4497C1.80572 7.13142 5.75338 2.53708 11.0511 2V6.04C8.04176 6.54858 5.89505 9.23721 6.06528 12.2845C6.23551 15.3318 8.66832 17.7646 11.7156 17.9349C14.7629 18.1051 17.4516 15.9584 17.9601 12.949H22.0001C21.4799 18.0555 17.1831 21.9421 12.0501 21.949H12.0511ZM22.0011 10.949H17.9611C17.5356 8.4347 15.5655 6.46506 13.0511 6.04V2C17.7782 2.48398 21.5156 6.22098 22.0001 10.948L22.0011 10.949Z"
-                        fill="#17569B"
-                      />
-                    </svg>
-                    <span class="Text">Диаграммы</span>
+                    <span class="Text">{{ panels[panel].title }}</span>
                   </div>
                 </span>
                 <svg
@@ -79,239 +67,18 @@
                     fill="#51515C"
                   />
                 </svg>
-                <nav class="NavList type_dropdown">
-                  <a class="NavButton without_dropdown">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M12.0511 21.949C6.72623 21.9444 2.3389 17.7679 2.07231 12.4497C1.80572 7.13142 5.75338 2.53708 11.0511 2V6.04C8.04176 6.54858 5.89505 9.23721 6.06528 12.2845C6.23551 15.3318 8.66832 17.7646 11.7156 17.9349C14.7629 18.1051 17.4516 15.9584 17.9601 12.949H22.0001C21.4799 18.0555 17.1831 21.9421 12.0501 21.949H12.0511ZM22.0011 10.949H17.9611C17.5356 8.4347 15.5655 6.46506 13.0511 6.04V2C17.7782 2.48398 21.5156 6.22098 22.0001 10.948L22.0011 10.949Z"
-                        fill="#17569B"
-                      />
-                    </svg>
-                    <span class="Text">Диграмма 1</span>
-                  </a>
-                  <a class="NavButton without_dropdown">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M13 10V14H19V10H13ZM11 10H5V14H11V10ZM13 19H19V16H13V19ZM11 19V16H5V19H11ZM13 5V8H19V5H13ZM11 5H5V8H11V5ZM19 3C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H19Z"
-                        fill="#17569B"
-                      />
-                    </svg>
-                    <span class="Text">Диграмма 2</span>
-                  </a>
-                  <a class="NavButton without_dropdown">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M21 21H4C3.44772 21 3 20.5523 3 20V3H5V19H21V21ZM8.373 16L7 14.656L11.856 9.9C12.2383 9.52848 12.8467 9.52848 13.229 9.9L15.456 12.081L19.627 8L21 9.344L16.144 14.1C15.7617 14.4715 15.1533 14.4715 14.771 14.1L12.543 11.918L8.374 16H8.373Z"
-                        fill="#17569B"
-                      />
-                    </svg>
-                    <span class="Text">Диграмма 3</span>
-                  </a>
-                </nav>
-              </base-dropdown>
-            </li>
-
-            <li class="NavItem">
-              <base-dropdown placement="rightStart" class="DropdownSelect">
-                <span class="DropdownTitle" slot="toggle-btn">
-                  <div class="NavButton">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M13 10V14H19V10H13ZM11 10H5V14H11V10ZM13 19H19V16H13V19ZM11 19V16H5V19H11ZM13 5V8H19V5H13ZM11 5H5V8H11V5ZM19 3C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H19Z"
-                        fill="#17569B"
-                      />
-                    </svg>
-                    <span class="Text">Таблицы</span>
-                  </div>
-                </span>
-                <svg
-                  class="IconArrow"
-                  slot="icon-arrow"
-                  width="14"
-                  height="14"
-                  viewBox="0 0 14 14"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+                <nav
+                  class="NavList type_dropdown"
+                  v-for="version in panels[panel].versions"
+                  :key="version"
                 >
-                  <path
-                    d="M9.16597 7.00003L5.66013 3.49419L4.83472 4.31844L7.51805 7.00003L4.83472 9.68103L5.65955 10.5059L9.16597 7.00003Z"
-                    fill="#51515C"
-                  />
-                </svg>
-                <nav class="NavList type_dropdown">
-                  <a class="NavButton without_dropdown">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M12.0511 21.949C6.72623 21.9444 2.3389 17.7679 2.07231 12.4497C1.80572 7.13142 5.75338 2.53708 11.0511 2V6.04C8.04176 6.54858 5.89505 9.23721 6.06528 12.2845C6.23551 15.3318 8.66832 17.7646 11.7156 17.9349C14.7629 18.1051 17.4516 15.9584 17.9601 12.949H22.0001C21.4799 18.0555 17.1831 21.9421 12.0501 21.949H12.0511ZM22.0011 10.949H17.9611C17.5356 8.4347 15.5655 6.46506 13.0511 6.04V2C17.7782 2.48398 21.5156 6.22098 22.0001 10.948L22.0011 10.949Z"
-                        fill="#17569B"
-                      />
-                    </svg>
-                    <span class="Text">Таблица 1</span>
-                  </a>
-                  <a class="NavButton without_dropdown">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M13 10V14H19V10H13ZM11 10H5V14H11V10ZM13 19H19V16H13V19ZM11 19V16H5V19H11ZM13 5V8H19V5H13ZM11 5H5V8H11V5ZM19 3C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H19Z"
-                        fill="#17569B"
-                      />
-                    </svg>
-                    <span class="Text">Таблица 2</span>
-                  </a>
-                  <a class="NavButton without_dropdown">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M21 21H4C3.44772 21 3 20.5523 3 20V3H5V19H21V21ZM8.373 16L7 14.656L11.856 9.9C12.2383 9.52848 12.8467 9.52848 13.229 9.9L15.456 12.081L19.627 8L21 9.344L16.144 14.1C15.7617 14.4715 15.1533 14.4715 14.771 14.1L12.543 11.918L8.374 16H8.373Z"
-                        fill="#17569B"
-                      />
-                    </svg>
-                    <span class="Text">Таблица 3</span>
-                  </a>
-                </nav>
-              </base-dropdown>
-            </li>
-
-            <li class="NavItem">
-              <base-dropdown placement="rightStart" class="DropdownSelect">
-                <span class="DropdownTitle" slot="toggle-btn">
-                  <div class="NavButton">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M21 21H4C3.44772 21 3 20.5523 3 20V3H5V19H21V21ZM8.373 16L7 14.656L11.856 9.9C12.2383 9.52848 12.8467 9.52848 13.229 9.9L15.456 12.081L19.627 8L21 9.344L16.144 14.1C15.7617 14.4715 15.1533 14.4715 14.771 14.1L12.543 11.918L8.374 16H8.373Z"
-                        fill="#17569B"
-                      />
-                    </svg>
-                    <span class="Text">Графики</span>
-                  </div>
-                </span>
-                <svg
-                  class="IconArrow"
-                  slot="icon-arrow"
-                  width="14"
-                  height="14"
-                  viewBox="0 0 14 14"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M9.16597 7.00003L5.66013 3.49419L4.83472 4.31844L7.51805 7.00003L4.83472 9.68103L5.65955 10.5059L9.16597 7.00003Z"
-                    fill="#51515C"
-                  />
-                </svg>
-                <nav class="NavList type_dropdown">
-                  <a class="NavButton without_dropdown">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M12.0511 21.949C6.72623 21.9444 2.3389 17.7679 2.07231 12.4497C1.80572 7.13142 5.75338 2.53708 11.0511 2V6.04C8.04176 6.54858 5.89505 9.23721 6.06528 12.2845C6.23551 15.3318 8.66832 17.7646 11.7156 17.9349C14.7629 18.1051 17.4516 15.9584 17.9601 12.949H22.0001C21.4799 18.0555 17.1831 21.9421 12.0501 21.949H12.0511ZM22.0011 10.949H17.9611C17.5356 8.4347 15.5655 6.46506 13.0511 6.04V2C17.7782 2.48398 21.5156 6.22098 22.0001 10.948L22.0011 10.949Z"
-                        fill="#17569B"
-                      />
-                    </svg>
-                    <span class="Text">График 1</span>
-                  </a>
-                  <a class="NavButton without_dropdown">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M13 10V14H19V10H13ZM11 10H5V14H11V10ZM13 19H19V16H13V19ZM11 19V16H5V19H11ZM13 5V8H19V5H13ZM11 5H5V8H11V5ZM19 3C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H19Z"
-                        fill="#17569B"
-                      />
-                    </svg>
-                    <span class="Text">График 2</span>
-                  </a>
-                  <a class="NavButton without_dropdown">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M21 21H4C3.44772 21 3 20.5523 3 20V3H5V19H21V21ZM8.373 16L7 14.656L11.856 9.9C12.2383 9.52848 12.8467 9.52848 13.229 9.9L15.456 12.081L19.627 8L21 9.344L16.144 14.1C15.7617 14.4715 15.1533 14.4715 14.771 14.1L12.543 11.918L8.374 16H8.373Z"
-                        fill="#17569B"
-                      />
-                    </svg>
-                    <span class="Text">График 3</span>
+                  <a class="NavButton without_dropdown" @click="addPanel(panel, version)">
+                    <span class="Text">{{ version }}</span>
                   </a>
                 </nav>
               </base-dropdown>
             </li>
           </nav>
-        </base-dropdown>
-
-        <base-dropdown class="DropdownSelect">
-          <span class="DropdownGroup" slot="toggle-btn"> Функциональные блоки </span>
-          <svg
-            slot="icon-arrow"
-            width="14"
-            height="14"
-            viewBox="0 0 14 14"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M7.00022 9.16572L10.5061 5.65989L9.6818 4.83447L7.00022 7.51781L4.31922 4.83447L3.49438 5.65931L7.00022 9.16572Z"
-              fill="#51515C"
-            />
-          </svg>
         </base-dropdown>
       </div>
     </div>
@@ -389,22 +156,49 @@ export default {
       eventSystem: $root.eventSystem,
       router: $root.router,
       appGUI: $root.appGUI,
+      plugin: $root.plugin,
       showPageTitle: false,
       showAddPanelButton: false,
       showBackButton: false,
       showSettingsButton: false,
       showWorkspaceSettings: false,
+      showPanelSelect: false,
+      panels: {},
     };
   },
   mounted() {
     this.workspaceTitle = this.workspaceSystem.getPluginConfig().title;
+    this.plugin
+      .getPanels()
+      .filter(plugin => Object.getPrototypeOf(plugin.plugin).name === 'PanelPlugin')
+      .forEach(panelPlugin => {
+        if (this.panels.hasOwnProperty(panelPlugin.name)) {
+          this.panels[panelPlugin.name].versions.push(panelPlugin.version);
+        } else {
+          this.panels[panelPlugin.name] = {
+            title: panelPlugin.title,
+            versions: [panelPlugin.version],
+          };
+        }
+      });
   },
   computed: {
     routeTitle() {
       return this.router.instance.route.title;
     },
+    sortedPanels() {
+      return Object.keys(this.panels).sort((a, b) => {
+        if (this.panels[a].title > this.panels[b].title) return 1;
+        if (this.panels[a].title < this.panels[b].title) return -1;
+        return 0;
+      });
+    },
   },
   methods: {
+    addPanel(name, version) {
+      this.$root.workspaceSystem.instance.createCell({ name, version });
+      this.$refs.panelDropdown.toggle();
+    },
     openWorkspaceSettings() {
       const workspaceGuid = this.workspaceSystem.getGUID();
       Application.getSystem('EventSystem', '0.4.0').publishEvent(
