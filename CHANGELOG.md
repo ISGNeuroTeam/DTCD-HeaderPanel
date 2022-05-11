@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - script for Burger Menu
 - fetching user data from endpoint
 - added selector for adding new panels on workspace
+- removed previous button for adding new panels on workspace
 
 ### Fixed
 

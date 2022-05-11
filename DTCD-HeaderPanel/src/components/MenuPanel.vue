@@ -30,7 +30,7 @@
       </div>
 
       <div class="AdditionalPages">
-        <base-dropdown v-if="showPanelSelect" class="DropdownSelect" ref="panelDropdown">
+        <base-dropdown v-if="settingsMode && showPanelSelect" class="DropdownSelect" ref="panelDropdown">
           <span class="DropdownGroup" slot="toggle-btn"> Панели </span>
           <svg
             slot="icon-arrow"
@@ -84,14 +84,6 @@
     </div>
 
     <div class="EditMenuPanel">
-      <base-button
-        v-if="settingsMode && showAddPanelButton"
-        size="small"
-        @click.stop="addEmptyCell"
-      >
-        Добавить панель
-      </base-button>
-
       <button
         v-if="settingsMode && showWorkspaceSettings"
         @click.stop="openWorkspaceSettings"
@@ -213,10 +205,6 @@ export default {
       for (let key in settings) {
         this[key] = settings[key];
       }
-    },
-    addEmptyCell() {
-      this.$root.workspaceSystem.createEmptyCell();
-      this.openWorkspaceSettings();
     },
     goToHomePage() {
       this.router.navigate('/workspaces');
