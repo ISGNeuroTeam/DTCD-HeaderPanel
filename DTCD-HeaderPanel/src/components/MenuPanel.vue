@@ -350,6 +350,12 @@ export default {
 
   .NavList
 
+    $nav-item-height: 28px
+    $nav-item-margin: 8px
+
+    // max-height: 10 * ($nav-item-height + $nav-item-margin) + 16px
+    // overflow-y: auto
+
     &.type_dropdown
       background-color: var(--background_main)
       border: 1px solid var(--border)
@@ -358,16 +364,17 @@ export default {
       box-shadow: 1px 1px 2px rgba(8, 18, 55, 0.12), 0px 4px 12px rgba(8, 18, 55, 0.12)
       border-radius: 8px
       padding: 16px 0
+      cursor: default
 
     .NavItem
-      margin-bottom: 8px
       list-style: none
+      height: $nav-item-height
 
       &:hover
         background-color: var(--button_primary_12)
 
-      &:last-child
-        margin-bottom: 0
+      &:not(:last-child)
+        margin-bottom: $nav-item-margin
 
     .NavButton
       display: flex
@@ -381,13 +388,13 @@ export default {
 
       &.without_dropdown
         padding: 3px 16px
-        margin-bottom: 8px
+        height: $nav-item-height
 
         &:hover
           background-color: var(--button_primary_12)
 
-        &:last-child
-          margin-bottom: 0
+        &:not(:last-child)
+          margin-bottom: $nav-item-margin
 
     .Text
       padding-left: 8px
