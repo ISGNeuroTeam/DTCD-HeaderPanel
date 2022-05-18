@@ -9,7 +9,6 @@ import {
   StyleSystemAdapter,
   RouteSystemAdapter,
   AppGUISystemAdapter,
-  StorageSystemAdapter,
 } from './../../DTCD-SDK/index';
 
 export class Plugin extends AppPanelPlugin {
@@ -59,12 +58,24 @@ export class Plugin extends AppPanelPlugin {
   }
 
   setPluginConfig(configuration) {
+    this.resetSettings();
     for (let setting in configuration) {
       if (this.#settings.hasOwnProperty(setting)) {
         this.#settings[setting] = configuration[setting];
       }
     }
     this.#vue.$children[0].$children[1].setPanelSettings(this.#settings);
+  }
+
+  resetSettings() {
+    this.#settings = {
+      showPageTitle: false,
+      showAddPanelButton: false,
+      showBackButton: false,
+      showSettingsButton: false,
+      showWorkspaceSettings: false,
+      showPanelSelect: false,
+    };
   }
 
   getPluginConfig() {}

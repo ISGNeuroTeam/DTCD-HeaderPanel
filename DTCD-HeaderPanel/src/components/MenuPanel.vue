@@ -30,7 +30,11 @@
       </div>
 
       <div class="AdditionalPages">
-        <base-dropdown v-if="settingsMode && showPanelSelect" class="DropdownSelect" ref="panelDropdown">
+        <base-dropdown
+          v-if="settingsMode && showPanelSelect"
+          class="DropdownSelect"
+          ref="panelDropdown"
+        >
           <span class="DropdownGroup" slot="toggle-btn"> Панели </span>
           <svg
             slot="icon-arrow"
@@ -143,7 +147,6 @@ export default {
   data({ $root }) {
     return {
       settingsMode: false,
-      workspaceTitle: '',
       workspaceSystem: $root.workspaceSystem,
       eventSystem: $root.eventSystem,
       router: $root.router,
@@ -159,7 +162,6 @@ export default {
     };
   },
   mounted() {
-    this.workspaceTitle = this.workspaceSystem.getPluginConfig().title;
     this.plugin
       .getPanels()
       .filter(plugin => Object.getPrototypeOf(plugin.plugin).name === 'PanelPlugin')
@@ -176,7 +178,7 @@ export default {
   },
   computed: {
     routeTitle() {
-      return this.router.instance.route.title;
+      return this.router.getRouteTitle();
     },
     sortedPanels() {
       return Object.keys(this.panels).sort((a, b) => {
