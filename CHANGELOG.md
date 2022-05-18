@@ -1,0 +1,22 @@
+# CHANGELOG
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [0.1.0]
+
+### Added
+
+- inited panel
+- html layout
+- css styles
+- script for Burger Menu
+- fetching user data from endpoint
+- added selector for adding new panels on workspace
+- removed previous button for adding new panels on workspace
+
+### Fixed
+
+- opening workspace settings from header
