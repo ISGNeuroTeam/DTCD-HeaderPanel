@@ -343,8 +343,8 @@ export default {
     $nav-item-height: 28px
     $nav-item-margin: 8px
 
-    // max-height: 10 * ($nav-item-height + $nav-item-margin) + 16px
-    // overflow-y: auto
+    max-height: 10 * ($nav-item-height + $nav-item-margin) + 16px
+    overflow-y: auto
 
     &.type_dropdown
       background-color: var(--background_main)
@@ -355,6 +355,8 @@ export default {
       border-radius: 8px
       padding: 16px 0
       cursor: default
+      overflow-y: overlay
+      position: fixed
 
     .NavItem
       list-style: none
