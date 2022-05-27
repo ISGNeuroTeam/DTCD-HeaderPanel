@@ -49,10 +49,14 @@
               fill="#51515C"
             />
           </svg>
-          <div class="DropdownScrollContainer" style="padding-right: 0;">
+          <div class="DropdownScrollContainer" :style="{paddingRight: `${widthInnerDropdownContent}px`}">
             <nav class="NavList type_dropdown">
               <li class="NavItem" v-for="panel in sortedPanels" :key="panels[panel].title">
-                <base-dropdown placement="rightStart" class="DropdownSelect">
+                <base-dropdown
+                  placement="rightStart"
+                  class="DropdownSelect"
+                  @toggle="handleTypePanelDropdownToggle"
+                >
                   <span class="DropdownTitle" slot="toggle-btn">
                     <div class="NavButton">
                       <span class="Text">{{ panels[panel].title }}</span>
@@ -161,6 +165,7 @@ export default {
       showWorkspaceSettings: false,
       showPanelSelect: false,
       panels: {},
+      widthInnerDropdownContent: 0,
     };
   },
   mounted() {
@@ -236,6 +241,15 @@ export default {
 
     //   this.appGUI.toggleSidebar('right');
     // },
+    handleTypePanelDropdownToggle(event) {
+      if (event.detail.opened) {
+        const innerBlock = event.currentTarget.querySelector('.NavList');
+        this.widthInnerDropdownContent = innerBlock?.clientWidth ? innerBlock?.clientWidth + 10 : 0;
+      } else {
+        this.widthInnerDropdownContent = 0;
+      }
+      console.log(`handleTypePanelDropdownToggle ${this.widthInnerDropdownContent}`);
+    },
   },
 };
 </script>
