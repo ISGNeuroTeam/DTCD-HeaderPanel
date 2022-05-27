@@ -49,40 +49,42 @@
               fill="#51515C"
             />
           </svg>
-          <nav class="NavList type_dropdown">
-            <li class="NavItem" v-for="panel in sortedPanels" :key="panels[panel].title">
-              <base-dropdown placement="rightStart" class="DropdownSelect">
-                <span class="DropdownTitle" slot="toggle-btn">
-                  <div class="NavButton">
-                    <span class="Text">{{ panels[panel].title }}</span>
-                  </div>
-                </span>
-                <svg
-                  class="IconArrow"
-                  slot="icon-arrow"
-                  width="14"
-                  height="14"
-                  viewBox="0 0 14 14"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M9.16597 7.00003L5.66013 3.49419L4.83472 4.31844L7.51805 7.00003L4.83472 9.68103L5.65955 10.5059L9.16597 7.00003Z"
-                    fill="#51515C"
-                  />
-                </svg>
-                <nav
-                  class="NavList type_dropdown"
-                  v-for="version in panels[panel].versions"
-                  :key="version"
-                >
-                  <a class="NavButton without_dropdown" @click="addPanel(panel, version)">
-                    <span class="Text">{{ version }}</span>
-                  </a>
-                </nav>
-              </base-dropdown>
-            </li>
-          </nav>
+          <div class="DropdownScrollContainer" style="padding-right: 0;">
+            <nav class="NavList type_dropdown">
+              <li class="NavItem" v-for="panel in sortedPanels" :key="panels[panel].title">
+                <base-dropdown placement="rightStart" class="DropdownSelect">
+                  <span class="DropdownTitle" slot="toggle-btn">
+                    <div class="NavButton">
+                      <span class="Text">{{ panels[panel].title }}</span>
+                    </div>
+                  </span>
+                  <svg
+                    class="IconArrow"
+                    slot="icon-arrow"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 14 14"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.16597 7.00003L5.66013 3.49419L4.83472 4.31844L7.51805 7.00003L4.83472 9.68103L5.65955 10.5059L9.16597 7.00003Z"
+                      fill="#51515C"
+                    />
+                  </svg>
+                  <nav
+                    class="NavList type_dropdown"
+                    v-for="version in panels[panel].versions"
+                    :key="version"
+                  >
+                    <a class="NavButton without_dropdown" @click="addPanel(panel, version)">
+                      <span class="Text">{{ version }}</span>
+                    </a>
+                  </nav>
+                </base-dropdown>
+              </li>
+            </nav>
+          </div>
         </base-dropdown>
       </div>
     </div>
@@ -314,6 +316,15 @@ export default {
     @media (max-width: 576px)
       display: none
 
+  .DropdownScrollContainer
+    max-height: 371px
+    overflow-x: visible
+    overflow-y: auto
+    direction: rtl
+
+    & > .NavList.type_dropdown
+      direction: ltr
+
   .DropdownSelect
     fill: var(--text_main)
     display: contents
@@ -339,12 +350,8 @@ export default {
       font-size: 13px
 
   .NavList
-
     $nav-item-height: 28px
     $nav-item-margin: 8px
-
-    max-height: 10 * ($nav-item-height + $nav-item-margin) + 16px
-    overflow-y: auto
 
     &.type_dropdown
       background-color: var(--background_main)
@@ -355,8 +362,6 @@ export default {
       border-radius: 8px
       padding: 16px 0
       cursor: default
-      overflow-y: overlay
-      position: fixed
 
     .NavItem
       list-style: none
