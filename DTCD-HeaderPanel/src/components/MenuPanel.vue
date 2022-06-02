@@ -373,7 +373,6 @@ export default {
       font-size: 13px
 
   .NavList
-    $nav-item-height: 28px
     $nav-item-margin: 8px
 
     &.type_dropdown
@@ -388,7 +387,6 @@ export default {
 
     .NavItem
       list-style: none
-      height: $nav-item-height
 
       &:hover
         background-color: var(--button_primary_12)
@@ -408,7 +406,6 @@ export default {
 
       &.without_dropdown
         padding: 3px 16px
-        height: $nav-item-height
 
         &:hover
           background-color: var(--button_primary_12)
