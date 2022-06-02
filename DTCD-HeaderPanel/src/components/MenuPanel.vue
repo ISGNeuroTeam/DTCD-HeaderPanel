@@ -323,6 +323,7 @@ export default {
     display: flex
     align-items: center
     column-gap: 30px
+    z-index: 2050
 
     @media (max-width: 768px)
       column-gap: 10px
@@ -331,7 +332,7 @@ export default {
       display: none
 
   .DropdownScrollContainer
-    max-height: 371px
+    max-height: 60vh
     overflow-x: visible
     overflow-y: auto
     direction: rtl
@@ -416,7 +417,6 @@ export default {
 
   .IconArrow
     margin-right: 16px
-    transform: rotateX( 180deg)
 
   .EditMenuPanel
     display: flex
