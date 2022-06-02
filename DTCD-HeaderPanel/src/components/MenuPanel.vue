@@ -49,7 +49,10 @@
               fill="#51515C"
             />
           </svg>
-          <div class="DropdownScrollContainer" :style="{paddingRight: `${widthInnerDropdownContent}px`}">
+          <div
+            class="DropdownScrollContainer"
+            :style="{paddingRight: `${widthInnerDropdownContent}px`}"
+          >
             <nav class="NavList type_dropdown">
               <li class="NavItem" v-for="panel in sortedPanels" :key="panels[panel].title">
                 <base-dropdown
@@ -166,6 +169,7 @@ export default {
       showPanelSelect: false,
       panels: {},
       widthInnerDropdownContent: 0,
+      countOpenedDropdowns: 0,
     };
   },
   mounted() {
@@ -242,13 +246,17 @@ export default {
     //   this.appGUI.toggleSidebar('right');
     // },
     handleTypePanelDropdownToggle(event) {
+      // countOpenedDropdowns нужен, чтобы паддинг не обнулялся,
+      // когда открывается другой дропдаун.
+      event.detail.opened ? this.countOpenedDropdowns++ : this.countOpenedDropdowns--;
+
       if (event.detail.opened) {
         const innerBlock = event.currentTarget.querySelector('.NavList');
+        // 10 прибавляется, чтобы тень внутреннего дропдауна не обрезалась.
         this.widthInnerDropdownContent = innerBlock?.clientWidth ? innerBlock?.clientWidth + 10 : 0;
       } else {
-        this.widthInnerDropdownContent = 0;
+        if (this.countOpenedDropdowns < 1) this.widthInnerDropdownContent = 0;
       }
-      console.log(`handleTypePanelDropdownToggle ${this.widthInnerDropdownContent}`);
     },
   },
 };
