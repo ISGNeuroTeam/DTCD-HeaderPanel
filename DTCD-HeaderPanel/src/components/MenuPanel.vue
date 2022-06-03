@@ -21,28 +21,62 @@
           ref="panelDropdown"
         >
           <span class="DropdownGroup" slot="toggle-btn"> Панели </span>
-          <span slot="icon-arrow" class="FontIcon name_chevronDown size_2xs"></span>
-          <nav class="NavList type_dropdown">
-            <li class="NavItem" v-for="panel in sortedPanels" :key="panels[panel].title">
-              <base-dropdown placement="rightStart" class="DropdownSelect">
-                <span class="DropdownTitle" slot="toggle-btn">
-                  <div class="NavButton">
-                    <span class="Text">{{ panels[panel].title }}</span>
-                  </div>
-                </span>
-                <span slot="icon-arrow" class="FontIcon name_chevronDown size_2xs rotate_270"></span>
-                <nav
-                  class="NavList type_dropdown"
-                  v-for="version in panels[panel].versions"
-                  :key="version"
+          <svg
+            slot="icon-arrow"
+            width="14"
+            height="14"
+            viewBox="0 0 14 14"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.00022 9.16572L10.5061 5.65989L9.6818 4.83447L7.00022 7.51781L4.31922 4.83447L3.49438 5.65931L7.00022 9.16572Z"
+              fill="#51515C"
+            />
+          </svg>
+          <div
+            class="DropdownScrollContainer"
+            :style="{paddingRight: `${widthInnerDropdownContent}px`}"
+          >
+            <nav class="NavList type_dropdown">
+              <li class="NavItem" v-for="panel in sortedPanels" :key="panels[panel].title">
+                <base-dropdown
+                  placement="rightStart"
+                  class="DropdownSelect"
+                  @toggle="handleTypePanelDropdownToggle"
                 >
-                  <a class="NavButton without_dropdown" @click="addPanel(panel, version)">
-                    <span class="Text">{{ version }}</span>
-                  </a>
-                </nav>
-              </base-dropdown>
-            </li>
-          </nav>
+                  <span class="DropdownTitle" slot="toggle-btn">
+                    <div class="NavButton">
+                      <span class="Text">{{ panels[panel].title }}</span>
+                    </div>
+                  </span>
+                  <svg
+                    class="IconArrow"
+                    slot="icon-arrow"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 14 14"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.16597 7.00003L5.66013 3.49419L4.83472 4.31844L7.51805 7.00003L4.83472 9.68103L5.65955 10.5059L9.16597 7.00003Z"
+                      fill="#51515C"
+                    />
+                  </svg>
+                  <nav
+                    class="NavList type_dropdown"
+                    v-for="version in panels[panel].versions"
+                    :key="version"
+                  >
+                    <a class="NavButton without_dropdown" @click="addPanel(panel, version)">
+                      <span class="Text">{{ version }}</span>
+                    </a>
+                  </nav>
+                </base-dropdown>
+              </li>
+            </nav>
+          </div>
         </base-dropdown>
       </div>
     </div>
@@ -97,6 +131,8 @@ export default {
       showWorkspaceSettings: false,
       showPanelSelect: false,
       panels: {},
+      widthInnerDropdownContent: 0,
+      countOpenedDropdowns: 0,
     };
   },
   mounted() {
@@ -172,6 +208,19 @@ export default {
 
     //   this.appGUI.toggleSidebar('right');
     // },
+    handleTypePanelDropdownToggle(event) {
+      // countOpenedDropdowns нужен, чтобы паддинг не обнулялся,
+      // когда открывается другой дропдаун.
+      event.detail.opened ? this.countOpenedDropdowns++ : this.countOpenedDropdowns--;
+
+      if (event.detail.opened) {
+        const innerBlock = event.currentTarget.querySelector('.NavList');
+        // 10 прибавляется, чтобы тень внутреннего дропдауна не обрезалась.
+        this.widthInnerDropdownContent = innerBlock?.clientWidth ? innerBlock?.clientWidth + 10 : 0;
+      } else {
+        if (this.countOpenedDropdowns < 1) this.widthInnerDropdownContent = 0;
+      }
+    },
   },
 };
 </script>
@@ -192,10 +241,10 @@ export default {
   *::before
     box-sizing: border-box
 
-  .FontIcon 
+  .FontIcon
     font-size: 19px
     color: var(--text_main)
-    
+
     &.name_dashboard::before
       color: var(--accent)
 
@@ -248,12 +297,22 @@ export default {
     display: flex
     align-items: center
     column-gap: 30px
+    z-index: 2050
 
     @media (max-width: 768px)
       column-gap: 10px
 
     @media (max-width: 576px)
       display: none
+
+  .DropdownScrollContainer
+    max-height: 60vh
+    overflow-x: visible
+    overflow-y: auto
+    direction: rtl
+
+    & > .NavList.type_dropdown
+      direction: ltr
 
   .DropdownSelect
     fill: var(--text_main)
@@ -280,12 +339,7 @@ export default {
       font-size: 13px
 
   .NavList
-
-    $nav-item-height: 28px
     $nav-item-margin: 8px
-
-    // max-height: 10 * ($nav-item-height + $nav-item-margin) + 16px
-    // overflow-y: auto
 
     &.type_dropdown
       background-color: var(--background_main)
@@ -299,7 +353,6 @@ export default {
 
     .NavItem
       list-style: none
-      height: $nav-item-height
 
       &:hover
         background-color: var(--button_primary_12)
@@ -319,7 +372,6 @@ export default {
 
       &.without_dropdown
         padding: 3px 16px
-        height: $nav-item-height
 
         &:hover
           background-color: var(--button_primary_12)
@@ -336,7 +388,6 @@ export default {
 
   .IconArrow
     margin-right: 16px
-    transform: rotateX( 180deg)
 
   .EditMenuPanel
     display: flex
