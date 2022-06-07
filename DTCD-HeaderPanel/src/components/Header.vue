@@ -287,7 +287,7 @@ export default {
 }
 
 .DropdownSelect {
-  fill: var(--header_content);
+  fill: var(--general_white);
   display: contents;
 
   & > * {
@@ -312,7 +312,7 @@ export default {
   font-size: 13px;
   font-weight: 600;
   margin-right: 9px;
-  color: var(--header_content);
+  color: var(--general_white);
 }
 
 .NavList {
