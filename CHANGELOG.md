@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - added multiselect with height limit and scrolling
 
+### Changed
+
+- disabled link to admin panel
+
 ## [0.1.1]
 
 ### Fixed

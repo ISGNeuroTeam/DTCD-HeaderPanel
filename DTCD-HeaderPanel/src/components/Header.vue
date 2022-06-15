@@ -80,10 +80,10 @@
             <span class="FontIcon name_user"></span>
             <span class="Text">Профиль</span>
           </a>
-          <a class="NavItem">
+          <!-- <a class="NavItem" @click="goToAdmin">
             <span class="FontIcon name_adminEmpty"></span>
             <span class="Text">Панель администратора</span>
-          </a>
+          </a> -->
           <a class="NavItem" @click="logout">
             <span class="FontIcon name_logout"></span>
             <span class="Text">Выход</span>
@@ -119,9 +119,9 @@
             <li class="MenuListItem">
               <a class="MenuLink" @click="router.navigate('/profile')">Профиль</a>
             </li>
-            <li class="MenuListItem">
+            <!-- <li class="MenuListItem">
               <a class="MenuLink">Панель администратора</a>
-            </li>
+            </li> -->
           </nav>
         </div>
 
@@ -174,6 +174,10 @@ export default {
       const url = '/mock_server/v1/user?' + fields.join('&');
       const result = await this.interactionSystem.GETRequest(url);
       return result.data;
+    },
+
+    async goToAdmin() {
+      document.location.replace('/admin');
     },
 
     setUserData(data) {
