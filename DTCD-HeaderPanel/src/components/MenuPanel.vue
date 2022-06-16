@@ -36,7 +36,7 @@
           </svg>
           <div
             class="DropdownScrollContainer"
-            :style="{paddingRight: `${widthInnerDropdownContent}px`}"
+            :style="{ paddingRight: `${widthInnerDropdownContent}px` }"
           >
             <nav class="NavList type_dropdown">
               <li class="NavItem" v-for="panel in sortedPanels" :key="panels[panel].title">
@@ -64,12 +64,13 @@
                       fill="#51515C"
                     />
                   </svg>
-                  <nav
-                    class="NavList type_dropdown"
-                    v-for="version in panels[panel].versions"
-                    :key="version"
-                  >
-                    <a class="NavButton without_dropdown" @click="addPanel(panel, version)">
+                  <nav class="NavList type_dropdown">
+                    <a
+                      class="NavButton without_dropdown"
+                      v-for="version in panels[panel].versions.sort()"
+                      :key="version"
+                      @click="addPanel(panel, version)"
+                    >
                       <span class="Text">{{ version }}</span>
                     </a>
                   </nav>
