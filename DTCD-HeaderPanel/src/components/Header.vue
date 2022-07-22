@@ -67,13 +67,10 @@
       <button class="IconNotification">
         <span class="FontIcon name_notification"></span>
       </button>
-      <base-dropdown
-        class="DropdownSelect"
-        alignment="right"
-      >
+      <base-dropdown class="DropdownSelect" alignment="right">
         <span class="DropdownUsername" slot="toggle-btn">
           <div class="IconUser" ref="userPhoto"></div>
-          <div class="UsernameWrapper" v-text="userData.username"/>
+          <div class="UsernameWrapper" v-text="userData.username" />
         </span>
         <nav class="NavList type_dropdown">
           <a class="NavItem" @click="router.navigate('/profile')">
@@ -90,27 +87,20 @@
           </a>
         </nav>
       </base-dropdown>
-      <div
-        class="BurgerButton"
-        @click="changeVisibility()"
-        :class="{ 'active': burgerVisibility }"
-      >
+      <div class="BurgerButton" @click="changeVisibility()" :class="{ active: burgerVisibility }">
         <span class="BurgerBar"></span>
         <span class="BurgerBar"></span>
         <span class="BurgerBar"></span>
       </div>
     </div>
 
-    <section
-      class="Menu"
-      :class="{ 'open': burgerVisibility }"
-    >
+    <section class="Menu" :class="{ open: burgerVisibility }">
       <div class="MenuWrapper">
         <div class="MenuHeader">
           <div class="MenuUserPhoto" ref="userPhotoMenu"></div>
           <div>
             <!-- <p class="MenuUserRole">Администратор</p> -->
-            <p class="MenuUsername" v-text="fullName"/>
+            <p class="MenuUsername" v-text="fullName" />
           </div>
         </div>
 
@@ -126,10 +116,7 @@
         </div>
 
         <div class="MenuFooter">
-          <button
-            @click="logout"
-            class="ButtonBack"
-          >
+          <button @click="logout" class="ButtonBack">
             <span class="FontIcon name_logout"></span>
             <span class="Text">Выход</span>
           </button>
@@ -152,7 +139,7 @@ export default {
         firstName: '',
         lastName: '',
       },
-    }
+    };
   },
   computed: {
     fullName() {
@@ -171,7 +158,7 @@ export default {
 
     async getUserData() {
       const fields = ['username', 'photo', 'firstName', 'lastName'];
-      const url = '/mock_server/v1/user?' + fields.join('&');
+      const url = '/dtcd_utils/v1/user?' + fields.join('&');
       const result = await this.interactionSystem.GETRequest(url);
       return result.data;
     },
@@ -237,7 +224,6 @@ export default {
   }
 }
 
-
 .HeaderNav {
   display: flex;
   align-items: center;
@@ -250,7 +236,7 @@ export default {
   cursor: pointer;
 
   @media (max-width: 576px) {
-    display: none
+    display: none;
   }
 }
 
@@ -299,7 +285,7 @@ export default {
   }
 
   @media (max-width: 576px) {
-    display: none
+    display: none;
   }
 }
 
@@ -320,7 +306,6 @@ export default {
 }
 
 .NavList {
-
   &.type_dropdown {
     background-color: var(--background_main);
     border: 1px solid var(--border);
@@ -371,10 +356,10 @@ export default {
     width: 13.5px;
     height: 1.8px;
     background-color: #fff;
-    transition: all ease .2s;
+    transition: all ease 0.2s;
   }
 
-  &.active .BurgerBar{
+  &.active .BurgerBar {
     &:nth-of-type(1) {
       transform: translateY(3.2px) rotate(-45deg);
     }
@@ -443,13 +428,13 @@ export default {
   }
 
   .MenuHeader {
-    background-color: #2C67A6;
+    background-color: #2c67a6;
     padding: 20px var(--inner-horizontal-padding);
     display: flex;
     align-items: center;
   }
 
-  .MenuBody{
+  .MenuBody {
     padding: 58px var(--inner-horizontal-padding);
   }
 
