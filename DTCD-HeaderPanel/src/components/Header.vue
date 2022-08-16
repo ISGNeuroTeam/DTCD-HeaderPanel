@@ -158,7 +158,7 @@ export default {
 
     async getUserData() {
       const fields = ['username', 'photo', 'firstName', 'lastName'];
-      const url = '/dtcd_utils/v1/user?' + fields.join('&');
+      const url = '/dtcd_utils/v1/user?photo_quality=low&' + fields.join('&');
       const result = await this.interactionSystem.GETRequest(url);
       return result.data;
     },
