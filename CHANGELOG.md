@@ -5,25 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-### UNRELEASED
+## [UNRELEASED]
 
 ### Added
 
-- request for user avatar compression 
+- request for user avatar compression
 
-### [0.4.0]
+## [0.4.0]
 
 ### Changed
 
 - API prefix
 
-### [0.3.0]
+## [0.3.0]
 
 ### Fixed
 
 - version select
 
-### [0.2.0]
+## [0.2.0]
 
 ### Added
 
