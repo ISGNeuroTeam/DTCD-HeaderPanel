@@ -28,6 +28,7 @@
     "rollup-plugin-vue": "^5.0.0",
     "vue": "2.6.12",
     "vue-jest": "3.0.7",
-    "vue-template-compiler": "2.6.12"
+    "vue-template-compiler": "2.6.12",
+    "vue-show-more-text": "2.0.2"
   }
 }

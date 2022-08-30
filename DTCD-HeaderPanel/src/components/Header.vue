@@ -64,9 +64,7 @@
     </nav>
 
     <div class="HeaderNavRight">
-      <button class="IconNotification">
-        <span class="FontIcon name_notification"></span>
-      </button>
+      <NotificationBell class="NotificationBell"/>
       <base-dropdown class="DropdownSelect" alignment="right">
         <span class="DropdownUsername" slot="toggle-btn">
           <div class="IconUser" ref="userPhoto"></div>
@@ -127,7 +125,12 @@
 </template>
 
 <script>
+import NotificationBell from "./NotificationBell";
+
 export default {
+  components: {
+    NotificationBell,
+  },
   data({ $root }) {
     return {
       router: $root.router,
@@ -274,6 +277,10 @@ export default {
   @media (max-width: 576px) {
     display: none;
   }
+}
+
+.NotificationBell {
+  margin-right: 16px;
 }
 
 .DropdownSelect {
