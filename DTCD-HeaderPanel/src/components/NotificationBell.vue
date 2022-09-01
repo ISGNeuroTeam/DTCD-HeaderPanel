@@ -142,6 +142,7 @@ export default {
       } = this;
       return {
         indication: !!notifications.length,
+        'has-success': notifications.findIndex(({options}) => options.type === 'success') !== -1,
         'has-warning': notifications.findIndex(({options}) => options.type === 'warning') !== -1,
         'has-error': notifications.findIndex(({options}) => options.type === 'error') !== -1,
       };
@@ -322,6 +323,7 @@ export default {
       border: 1px solid;
       color: #2c67a6;
       position: relative;
+      min-height: 20px;
 
       &::before {
         content: 'i';
@@ -414,6 +416,12 @@ export default {
         position: absolute;
         right: 1px;
         top: 0;
+      }
+
+      &.has-success {
+        &::after {
+          background-color: var(--success);
+        }
       }
 
       &.has-warning {
