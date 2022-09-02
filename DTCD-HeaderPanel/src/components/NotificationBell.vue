@@ -123,7 +123,7 @@ export default {
     },
     notificationFloatList() {
       const list = this.notifications
-        .filter(({ options }) => options.floatMode)
+        .filter(({ options }) => !this.showList && options.floatMode)
         .map(({ title, body, options = {} }, i) => ({
           title,
           body,
@@ -163,9 +163,21 @@ export default {
       if (val.length === 0) {
         this.showList = false;
       }
+    },
+
+    showList() {
+      this.disableAllFloatNotifications();
     }
   },
   methods: {
+    disableAllFloatNotifications() {
+      this.notifications.forEach(item => {
+        if (item?.options.floatMode) {
+          item.options.floatMode = false;
+        }
+      })
+    },
+
     outsideClick(){
       this.keepOpen -= 1;
       if (this.keepOpen < 1) {
