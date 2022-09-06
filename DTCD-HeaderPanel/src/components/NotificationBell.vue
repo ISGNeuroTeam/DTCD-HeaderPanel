@@ -65,26 +65,27 @@
     <div :class="`notification-list floating-list ${settings.notificationPosition}`">
       <transition-group name="list" tag="div">
         <div
-            v-for="{ title, body, className, id, hasAction } of notificationFloatList"
-            :key="id"
+            v-for="item of notificationFloatList"
+            :key="item.id"
             class="notification-item"
-            :class="className"
+            :class="item.className"
+            @mouseenter="onMouseEnterFloatItem(item)"
         >
           <a
               href="#"
               class="close-btn"
-              @click.prevent="$root.notificationSystem.remove(id)"
+              @click.prevent="$root.notificationSystem.remove(item.id)"
           >✕</a>
           <div
               class="title"
               :class="{
-              'has-action': hasAction,
+              'has-action': item.hasAction,
             }"
-              @click.prevent="onClick(id)"
-          >{{ title }}</div>
-          <div v-if="body" class="body-text">
+              @click.prevent="onClick(item.id)"
+          >{{ item.title }}</div>
+          <div v-if="item.body" class="body-text">
             <vue-show-more-text
-                :text="body"
+                :text="item.body"
                 :lines="4"
                 additional-container-css="padding:0;"
                 additional-anchor-css="padding:8px 8px 0 8px;"
@@ -121,6 +122,7 @@ export default {
         .map(({ title, body, options = {} }, i) => ({
           title,
           body,
+          options,
           className: options.type || 'info',
           id: options.id,
           hasAction: typeof options.action === 'function',
@@ -133,6 +135,7 @@ export default {
         .map(({ title, body, options = {} }, i) => ({
           title,
           body,
+          options,
           className: options.type || 'info',
           id: options.id,
           hasAction: typeof options.action === 'function',
@@ -206,8 +209,9 @@ export default {
       }
 
       if (options.floatMode) {
-        setTimeout(() => {
-          options.floatMode = false
+        options.floatTimeOut = setTimeout(() => {
+          options.floatMode = false;
+          options.floatTimeOut = undefined;
         }, (options.floatTime || 5) * 1000)
       }
     },
@@ -227,6 +231,13 @@ export default {
       const item = this.notifications.find((item) => item.options.id === id);
       if (typeof item.options?.action === 'function') {
         item.options.action(item);
+      }
+    },
+
+    onMouseEnterFloatItem(item) {
+      if (item.options.floatTimeOut) {
+        clearTimeout(item.options.floatTimeOut);
+        item.options.floatTimeOut = undefined;
       }
     },
   }
