@@ -11,7 +11,7 @@
     </button>
 
     <div
-      v-if="showList && notificationList.length"
+      v-if="showList"
       class="notification-scrolling"
     >
       <div class="notification-list">
@@ -21,8 +21,14 @@
               class="clear-btn"
               @click.prevent="$root.notificationSystem.clearList()"
           >
-            Close all notifications
+            Удалить все
           </base-button>
+        </div>
+        <div
+          v-if="notificationList.length === 0"
+          class="empty-text"
+        >
+          Уведомлений нет
         </div>
         <transition-group name="list" tag="div">
           <div
@@ -281,6 +287,11 @@ export default {
     margin: 8px 8px 0;
   }
 
+  .empty-text {
+    padding: 32px 16px;
+    text-align: center;
+  }
+
   .notification-list {
     background-color: var(--background_main);
     border: 1px solid var(--border);
@@ -292,6 +303,7 @@ export default {
     box-sizing: border-box;
     width: 360px;
     margin-right: -8px;
+    color: var(--text_main);
 
     &.floating-list {
       position: fixed;

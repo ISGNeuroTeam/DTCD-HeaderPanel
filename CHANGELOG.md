@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - request for user avatar compression
 - notification bell with notification list
+- added text if there are no notifications
 
 ## [0.4.0]
 
