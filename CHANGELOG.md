@@ -5,13 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [UNRELEASED]
+## [0.5.0]
 
 ### Added
 
 - request for user avatar compression
 - notification bell with notification list
-- added text if there are no notifications
+- text if there are no notifications
 - if you hover the mouse over a floating notification, it will not hide automatically
 
 ## [0.4.0]
