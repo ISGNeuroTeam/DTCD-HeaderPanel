@@ -20,6 +20,7 @@
               v-if="notifications.length >= 5"
               class="clear-btn"
               @click.prevent="$root.notificationSystem.clearList()"
+              theme="theme_blueSec"
           >
             Удалить все
           </base-button>
@@ -32,29 +33,39 @@
         </div>
         <transition-group name="list" tag="div">
           <div
-              v-for="{ title, body, className, id, hasAction } of notificationList"
-              :key="id"
-              class="notification-item"
-              :class="className"
+            v-for="{ title, body, className, id, hasAction } of notificationList"
+            :key="id"
+            class="notification-item"
+            :class="className"
           >
-            <a
-                href="#"
-                class="close-btn"
-                @click.prevent="$root.notificationSystem.remove(id)"
-            >✕</a>
+            <span 
+              @click.prevent="$root.notificationSystem.remove(id)" 
+              class="FontIcon name_closeBig size_xs close-btn"
+            >
+            </span>
             <div
-                class="title"
-                :class="{
+              v-if="title" 
+              class="title"
+              :class="{
               'has-action': hasAction,
             }"
-                @click.prevent="onClick(id)"
-            >{{ title }}</div>
+              @click.prevent="onClick(id)"
+            >
+              <vue-show-more-text
+                :text="title"
+                :lines="1"
+                additional-container-css="padding:0;display:flex;margin-right:18px;"
+                additional-anchor-css="color:transparent;padding:0;position:absolute;right:0;width:100%;height:100%;"
+              />
+            </div>
             <div v-if="body" class="body-text">
               <vue-show-more-text
-                  :text="body"
-                  :lines="4"
-                  additional-container-css="padding:0;"
-                  additional-anchor-css="padding:8px 8px 0 8px;"
+                :text="body"
+                :lines="4"
+                more-text="Show"
+                less-text="Hide"
+                additional-container-css="padding:0;"
+                additional-anchor-css="color: var(--text_secondary);margin-bottom:0;padding:10px 0 0;"
               />
             </div>
           </div>
@@ -65,30 +76,40 @@
     <div :class="`notification-list floating-list ${settings.notificationPosition}`">
       <transition-group name="list" tag="div">
         <div
-            v-for="item of notificationFloatList"
-            :key="item.id"
-            class="notification-item"
-            :class="item.className"
-            @mouseenter="onMouseEnterFloatItem(item)"
+          v-for="item of notificationFloatList"
+          :key="item.id"
+          class="notification-item"
+          :class="item.className"
+          @mouseenter="onMouseEnterFloatItem(item)"
         >
-          <a
-              href="#"
-              class="close-btn"
-              @click.prevent="$root.notificationSystem.remove(item.id)"
-          >✕</a>
+          <span 
+            @click.prevent="$root.notificationSystem.remove(item.id)"
+            class="FontIcon name_closeBig size_xs close-btn"
+          >
+          </span>
           <div
-              class="title"
-              :class="{
-              'has-action': item.hasAction,
+          v-if="item.title"
+            class="title"
+            :class="{
+            'has-action': item.hasAction,
             }"
-              @click.prevent="onClick(item.id)"
-          >{{ item.title }}</div>
+            @click.prevent="onClick(item.id)"
+          >
+            <vue-show-more-text
+              :text="item.title"
+              :lines="1"
+              additional-container-css="padding:0;display:flex;margin-right: 18px;"
+              additional-anchor-css="color:transparent;padding:0;position:absolute;right:0;width:100%;height:100%;"
+            />
+          </div>
           <div v-if="item.body" class="body-text">
             <vue-show-more-text
-                :text="item.body"
-                :lines="4"
-                additional-container-css="padding:0;"
-                additional-anchor-css="padding:8px 8px 0 8px;"
+              :text="item.body"
+              :lines="4"
+              more-text="Show"
+              less-text="Hide"
+              additional-container-css="padding:0;"
+              additional-anchor-css="color: var(--text_secondary);margin-bottom:0;padding:10px 0 0;"
             />
           </div>
         </div>
@@ -255,6 +276,14 @@ export default {
 
 .NotificationBell {
   position: relative;
+  font-family: "Proxima Nova";
+
+  &,
+  *,
+  *::after,
+  *::before {
+    box-sizing: border-box;
+  }
 
   .button-icon {
     background: transparent;
@@ -267,11 +296,11 @@ export default {
     right: 0;
     top: 30px;
     bottom: 0;
-    z-index: 10000;
+    z-index: 30;
 
     &::before {
       content: "";
-      background: var(--background_main);
+      background-color: var(--background_secondary);
       border: 1px solid var(--border);
       width: 10px;
       height: 10px;
@@ -287,38 +316,38 @@ export default {
   .btn-header {
     position: sticky;
     top: 0;
-    background: linear-gradient(#ffffffd6 80%, #ff000000);
+    background-color: var(--background_secondary);
     text-align: center;
     z-index: 1;
-    padding-bottom: 8px;
-    margin-bottom: -8px;
+    padding-bottom: 10px;
+    margin-bottom: -5px;
   }
 
   .clear-btn {
-    margin: 8px 8px 0;
+    margin-top: 10px;
+    width: 80%;
   }
 
   .empty-text {
     padding: 32px 16px;
     text-align: center;
+    color: var(--text_main);
   }
 
   .notification-list {
-    background-color: var(--background_main);
+    background-color: var(--background_secondary);
     border: 1px solid var(--border);
     border-radius: 8px;
-    box-shadow: 3px 7px 15px var(--border);
+    box-shadow: 1px 1px 12px rgb(8 18 55 / 12%);
     max-height: 700px;
     overflow-y: auto;
     overflow-x: unset;
-    box-sizing: border-box;
     width: 360px;
     margin-right: -8px;
-    color: var(--text_main);
 
     &.floating-list {
       position: fixed;
-      z-index: 10000;
+      z-index: 30;
       padding: 0;
       margin: 8px;
       background-color: transparent;
@@ -351,123 +380,129 @@ export default {
     }
 
     .notification-item {
-      margin: 8px;
-      padding: 8px 8px 8px 30px;
-      background: #f5f3fa;
-      border-radius: 10px;
+      margin: 6px;
+      padding: 10px;
+      background: var(--border_12);
+      border-radius: 8px;
       border: 1px solid;
-      color: #2c67a6;
+      color: var(--accent);
       position: relative;
       min-height: 20px;
 
       &::before {
         content: 'i';
-        width: 16px;
-        height: 16px;
+        width: 18px;
+        height: 18px;
         border: 1px solid;
         border-radius: 50%;
         position: absolute;
         left: 0;
         top: 0;
-        margin: 8px;
+        margin: 10px;
         text-align: center;
         font-size: 11px;
-        font-weight: bold;
-        line-height: 18px;
+        font-weight: 700;
+        line-height: 1.6;
       }
 
       .close-btn {
         position: absolute;
         right: 0;
         top: 0;
-        margin: 6px 8px;
+        margin: 8px;
         text-decoration: none;
-        color: var(--divider);
-        font-size: 20px;
+        cursor: pointer;
 
         &:hover {
           color: var(--text_main);
         }
       }
 
-      .has-action {
-        cursor: pointer;
+      .title {
+        font-weight: 700;
+        font-size: 16px;
+        position: relative;
+        margin: 0 18px 0 24px;
       }
 
-      .title {
-        font-weight: bold;
-        &.has-action:hover {
-          text-decoration: underline;
-        }
-      }
       .body-text {
         margin-top: 8px;
+        font-size: 14px;
         color: var(--text_main);
       }
 
-      &.info {}
       &.success {
         color: var(--success);
+
         &::before {
           content: '✓';
         }
       }
+
       &.warning {
         color: var(--warning);
+
         &::before {
           content: '!';
         }
       }
+
       &.error {
         color: var(--danger);
+
         &::before {
-          content: '✕';
+          content: 'X';
           background: var(--danger);
-          color: white;
+          color: var(--border_12);
+          border: 1px solid var(--danger);
         }
       }
     }
   }
-}
-.FontIcon {
-  color: var(--accent);
+  .FontIcon {
+    color: var(--accent);
 
-  &.name_notification {
-    position: relative;
-
-    &::before {
-      font-size: 18px;
-      color: var(--general_white);
+    &.name_closeBig {
+      color: var(--border);
     }
 
-    &.indication {
-      &::after {
-        content: '';
-        background-color: var(--accent);
-        display: block;
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        position: absolute;
-        right: 1px;
-        top: 0;
+    &.name_notification {
+      position: relative;
+
+      &::before {
+        font-size: 18px;
+        color: var(--general_white);
       }
 
-      &.has-success {
+      &.indication {
         &::after {
-          background-color: var(--success);
+          content: '';
+          background-color: var(--accent);
+          display: block;
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          position: absolute;
+          right: 1px;
+          top: 0;
         }
-      }
 
-      &.has-warning {
-        &::after {
-          background-color: var(--warning);
+        &.has-success {
+          &::after {
+            background-color: var(--success);
+          }
         }
-      }
 
-      &.has-error {
-        &::after {
-          background-color: var(--danger);
+        &.has-warning {
+          &::after {
+            background-color: var(--warning);
+          }
+        }
+
+        &.has-error {
+          &::after {
+            background-color: var(--danger);
+          }
         }
       }
     }
