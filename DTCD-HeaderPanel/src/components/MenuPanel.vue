@@ -298,7 +298,7 @@ export default {
     display: flex
     align-items: center
     column-gap: 30px
-    z-index: 2050
+    z-index: 10
 
     @media (max-width: 768px)
       column-gap: 10px

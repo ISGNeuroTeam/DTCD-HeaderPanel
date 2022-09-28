@@ -10,15 +10,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - method for adding status icons
-- request for user avatar compression
-- notification bell with notification list
-- added text if there are no notifications
-- if you hover the mouse over a floating notification, it will not hide automatically
 
 ### Changed
 
 - design of notifications
 - text icons to font icons
+
+## [0.5.0]
+
+### Added
+
+- request for user avatar compression
+- notification bell with notification list
+- text if there are no notifications
+- if you hover the mouse over a floating notification, it will not hide automatically
+
+### Changed
+
+- SDK version to 0.2.0-master-0002
 
 ## [0.4.0]
 
