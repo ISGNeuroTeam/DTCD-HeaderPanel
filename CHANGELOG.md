@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - design of notifications
-- text icons changed to font icons
+- text icons to font icons
 
 ## [0.4.0]
 
