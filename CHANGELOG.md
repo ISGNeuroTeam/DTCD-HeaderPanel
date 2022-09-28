@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- method for adding status icons
 - request for user avatar compression
 - notification bell with notification list
 - added text if there are no notifications
@@ -17,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - design of notifications
+- text icons changed to font icons
 
 ## [0.4.0]
 
