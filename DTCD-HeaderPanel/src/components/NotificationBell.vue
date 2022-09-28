@@ -1,5 +1,8 @@
 <template>
-  <div class="NotificationBell" @click="keepOpen = 2">
+  <div 
+    class="NotificationBell" 
+    @click="keepOpen = 2"
+  >
     <button
       class="button-icon"
       @click.prevent="clickOnIcon()"
@@ -17,10 +20,10 @@
       <div class="notification-list">
         <div class="btn-header">
           <base-button
-              v-if="notifications.length >= 5"
-              class="clear-btn"
-              @click.prevent="$root.notificationSystem.clearList()"
-              theme="theme_blueSec"
+            v-if="notifications.length >= 5"
+            class="clear-btn"
+            @click.prevent="$root.notificationSystem.clearList()"
+            theme="theme_blueSec"
           >
             Удалить все
           </base-button>
@@ -31,7 +34,10 @@
         >
           Уведомлений нет
         </div>
-        <transition-group name="list" tag="div">
+        <transition-group 
+          name="list" 
+          tag="div"
+        >
           <div
             v-for="{ title, body, className, id, hasAction } of notificationList"
             :key="id"
@@ -39,8 +45,13 @@
             :class="className"
           >
             <span 
+              class="FontIcon FrontIcon"
+              :class="getIcon(className)"
+            >
+            </span>
+            <span 
               @click.prevent="$root.notificationSystem.remove(id)" 
-              class="FontIcon name_closeBig size_xs close-btn"
+              class="FontIcon name_closeBig size_md close-btn"
             >
             </span>
             <div
@@ -48,7 +59,7 @@
               class="title"
               :class="{
               'has-action': hasAction,
-            }"
+              }"
               @click.prevent="onClick(id)"
             >
               <vue-show-more-text
@@ -58,7 +69,10 @@
                 additional-anchor-css="color:transparent;padding:0;position:absolute;right:0;width:100%;height:100%;"
               />
             </div>
-            <div v-if="body" class="body-text">
+            <div 
+              v-if="body" 
+              class="body-text"
+            >
               <vue-show-more-text
                 :text="body"
                 :lines="4"
@@ -74,7 +88,10 @@
     </div>
 
     <div :class="`notification-list floating-list ${settings.notificationPosition}`">
-      <transition-group name="list" tag="div">
+      <transition-group 
+        name="list" 
+        tag="div"
+      >
         <div
           v-for="item of notificationFloatList"
           :key="item.id"
@@ -83,12 +100,17 @@
           @mouseenter="onMouseEnterFloatItem(item)"
         >
           <span 
+            class="FontIcon FrontIcon"
+            :class="getIcon(item.className)"
+          >
+          </span>
+          <span 
             @click.prevent="$root.notificationSystem.remove(item.id)"
-            class="FontIcon name_closeBig size_xs close-btn"
+            class="FontIcon name_closeBig size_md close-btn"
           >
           </span>
           <div
-          v-if="item.title"
+            v-if="item.title"
             class="title"
             :class="{
             'has-action': item.hasAction,
@@ -102,7 +124,10 @@
               additional-anchor-css="color:transparent;padding:0;position:absolute;right:0;width:100%;height:100%;"
             />
           </div>
-          <div v-if="item.body" class="body-text">
+          <div 
+            v-if="item.body" 
+            class="body-text"
+          >
             <vue-show-more-text
               :text="item.body"
               :lines="4"
@@ -132,6 +157,12 @@ export default {
       notifications: [],
       keepOpen: 2,
       settings: $root.settings,
+      classes: {
+        'success':'name_circleCheckOutline',
+        'warning': 'name_warningOutline',
+        'error': 'name_offOutlineClose',
+        'info': 'name_infoCircleOutline'
+      },
     }
   },
   computed: {
@@ -206,6 +237,14 @@ export default {
           item.options.floatMode = false;
         }
       })
+    },
+
+    getIcon(className) {
+      if (Object.keys(this.classes).includes(className)) {
+        return this.classes[className]
+      } else {
+        return 'name_infoCircleOutline'
+      }
     },
 
     outsideClick(){
@@ -389,27 +428,21 @@ export default {
       position: relative;
       min-height: 20px;
 
-      &::before {
-        content: 'i';
-        width: 18px;
-        height: 18px;
-        border: 1px solid;
-        border-radius: 50%;
+      .FrontIcon {
         position: absolute;
         left: 0;
         top: 0;
         margin: 10px;
-        text-align: center;
-        font-size: 11px;
-        font-weight: 700;
-        line-height: 1.6;
+        display: flex;
+        font-size: 18px;
+        align-items: center;
       }
 
       .close-btn {
         position: absolute;
         right: 0;
         top: 0;
-        margin: 8px;
+        margin: 10px;
         text-decoration: none;
         cursor: pointer;
 
@@ -422,7 +455,7 @@ export default {
         font-weight: 700;
         font-size: 16px;
         position: relative;
-        margin: 0 18px 0 24px;
+        margin: 0 18px 0 21px;
       }
 
       .body-text {
@@ -434,27 +467,30 @@ export default {
       &.success {
         color: var(--success);
 
-        &::before {
-          content: '✓';
+        .FontIcon {
+          &.name_circleCheckOutline {
+            color: var(--success);
+          }   
         }
       }
 
       &.warning {
         color: var(--warning);
 
-        &::before {
-          content: '!';
+        .FontIcon {
+          &.name_warningOutline {
+            color: var(--warning);
+          }   
         }
       }
 
       &.error {
         color: var(--danger);
 
-        &::before {
-          content: 'X';
-          background: var(--danger);
-          color: var(--border_12);
-          border: 1px solid var(--danger);
+        .FontIcon {
+          &.name_offOutlineClose {
+            color: var(--danger);
+          }   
         }
       }
     }
@@ -497,6 +533,7 @@ export default {
           &::after {
             background-color: var(--warning);
           }
+          color: var(--warning);
         }
 
         &.has-error {
