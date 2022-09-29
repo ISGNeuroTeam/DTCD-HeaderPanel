@@ -107,6 +107,7 @@ export class Plugin extends AppPanelPlugin {
 
   setFormSettings(config) {
     this.setPluginConfig(config);
+    this.#saveConfigToLS(config);
   }
 
   getFormSettings() {
@@ -128,5 +129,9 @@ export class Plugin extends AppPanelPlugin {
         },
       ]
     }
+  }
+
+  #saveConfigToLS = (config) => {
+    // window.localStorage.setItem('userId:headerPanelConfig', JSON.stringify(this.#settings));
   }
 }
