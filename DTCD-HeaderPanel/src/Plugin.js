@@ -15,6 +15,9 @@ import {
 export class Plugin extends AppPanelPlugin {
   #vue;
   #workspaceSystem;
+  #interactionSystem;
+  #idAuthorizedUser = null;
+  static userEndpoint = '/dtcd_utils/v1/user';
 
   #settings = {
     showPageTitle: false,
@@ -33,7 +36,7 @@ export class Plugin extends AppPanelPlugin {
   constructor(guid, selector) {
     super(guid, selector);
     const eventSystem = new EventSystemAdapter('0.4.0', guid);
-    const interactionSystem = new InteractionSystemAdapter('0.4.0');
+    this.#interactionSystem = new InteractionSystemAdapter('0.4.0');
     this.#workspaceSystem = new WorkspaceSystemAdapter('0.4.0');
     const styleSystem = new StyleSystemAdapter('0.4.0');
     const router = new RouteSystemAdapter('0.1.0');
@@ -56,7 +59,7 @@ export class Plugin extends AppPanelPlugin {
     const data = {
       plugin: this,
       guid,
-      interactionSystem,
+      interactionSystem: this.#interactionSystem,
       eventSystem,
       workspaceSystem: this.#workspaceSystem,
       styleSystem,
@@ -77,6 +80,9 @@ export class Plugin extends AppPanelPlugin {
         },
       }
     }).$mount(selector);
+
+    console.log('constructor');
+    // this.#setSettingsFromLS();
   }
 
   onNewNotify(obj) {
@@ -106,8 +112,9 @@ export class Plugin extends AppPanelPlugin {
   }
 
   setFormSettings(config) {
+    console.log('setFormSettings');
     this.setPluginConfig(config);
-    this.#saveConfigToLS(config);
+    this.#saveConfigToLS();
   }
 
   getFormSettings() {
@@ -131,7 +138,44 @@ export class Plugin extends AppPanelPlugin {
     }
   }
 
-  #saveConfigToLS = (config) => {
-    // window.localStorage.setItem('userId:headerPanelConfig', JSON.stringify(this.#settings));
+  #getIdAuthorizedUser = async () => {
+    try {
+      console.log('#getIdAuthorizedUser');
+      const response = await this.#interactionSystem.GETRequest(Plugin.userEndpoint);
+      if (typeof response === 'String') {
+        const {
+          id,
+        } = JSON.parse(response);
+        this.#idAuthorizedUser = id;
+      }
+    } catch (error) {
+      this.#idAuthorizedUser = null;
+      console.log(error);
+    }
+    return;
+  }
+
+  #saveConfigToLS = async () => {
+    if (this.#idAuthorizedUser == null) await this.#getIdAuthorizedUser();
+    if (this.#idAuthorizedUser == null) return;
+
+    console.log('saveConfigToLS');
+
+    window.localStorage.setItem(
+      `${this.#idAuthorizedUser}:headerPanelConfig`,
+      JSON.stringify(this.#settings)
+    );
+  }
+
+  #setSettingsFromLS = async () => {
+    if (this.#idAuthorizedUser == null) await this.#getIdAuthorizedUser();
+    if (this.#idAuthorizedUser == null) return;
+
+    const jsonSettings = window.localStorage.getItem(
+      `${this.#idAuthorizedUser}:headerPanelConfig`
+    );
+    if (jsonSettings) {
+      this.setPluginConfig(JSON.parse(jsonSettings));
+    }
   }
 }
