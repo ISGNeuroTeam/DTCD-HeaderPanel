@@ -81,8 +81,7 @@ export class Plugin extends AppPanelPlugin {
       }
     }).$mount(selector);
 
-    console.log('constructor');
-    // this.#setSettingsFromLS();
+    this.#setSettingsFromLS();
   }
 
   onNewNotify(obj) {
@@ -112,7 +111,6 @@ export class Plugin extends AppPanelPlugin {
   }
 
   setFormSettings(config) {
-    console.log('setFormSettings');
     this.setPluginConfig(config);
     this.#saveConfigToLS();
   }
@@ -140,17 +138,17 @@ export class Plugin extends AppPanelPlugin {
 
   #getIdAuthorizedUser = async () => {
     try {
-      console.log('#getIdAuthorizedUser');
       const response = await this.#interactionSystem.GETRequest(Plugin.userEndpoint);
       if (typeof response === 'String') {
-        const {
-          id,
-        } = JSON.parse(response);
+        const { id } = JSON.parse(response);
         this.#idAuthorizedUser = id;
       }
     } catch (error) {
-      this.#idAuthorizedUser = null;
-      console.log(error);
+      // this.#idAuthorizedUser = null;
+      this.#idAuthorizedUser = 1;
+      if (error.message.indexOf('network error') !== -1) {
+        throw error;
+      }
     }
     return;
   }
@@ -158,8 +156,6 @@ export class Plugin extends AppPanelPlugin {
   #saveConfigToLS = async () => {
     if (this.#idAuthorizedUser == null) await this.#getIdAuthorizedUser();
     if (this.#idAuthorizedUser == null) return;
-
-    console.log('saveConfigToLS');
 
     window.localStorage.setItem(
       `${this.#idAuthorizedUser}:headerPanelConfig`,
