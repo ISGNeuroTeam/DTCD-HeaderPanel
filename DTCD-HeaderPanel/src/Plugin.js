@@ -157,9 +157,14 @@ export class Plugin extends AppPanelPlugin {
     if (this.#idAuthorizedUser == null) await this.#getIdAuthorizedUser();
     if (this.#idAuthorizedUser == null) return;
 
+    // not all settings from object '#settings' need to be saved to localStorage
+    const settingsToSave = {
+      notificationPosition: this.#settings.notificationPosition,
+    };
+
     window.localStorage.setItem(
       `${this.#idAuthorizedUser}:headerPanelConfig`,
-      JSON.stringify(this.#settings)
+      JSON.stringify(settingsToSave)
     );
   }
 
