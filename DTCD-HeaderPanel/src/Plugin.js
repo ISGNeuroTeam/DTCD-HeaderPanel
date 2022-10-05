@@ -17,7 +17,7 @@ export class Plugin extends AppPanelPlugin {
   #workspaceSystem;
   #interactionSystem;
   #idAuthorizedUser = null;
-  static userEndpoint = '/dtcd_utils/v1/user';
+  static userEndpoint = '/dtcd_utils/v1/user?photo_quality=low';
 
   #settings = {
     showPageTitle: false,
@@ -139,16 +139,13 @@ export class Plugin extends AppPanelPlugin {
   #getIdAuthorizedUser = async () => {
     try {
       const response = await this.#interactionSystem.GETRequest(Plugin.userEndpoint);
-      if (typeof response === 'String') {
-        const { id } = JSON.parse(response);
+      if (response?.data) {
+        const { id } = response.data;
         this.#idAuthorizedUser = id;
       }
     } catch (error) {
-      // this.#idAuthorizedUser = null;
-      this.#idAuthorizedUser = 1;
-      if (error.message.indexOf('network error') !== -1) {
-        throw error;
-      }
+      this.#idAuthorizedUser = null;
+      throw error;
     }
     return;
   }
