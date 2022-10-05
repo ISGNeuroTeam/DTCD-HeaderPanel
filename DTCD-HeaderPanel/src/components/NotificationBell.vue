@@ -358,12 +358,13 @@ export default {
     background-color: var(--background_secondary);
     text-align: center;
     z-index: 1;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
     margin-bottom: -5px;
   }
 
   .clear-btn {
     margin-top: 10px;
+    margin-bottom: 5px;
     width: 80%;
   }
 
