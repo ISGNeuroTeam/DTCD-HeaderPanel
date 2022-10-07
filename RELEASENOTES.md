@@ -1,3 +1,9 @@
+## [0.6.1]
+
+### Changed
+
+- design of notifications
+
 # [0.5.0]
 
 ## Added
