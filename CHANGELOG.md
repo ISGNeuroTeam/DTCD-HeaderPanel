@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- saving setting of notification position to localStorage
+
+## [0.6.1]
+
+### Added
+
 - method for adding status icons
 
 ### Changed
