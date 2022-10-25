@@ -1,6 +1,12 @@
-## [0.6.1]
+# [0.7.0]
 
-### Changed
+## Added
+
+- saving setting of notification position to localStorage
+
+# [0.6.1]
+
+## Changed
 
 - design of notifications
 
