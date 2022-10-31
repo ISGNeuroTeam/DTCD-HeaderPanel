@@ -83,15 +83,50 @@
     </div>
 
     <div class="EditMenuPanel">
+      <base-dropdown
+        v-if="showWorkspaceSettings"
+        alignment="right"
+        class="ShareLinkDropdown"
+        @toggle="handleSLDropdownToggle"
+      >
+        <button
+          class="ButtonIcon type_settings"
+          slot="toggle-btn"
+        >
+          <span class="FontIcon name_share"></span>
+        </button>
+        <span slot="icon-arrow"></span>
+
+        <div class="Content">
+          <base-textarea
+            rows="5"
+            readonly
+            :value="this.dashboardUrl"
+          ></base-textarea>
+
+          <base-button
+            theme="theme_blueSec"
+            @click="handleUrlCopyBtnClick"
+          >
+            <span slot="icon-left" class="FontIcon name_copy"></span>
+            Скопировать ссылку
+          </base-button>
+        </div>
+      </base-dropdown>
+
       <button
         v-if="settingsMode && showWorkspaceSettings"
-        @click.stop="openWorkspaceSettings"
         class="ButtonIcon type_settings"
+        @click.stop="openWorkspaceSettings"
       >
         <span class="FontIcon name_dashboard"></span>
       </button>
 
-      <button v-if="showSettingsButton" @click="toggleSetting" class="ButtonIcon type_settings">
+      <button 
+        v-if="showSettingsButton"
+        class="ButtonIcon type_settings"
+        @click="toggleSetting"
+      >
         <span class="FontIcon name_settingsFilled"></span>
       </button>
     </div>
@@ -120,7 +155,6 @@ export default {
   data({ $root }) {
     return {
       settingsMode: false,
-      workspaceSystem: $root.workspaceSystem,
       eventSystem: $root.eventSystem,
       router: $root.router,
       appGUI: $root.appGUI,
@@ -134,6 +168,7 @@ export default {
       panels: {},
       widthInnerDropdownContent: 0,
       countOpenedDropdowns: 0,
+      dashboardUrl: '',
     };
   },
   mounted() {
@@ -169,7 +204,7 @@ export default {
       this.$refs.panelDropdown.toggle();
     },
     openWorkspaceSettings() {
-      const workspaceGuid = this.workspaceSystem.getGUID();
+      const workspaceGuid = this.$root.workspaceSystem.getGUID();
       Application.getSystem('EventSystem', '0.4.0').publishEvent(
         workspaceGuid,
         'WorkspaceCellClicked',
@@ -190,21 +225,21 @@ export default {
       history.back();
     },
     // switchWorkspaceMode() {
-    //   this.workspaceSystem.changeMode();
+    //   this.$root.workspaceSystem.changeMode();
     // },
     toggleSetting() {
       this.settingsMode = !this.settingsMode;
       this.appGUI.toggleSidebar('right', this.settingsMode);
     },
     // applySetting() {
-    //   this.workspaceSystem.saveConfiguration();
+    //   this.$root.workspaceSystem.saveConfiguration();
     //   this.cancelSettings();
     // },
     // cancelSettings() {
     //   this.settingsMode = false;
 
     //   // if (this.$refs.workspaceModeSwitch.value) {
-    //   //   this.workspaceSystem.changeMode();
+    //   //   this.$root.workspaceSystem.changeMode();
     //   // }
 
     //   this.appGUI.toggleSidebar('right');
@@ -221,6 +256,23 @@ export default {
       } else {
         if (this.countOpenedDropdowns < 1) this.widthInnerDropdownContent = 0;
       }
+    },
+    handleSLDropdownToggle(event) {
+      if (event.detail?.opened) {
+        const dashboardUrl = this.$root.workspaceSystem.instance.createURLDashboardState();
+        this.dashboardUrl = dashboardUrl ? dashboardUrl.href : 'Error';
+      }
+    },
+    handleUrlCopyBtnClick() {
+      if (this.dashboardUrl) return;
+
+      navigator.clipboard.writeText(this.dashboardUrl)
+        .then(() => {
+          console.log('Получилось!');
+        })
+        .catch((err) => {
+          console.log('Something went wrong', err);
+        });
     },
   },
 };
@@ -397,4 +449,14 @@ export default {
   .ButtonsGroup
     .ButtonCancel
       padding-right: 20px
+
+  .ShareLinkDropdown
+    .Content
+      background-color: var(--background_main)
+      border: 1px solid var(--border)
+      display: flex
+      flex-direction: column
+      box-shadow: 1px 1px 2px rgba(8, 18, 55, 0.12), 0px 4px 12px rgba(8, 18, 55, 0.12)
+      border-radius: 8px
+      padding: 16px
 </style>
