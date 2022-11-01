@@ -104,6 +104,8 @@
             :value="this.dashboardUrl"
           ></base-textarea>
 
+          <div>Не забудьте сохранить настройки рабочего стола, если вы их меняли.</div>
+
           <base-button
             theme="theme_blueSec"
             @click="handleUrlCopyBtnClick"
