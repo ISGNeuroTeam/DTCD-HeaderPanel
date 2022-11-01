@@ -264,7 +264,7 @@ export default {
       }
     },
     handleUrlCopyBtnClick() {
-      if (this.dashboardUrl) return;
+      if (!this.dashboardUrl) return;
 
       navigator.clipboard.writeText(this.dashboardUrl)
         .then(() => {
