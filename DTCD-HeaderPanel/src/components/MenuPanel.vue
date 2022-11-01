@@ -259,19 +259,31 @@ export default {
     },
     handleSLDropdownToggle(event) {
       if (event.detail?.opened) {
-        const dashboardUrl = this.$root.workspaceSystem.instance.createURLDashboardState();
-        this.dashboardUrl = dashboardUrl ? dashboardUrl.href : 'Error';
+        try {
+          const dashboardUrl = this.$root.workspaceSystem.instance.createURLDashboardState();
+          this.dashboardUrl = dashboardUrl ? dashboardUrl.href : 'Произошла ошибка формирования ссылки рабочего стола.';
+        } catch (error) {
+          this.dashboardUrl = 'Произошла ошибка формирования ссылки рабочего стола.';
+          throw error;
+        }
       }
     },
     handleUrlCopyBtnClick() {
       if (!this.dashboardUrl) return;
 
       navigator.clipboard.writeText(this.dashboardUrl)
-        .then(() => {
-          console.log('Получилось!');
-        })
+        .then(() => {})
         .catch((err) => {
-          console.log('Something went wrong', err);
+          this.$root.logSystem.instance.error('Error copy to buffer: ' + err.message);
+          this.$root.notificationSystem.instance.create(
+            'Error.',
+            'Произошла ошибка копирования ссылки в буфер обмена.',
+            {
+              floatMode: true,
+              floatTime: 5,
+              type: 'error',
+            }
+          );
         });
     },
   },
