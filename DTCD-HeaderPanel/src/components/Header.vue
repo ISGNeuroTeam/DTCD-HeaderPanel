@@ -65,11 +65,12 @@
 
     <div class="HeaderNavRight">
       <NotificationBell class="NotificationBell"/>
-      <base-dropdown class="DropdownSelect" alignment="right">
-        <span class="DropdownUsername" slot="toggle-btn">
+      <base-dropdown class="DropdownSelect" alignment="right">   
+        <span class="DropdownUsername" slot="toggle-btn">     
           <div class="IconUser" ref="userPhoto"></div>
-          <div class="UsernameWrapper" v-text="userData.username" />
+          <div class="UsernameWrapper" v-text="userData.username" />         
         </span>
+         <span slot="icon-arrow" class="FontIcon name_chevronBigDown size_xs"></span>
         <nav class="NavList type_dropdown">
           <a class="NavItem" @click="router.navigate('/profile')">
             <span class="FontIcon name_user"></span>
@@ -220,6 +221,10 @@ export default {
     color: var(--general_white);
   }
 
+  &.name_chevronBigDown {
+    color: var(--general_white);
+  }
+
   &.name_user::before,
   &.name_adminEmpty::before,
   &.name_logout::before {
@@ -284,7 +289,6 @@ export default {
 }
 
 .DropdownSelect {
-  fill: var(--general_white);
   display: contents;
 
   & > * {

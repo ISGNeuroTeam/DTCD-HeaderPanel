@@ -21,19 +21,6 @@
           ref="panelDropdown"
         >
           <span class="DropdownGroup" slot="toggle-btn"> Панели </span>
-          <svg
-            slot="icon-arrow"
-            width="14"
-            height="14"
-            viewBox="0 0 14 14"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M7.00022 9.16572L10.5061 5.65989L9.6818 4.83447L7.00022 7.51781L4.31922 4.83447L3.49438 5.65931L7.00022 9.16572Z"
-              fill="#51515C"
-            />
-          </svg>
           <div
             class="DropdownScrollContainer"
             :style="{ paddingRight: `${widthInnerDropdownContent}px` }"
@@ -99,12 +86,13 @@
 
         <div class="Content">
           <base-textarea
+            class="DashboardLinkField"
             rows="5"
             readonly
             :value="this.dashboardUrl"
           ></base-textarea>
 
-          <div>Не забудьте сохранить настройки рабочего стола, если вы их меняли.</div>
+          <p class="Note">Не забудьте сохранить настройки рабочего стола, если вы их меняли.</p>
 
           <base-button
             theme="theme_blueSec"
@@ -315,6 +303,9 @@ export default {
     &.name_dashboard::before
       color: var(--accent)
 
+    &.name_copy
+      color: var(--button_primary)
+
   .MenuPanel
     display: flex
 
@@ -382,7 +373,6 @@ export default {
       direction: ltr
 
   .DropdownSelect
-    fill: var(--text_main)
     display: contents
 
     & > *
@@ -460,11 +450,19 @@ export default {
     display: flex
     align-items: center
 
+  .DashboardLinkField 
+    padding-bottom: 10px
+
+  .Note    
+    color: var(--text_secondary)
+    margin: 0 0 10px
+
   .ButtonsGroup
     .ButtonCancel
       padding-right: 20px
 
   .ShareLinkDropdown
+    height: 100%
     .Content
       background-color: var(--background_main)
       border: 1px solid var(--border)
