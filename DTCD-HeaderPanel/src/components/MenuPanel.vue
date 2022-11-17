@@ -408,33 +408,33 @@ export default {
       padding: 16px 0
       cursor: default
 
-  .NavItem
-    list-style: none
-
-    &:hover
-      background-color: var(--button_primary_12)
-
-    &:not(:last-child)
-      margin-bottom: $nav-item-margin
-
-  .NavButton
-    display: flex
-    font-size: 14px
-    line-height: 1.58
-    font-weight: 400
-    color: var(--text_main)
-    cursor: pointer
-    align-items: center
-    text-align: initial
-
-    &.without_dropdown
-      padding: 3px 16px
+    .NavItem
+      list-style: none
 
       &:hover
         background-color: var(--button_primary_12)
 
       &:not(:last-child)
         margin-bottom: $nav-item-margin
+
+    .NavButton
+      display: flex
+      font-size: 14px
+      line-height: 1.58
+      font-weight: 400
+      color: var(--text_main)
+      cursor: pointer
+      align-items: center
+      text-align: initial
+
+      &.without_dropdown
+        padding: 3px 16px
+
+        &:hover
+          background-color: var(--button_primary_12)
+
+        &:not(:last-child)
+          margin-bottom: $nav-item-margin
 
   .PanelVersion
     padding-left: 8px
