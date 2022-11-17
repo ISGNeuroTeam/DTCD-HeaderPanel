@@ -6,7 +6,7 @@
           <span class="FontIcon name_homeFill"></span>
         </button>
       </div>
-      <button v-if="showBackButton" class="ButtonIcon type_buttonBack" @click="goBack">
+      <button v-if="showBackButton" class="ButtonIcon type_back" @click="goBack">
         <span class="FontIcon name_arrowBack"></span>
       </button>
 
@@ -17,7 +17,7 @@
       <div class="AdditionalPages">
         <base-dropdown
           v-if="settingsMode && showPanelSelect"
-          class="DropdownSelect"
+          class="PanelDropdownSelect"
           ref="panelDropdown"
         >
           <span class="DropdownGroup" slot="toggle-btn"> Панели </span>
@@ -29,7 +29,7 @@
               <li class="NavItem" v-for="panel in sortedPanels" :key="panels[panel].title">
                 <base-dropdown
                   placement="rightStart"
-                  class="DropdownSelect"
+                  class="PanelDropdownSelect"
                   @toggle="handleTypePanelDropdownToggle"
                 >
                   <span class="DropdownTitle" slot="toggle-btn">
@@ -58,7 +58,7 @@
                       :key="version"
                       @click="addPanel(panel, version)"
                     >
-                      <span class="Text">{{ version }}</span>
+                      <span class="PanelVersion">{{ version }}</span>
                     </a>
                   </nav>
                 </base-dropdown>
@@ -77,14 +77,14 @@
         @toggle="handleSLDropdownToggle"
       >
         <button
-          class="ButtonIcon type_settings"
+          class="ButtonIcon type_edit"
           slot="toggle-btn"
         >
           <span class="FontIcon name_share"></span>
         </button>
         <span slot="icon-arrow"></span>
 
-        <div class="Content">
+        <div class="LinkContent">
           <base-textarea
             class="DashboardLinkField"
             rows="5"
@@ -92,7 +92,7 @@
             :value="this.dashboardUrl"
           ></base-textarea>
 
-          <p class="Note">Не забудьте сохранить настройки рабочего стола, если вы их меняли.</p>
+          <p class="LinkNote">Не забудьте сохранить настройки рабочего стола, если вы их меняли.</p>
 
           <base-button
             theme="theme_blueSec"
@@ -106,7 +106,7 @@
 
       <button
         v-if="settingsMode && showWorkspaceSettings"
-        class="ButtonIcon type_settings"
+        class="ButtonIcon type_edit"
         @click.stop="openWorkspaceSettings"
       >
         <span class="FontIcon name_dashboard"></span>
@@ -114,7 +114,7 @@
 
       <button 
         v-if="showSettingsButton"
-        class="ButtonIcon type_settings"
+        class="ButtonIcon type_edit"
         @click="toggleSetting"
       >
         <span class="FontIcon name_settingsFilled"></span>
@@ -322,13 +322,13 @@ export default {
     padding: 0 12px
     align-items: center
     display: flex
+    height: 100%
 
-    &.type_buttonBack
+    &.type_back
       width: auto
       margin-left: 9px
 
-    &.type_settings
-      height: 100%
+    &.type_edit
 
       @media (max-width: 576px)
         display: none
@@ -372,7 +372,7 @@ export default {
     & > .NavList.type_dropdown
       direction: ltr
 
-  .DropdownSelect
+  .PanelDropdownSelect
     display: contents
 
     & > *
@@ -408,8 +408,27 @@ export default {
       padding: 16px 0
       cursor: default
 
-    .NavItem
-      list-style: none
+  .NavItem
+    list-style: none
+
+    &:hover
+      background-color: var(--button_primary_12)
+
+    &:not(:last-child)
+      margin-bottom: $nav-item-margin
+
+  .NavButton
+    display: flex
+    font-size: 14px
+    line-height: 1.58
+    font-weight: 400
+    color: var(--text_main)
+    cursor: pointer
+    align-items: center
+    text-align: initial
+
+    &.without_dropdown
+      padding: 3px 16px
 
       &:hover
         background-color: var(--button_primary_12)
@@ -417,31 +436,12 @@ export default {
       &:not(:last-child)
         margin-bottom: $nav-item-margin
 
-    .NavButton
-      display: flex
-      font-size: 14px
-      line-height: 1.58
-      font-weight: 400
-      color: var(--text_main)
-      cursor: pointer
-      align-items: center
-      text-align: initial
+  .PanelVersion
+    padding-left: 8px
 
-      &.without_dropdown
-        padding: 3px 16px
-
-        &:hover
-          background-color: var(--button_primary_12)
-
-        &:not(:last-child)
-          margin-bottom: $nav-item-margin
-
-    .Text
-      padding-left: 8px
-
-    svg
-      path
-        fill: var(--accent)
+  svg
+    path
+      fill: var(--accent)
 
   .IconArrow
     margin-right: 16px
@@ -453,7 +453,7 @@ export default {
   .DashboardLinkField 
     padding-bottom: 10px
 
-  .Note    
+  .LinkNote    
     color: var(--text_secondary)
     margin: 0 0 10px
 
@@ -463,12 +463,13 @@ export default {
 
   .ShareLinkDropdown
     height: 100%
-    .Content
-      background-color: var(--background_main)
-      border: 1px solid var(--border)
-      display: flex
-      flex-direction: column
-      box-shadow: 1px 1px 2px rgba(8, 18, 55, 0.12), 0px 4px 12px rgba(8, 18, 55, 0.12)
-      border-radius: 8px
-      padding: 16px
+
+  .LinkContent
+    background-color: var(--background_main)
+    border: 1px solid var(--border)
+    display: flex
+    flex-direction: column
+    box-shadow: 1px 1px 2px rgba(8, 18, 55, 0.12), 0px 4px 12px rgba(8, 18, 55, 0.12)
+    border-radius: 8px
+    padding: 16px
 </style>

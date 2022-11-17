@@ -63,25 +63,25 @@
       <div class="HeaderNavItem">Помощь</div>
     </nav>
 
-    <div class="HeaderNavRight">
+    <div class="HeaderUser">
       <NotificationBell class="NotificationBell"/>
-      <base-dropdown class="DropdownSelect" alignment="right">   
+      <base-dropdown class="DropdownUserSelect" alignment="right">   
         <span class="DropdownUsername" slot="toggle-btn">     
           <div class="IconUser" ref="userPhoto"></div>
           <div class="UsernameWrapper" v-text="userData.username" />         
         </span>
          <span slot="icon-arrow" class="FontIcon name_chevronBigDown size_xs"></span>
-        <nav class="NavList type_dropdown">
-          <a class="NavItem" @click="router.navigate('/profile')">
-            <span class="FontIcon name_user"></span>
+        <nav class="UserNavList">
+          <a class="UserNavItem" @click="router.navigate('/profile')">
+            <span class="FontIcon name_user size_md"></span>
             <span class="Text">Профиль</span>
           </a>
-          <!-- <a class="NavItem" @click="goToAdmin">
-            <span class="FontIcon name_adminEmpty"></span>
+          <!-- <a class="UserNavItem" @click="goToAdmin">
+            <span class="FontIcon name_adminEmpty size_md"></span>
             <span class="Text">Панель администратора</span>
           </a> -->
-          <a class="NavItem" @click="logout">
-            <span class="FontIcon name_logout"></span>
+          <a class="UserNavItem" @click="logout">
+            <span class="FontIcon name_logout size_md"></span>
             <span class="Text">Выход</span>
           </a>
         </nav>
@@ -93,13 +93,13 @@
       </div>
     </div>
 
-    <section class="Menu" :class="{ open: burgerVisibility }">
+    <section class="MenuBurger" :class="{ open: burgerVisibility }">
       <div class="MenuWrapper">
         <div class="MenuHeader">
           <div class="MenuUserPhoto" ref="userPhotoMenu"></div>
           <div>
             <!-- <p class="MenuUserRole">Администратор</p> -->
-            <p class="MenuUsername" v-text="fullName" />
+            <p class="MenuUserName" v-text="fullName" />
           </div>
         </div>
 
@@ -216,19 +216,8 @@ export default {
 .FontIcon {
   color: var(--accent);
 
-  &.name_notification::before {
-    font-size: 18px;
-    color: var(--general_white);
-  }
-
   &.name_chevronBigDown {
     color: var(--general_white);
-  }
-
-  &.name_user::before,
-  &.name_adminEmpty::before,
-  &.name_logout::before {
-    font-size: 20px;
   }
 }
 
@@ -239,7 +228,7 @@ export default {
   margin-right: 10%;
 }
 
-.HeaderNavItem {
+.HeaderUserNavItem {
   font-size: 13px;
   cursor: pointer;
 
@@ -248,7 +237,7 @@ export default {
   }
 }
 
-.HeaderNavRight {
+.HeaderUser {
   display: flex;
   align-items: center;
 }
@@ -288,7 +277,7 @@ export default {
   margin-right: 16px;
 }
 
-.DropdownSelect {
+.DropdownUserSelect {
   display: contents;
 
   & > * {
@@ -316,31 +305,29 @@ export default {
   color: var(--general_white);
 }
 
-.NavList {
-  &.type_dropdown {
-    background-color: var(--background_main);
-    border: 1px solid var(--border);
+.UserNavList { 
+  background-color: var(--background_main);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 1px 1px 2px rgba(8, 18, 55, 0.12), 0px 4px 12px rgba(8, 18, 55, 0.12);
+  border-radius: 8px;
+  padding: 16px;
+
+  .UserNavItem {
+    padding-bottom: 8px;
     display: flex;
-    flex-direction: column;
-    box-shadow: 1px 1px 2px rgba(8, 18, 55, 0.12), 0px 4px 12px rgba(8, 18, 55, 0.12);
-    border-radius: 8px;
-    padding: 16px;
+    font-size: 14px;
+    line-height: 1.58;
+    color: var(--text_main);
+    cursor: pointer;
 
-    .NavItem {
-      padding-bottom: 8px;
-      display: flex;
-      font-size: 14px;
-      line-height: 1.58;
-      color: var(--text_main);
-      cursor: pointer;
+    &:hover {
+      color: var(--button_primary);
+    }
 
-      &:hover {
-        color: var(--button_primary);
-      }
-
-      &:last-child {
-        padding-bottom: 0;
-      }
+    &:last-child {
+      padding-bottom: 0;
     }
   }
 }
@@ -385,7 +372,7 @@ export default {
   }
 }
 
-.Menu {
+.MenuBurger {
   --inner-horizontal-padding: 20px;
 
   height: calc(100% - 30px);
@@ -476,7 +463,7 @@ export default {
     margin-bottom: 0;
   }
 
-  .MenuUsername {
+  .MenuUserName {
     margin: 0;
     font-size: 20px;
     color: var(--general_white);

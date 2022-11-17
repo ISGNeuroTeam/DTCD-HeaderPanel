@@ -4,24 +4,24 @@
     @click="keepOpen = 2"
   >
     <button
-      class="button-icon"
+      class="IconButton"
       @click.prevent="clickOnIcon()"
     >
       <span
-        class="FontIcon name_notification"
+        class="FontIcon name_notification size_md"
         :class="iconClasses"
       ></span>
     </button>
 
     <div
       v-if="showList"
-      class="notification-scrolling"
+      class="NotificationContainer"
     >
-      <div class="notification-list">
-        <div class="btn-header">
+      <div class="NotificationList">
+        <div class="HeaderButton">
           <base-button
             v-if="notifications.length >= 5"
-            class="clear-btn"
+            class="ButtonClear"
             @click.prevent="$root.notificationSystem.clearList()"
             theme="theme_blueSec"
           >
@@ -30,7 +30,7 @@
         </div>
         <div
           v-if="notificationList.length === 0"
-          class="empty-text"
+          class="EmptyNotificationList"
         >
           Уведомлений нет
         </div>
@@ -41,7 +41,7 @@
           <div
             v-for="{ title, body, className, id, hasAction } of notificationList"
             :key="id"
-            class="notification-item"
+            class="NotificationItem"
             :class="className"
           >
             <span 
@@ -51,12 +51,12 @@
             </span>
             <span 
               @click.prevent="$root.notificationSystem.remove(id)" 
-              class="FontIcon name_closeBig size_md close-btn"
+              class="FontIcon name_closeBig size_md ButtonClose"
             >
             </span>
             <div
               v-if="title" 
-              class="title"
+              class="NotificationTitle"
               :class="{
               'has-action': hasAction,
               }"
@@ -71,7 +71,7 @@
             </div>
             <div 
               v-if="body" 
-              class="body-text"
+              class="NotificationBody"
             >
               <vue-show-more-text
                 :text="body"
@@ -87,7 +87,7 @@
       </div>
     </div>
 
-    <div :class="`notification-list floating-list ${settings.notificationPosition}`">
+    <div :class="`NotificationList type_floating ${settings.notificationPosition}`">
       <transition-group 
         name="list" 
         tag="div"
@@ -95,7 +95,7 @@
         <div
           v-for="item of notificationFloatList"
           :key="item.id"
-          class="notification-item"
+          class="NotificationItem"
           :class="item.className"
           @mouseenter="onMouseEnterFloatItem(item)"
         >
@@ -106,12 +106,12 @@
           </span>
           <span 
             @click.prevent="$root.notificationSystem.remove(item.id)"
-            class="FontIcon name_closeBig size_md close-btn"
+            class="FontIcon name_closeBig size_md ButtonClose"
           >
           </span>
           <div
             v-if="item.title"
-            class="title"
+            class="NotificationTitle"
             :class="{
             'has-action': item.hasAction,
             }"
@@ -126,7 +126,7 @@
           </div>
           <div 
             v-if="item.body" 
-            class="body-text"
+            class="NotificationBody"
           >
             <vue-show-more-text
               :text="item.body"
@@ -324,13 +324,13 @@ export default {
     box-sizing: border-box;
   }
 
-  .button-icon {
+  .IconButton {
     background: transparent;
     border: none;
     cursor: pointer;
   }
 
-  .notification-scrolling {
+  .NotificationContainer {
     position: absolute;
     right: 0;
     top: 30px;
@@ -352,7 +352,7 @@ export default {
     }
   }
 
-  .btn-header {
+  .HeaderButton {
     position: sticky;
     top: 0;
     background-color: var(--background_secondary);
@@ -362,19 +362,19 @@ export default {
     margin-bottom: -5px;
   }
 
-  .clear-btn {
+  .ButtonClear {
     margin-top: 10px;
     margin-bottom: 5px;
     width: 80%;
   }
 
-  .empty-text {
+  .EmptyNotificationList {
     padding: 32px 16px;
     text-align: center;
     color: var(--text_main);
   }
 
-  .notification-list {
+  .NotificationList {
     background-color: var(--background_secondary);
     border: 1px solid var(--border);
     border-radius: 8px;
@@ -385,7 +385,7 @@ export default {
     width: 360px;
     margin-right: -8px;
 
-    &.floating-list {
+    &.type_floating {
       position: fixed;
       z-index: 30;
       padding: 0;
@@ -418,84 +418,85 @@ export default {
       border: 4px solid transparent;
       background-clip: content-box;
     }
+  }
 
-    .notification-item {
-      margin: 6px;
-      padding: 10px;
-      background: var(--border_12);
-      border-radius: 8px;
-      border: 1px solid;
-      color: var(--accent);
-      position: relative;
-      min-height: 20px;
+  .NotificationItem {
+    margin: 6px;
+    padding: 10px;
+    background: var(--border_12);
+    border-radius: 8px;
+    border: 1px solid;
+    color: var(--accent);
+    position: relative;
+    min-height: 20px;
 
-      .FrontIcon {
-        position: absolute;
-        left: 0;
-        top: 0;
-        margin: 10px;
-        display: flex;
-        font-size: 18px;
-        align-items: center;
+    &.success {
+      color: var(--success);
+
+      .FontIcon {
+        &.name_circleCheckOutline {
+          color: var(--success);
+        }   
       }
+    }
 
-      .close-btn {
-        position: absolute;
-        right: 0;
-        top: 0;
-        margin: 10px;
-        text-decoration: none;
-        cursor: pointer;
+    &.warning {
+      color: var(--warning);
 
-        &:hover {
-          color: var(--text_main);
-        }
+      .FontIcon {
+        &.name_warningOutline {
+          color: var(--warning);
+        }   
       }
+    }
 
-      .title {
-        font-weight: 700;
-        font-size: 16px;
-        position: relative;
-        margin: 0 18px 0 21px;
-      }
+    &.error {
+      color: var(--danger);
 
-      .body-text {
-        margin-top: 8px;
-        font-size: 14px;
-        color: var(--text_main);
-      }
-
-      &.success {
-        color: var(--success);
-
-        .FontIcon {
-          &.name_circleCheckOutline {
-            color: var(--success);
-          }   
-        }
-      }
-
-      &.warning {
-        color: var(--warning);
-
-        .FontIcon {
-          &.name_warningOutline {
-            color: var(--warning);
-          }   
-        }
-      }
-
-      &.error {
-        color: var(--danger);
-
-        .FontIcon {
-          &.name_offOutlineClose {
-            color: var(--danger);
-          }   
-        }
+      .FontIcon {
+        &.name_offOutlineClose {
+          color: var(--danger);
+        }   
       }
     }
   }
+    
+  .FrontIcon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 10px;
+    display: flex;
+    font-size: 18px;
+    align-items: center;
+  }
+
+  .ButtonClose {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 10px;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--text_main);
+    }
+  }
+
+  .NotificationTitle {
+    font-weight: 700;
+    font-size: 16px;
+    position: relative;
+    margin: 0 18px 0 21px;
+  }
+
+  .NotificationBody {
+    margin-top: 8px;
+    font-size: 14px;
+    color: var(--text_main);
+  }
+  
   .FontIcon {
     color: var(--accent);
 
@@ -505,11 +506,7 @@ export default {
 
     &.name_notification {
       position: relative;
-
-      &::before {
-        font-size: 18px;
-        color: var(--general_white);
-      }
+      color: var(--general_white);
 
       &.indication {
         &::after {
