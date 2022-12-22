@@ -223,14 +223,17 @@ export default {
       }
     },
     sortedVersions(a, b) {
-      
-      const [a1, a2] = String(a).split('.').map(Number);
-      const [b1, b2] = String(b).split('.').map(Number);
+      const param1 = a.split('.');
+      const param2 = b.split('.');
 
-      if (a1 > b1) return 1;
-      if (a1 < b1) return -1;
-      if (a2 > b2) return 1;
-      if (a2 < b2) return -1;
+      const length = Math.max(param1.length, param2.length);
+
+      for (let i = 0; i < length; i++) {
+        const value = (Number(param1[i]) || 0) - (Number(param2[i]) || 0);
+        if (value < 0) return -1;
+        if (value > 0) return 1;
+      }
+
       return 0;
     },
   },
