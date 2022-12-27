@@ -10,12 +10,14 @@ import {
   RouteSystemAdapter,
   AppGUISystemAdapter,
   NotificationSystemAdapter,
+  LogSystemAdapter,
 } from './../../DTCD-SDK/index';
 
 export class Plugin extends AppPanelPlugin {
   #vue;
   #workspaceSystem;
   #interactionSystem;
+  #logSystem;
   #idAuthorizedUser = null;
   static userEndpoint = '/dtcd_utils/v1/user?photo_quality=low';
 
@@ -42,6 +44,7 @@ export class Plugin extends AppPanelPlugin {
     const router = new RouteSystemAdapter('0.1.0');
     const appGUI = new AppGUISystemAdapter('0.1.0');
     const notificationSystem = new NotificationSystemAdapter('0.1.0');
+    this.#logSystem = new LogSystemAdapter('0.7.0', guid, Plugin.getRegistrationMeta().name);
 
     eventSystem.registerPluginInstance(this, [
       'newNotify',
@@ -66,6 +69,7 @@ export class Plugin extends AppPanelPlugin {
       router,
       appGUI,
       notificationSystem,
+      logSystem: this.#logSystem,
       settings: this.#settings,
     };
 
