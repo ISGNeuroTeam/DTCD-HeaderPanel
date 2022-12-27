@@ -74,7 +74,7 @@
         v-if="showWorkspaceSettings"
         alignment="right"
         class="ShareLinkDropdown"
-        @toggle="handleSLDropdownToggle"
+        @toggle="(event) => this.visibleShareLink = event.detail.opened"
       >
         <button
           class="ButtonIcon type_edit"
@@ -83,25 +83,7 @@
           <span class="FontIcon name_share"></span>
         </button>
         <span slot="icon-arrow"></span>
-
-        <div class="LinkContent">
-          <base-textarea
-            class="DashboardLinkField"
-            rows="5"
-            readonly
-            :value="this.dashboardUrl"
-          ></base-textarea>
-
-          <p class="LinkNote">Не забудьте сохранить настройки рабочего стола, если вы их меняли.</p>
-
-          <base-button
-            theme="theme_blueSec"
-            @click="handleUrlCopyBtnClick"
-          >
-            <span slot="icon-left" class="FontIcon name_copy"></span>
-            Скопировать ссылку
-          </base-button>
-        </div>
+        <share-link v-if="visibleShareLink"/>
       </base-dropdown>
 
       <button
@@ -140,7 +122,9 @@
 </template>
 
 <script>
+import ShareLink from './ShareLink.vue';
 export default {
+  components: { ShareLink },
   name: 'MenuPanelComponent',
   data({ $root }) {
     return {
@@ -158,7 +142,7 @@ export default {
       panels: {},
       widthInnerDropdownContent: 0,
       countOpenedDropdowns: 0,
-      dashboardUrl: '',
+      visibleShareLink: false,
     };
   },
   mounted() {
@@ -246,35 +230,6 @@ export default {
       } else {
         if (this.countOpenedDropdowns < 1) this.widthInnerDropdownContent = 0;
       }
-    },
-    handleSLDropdownToggle(event) {
-      if (event.detail?.opened) {
-        try {
-          const dashboardUrl = this.$root.workspaceSystem.instance.createURLDashboardState();
-          this.dashboardUrl = dashboardUrl ? dashboardUrl.href : 'Произошла ошибка формирования ссылки рабочего стола.';
-        } catch (error) {
-          this.dashboardUrl = 'Произошла ошибка формирования ссылки рабочего стола.';
-          throw error;
-        }
-      }
-    },
-    handleUrlCopyBtnClick() {
-      if (!this.dashboardUrl) return;
-
-      navigator.clipboard.writeText(this.dashboardUrl)
-        .then(() => {})
-        .catch((err) => {
-          this.$root.logSystem.instance.error('Error copy to buffer: ' + err.message);
-          this.$root.notificationSystem.instance.create(
-            'Error.',
-            'Произошла ошибка копирования ссылки в буфер обмена.',
-            {
-              floatMode: true,
-              floatTime: 5,
-              type: 'error',
-            }
-          );
-        });
     },
   },
 };
@@ -450,26 +405,10 @@ export default {
     display: flex
     align-items: center
 
-  .DashboardLinkField 
-    padding-bottom: 10px
-
-  .LinkNote    
-    color: var(--text_secondary)
-    margin: 0 0 10px
-
   .ButtonsGroup
     .ButtonCancel
       padding-right: 20px
 
   .ShareLinkDropdown
     height: 100%
-
-  .LinkContent
-    background-color: var(--background_main)
-    border: 1px solid var(--border)
-    display: flex
-    flex-direction: column
-    box-shadow: 1px 1px 2px rgba(8, 18, 55, 0.12), 0px 4px 12px rgba(8, 18, 55, 0.12)
-    border-radius: 8px
-    padding: 16px
 </style>
