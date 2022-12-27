@@ -9,11 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- plugins version sorting
 - interface for copying dashboard link
-
-### Changed
-
-- the design of dropdown that show dashboard link
 
 ## [0.7.0]
 

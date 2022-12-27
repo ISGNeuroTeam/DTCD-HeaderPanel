@@ -54,7 +54,7 @@
                   <nav class="NavList type_dropdown">
                     <a
                       class="NavButton without_dropdown"
-                      v-for="version in panels[panel].versions.sort()"
+                      v-for="version in panels[panel].versions.sort(sortedVersions)"
                       :key="version"
                       @click="addPanel(panel, version)"
                     >
@@ -230,6 +230,20 @@ export default {
       } else {
         if (this.countOpenedDropdowns < 1) this.widthInnerDropdownContent = 0;
       }
+    },
+    sortedVersions(a, b) {
+      const param1 = a.split('.');
+      const param2 = b.split('.');
+
+      const length = Math.max(param1.length, param2.length);
+
+      for (let i = 0; i < length; i++) {
+        const value = (Number(param1[i]) || 0) - (Number(param2[i]) || 0);
+        if (value < 0) return -1;
+        if (value > 0) return 1;
+      }
+
+      return 0;
     },
   },
 };
