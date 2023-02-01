@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - plugins version sorting
 - interface for copying dashboard link
 
+### Fixed
+
+- notification behavior after mouseover
+
 ## [0.7.0]
 
 ### Added
