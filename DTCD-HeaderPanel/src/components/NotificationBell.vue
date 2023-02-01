@@ -98,6 +98,7 @@
           class="NotificationItem"
           :class="item.className"
           @mouseenter="onMouseEnterFloatItem(item)"
+          @mouseleave="onMouseLeaveFloatItem(item)"
         >
           <span 
             class="FontIcon FrontIcon"
@@ -269,11 +270,15 @@ export default {
       }
 
       if (options.floatMode) {
-        options.floatTimeOut = setTimeout(() => {
-          options.floatMode = false;
-          options.floatTimeOut = undefined;
-        }, (options.floatTime || 5) * 1000)
+        this.setTimer(options);
       }
+    },
+
+    setTimer(options)  {
+      options.floatTimeOut = setTimeout(() => {
+        options.floatMode = false;
+        options.floatTimeOut = undefined;
+      }, (options.floatTime || 5) * 1000)
     },
 
     removeNotification(id) {
@@ -295,11 +300,15 @@ export default {
     },
 
     onMouseEnterFloatItem(item) {
-      if (item.options.floatTimeOut) {
+      if (item.options.floatTimeOut) {  
         clearTimeout(item.options.floatTimeOut);
         item.options.floatTimeOut = undefined;
       }
     },
+
+    onMouseLeaveFloatItem(item) {
+      this.setTimer(item.options);
+    }
   }
 }
 </script>
