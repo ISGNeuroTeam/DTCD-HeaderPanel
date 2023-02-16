@@ -72,6 +72,7 @@
     <div class="EditMenuPanel">
       <base-dropdown
         v-if="showWorkspaceSettings"
+        v-show="false"
         alignment="right"
         class="ShareLinkDropdown"
         @toggle="(event) => this.visibleShareLink = event.detail.opened"
