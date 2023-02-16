@@ -1,0 +1,5 @@
+# получение логотипов
+location /logo {
+  alias /opt/otp/static/logo;
+  autoindex on;
+}
