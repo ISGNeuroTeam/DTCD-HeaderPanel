@@ -38,6 +38,7 @@ build: $(PROJECT_NAME)/node_modules COMPONENTS
 	echo Building started...
 	npm run build --prefix ./$(PROJECT_NAME)
 	mv ./$(PROJECT_NAME)/build ./
+	cp -r ./docs build/
 	cp README.md ./build/
 	cp CHANGELOG.md ./build/
 	cp LICENSE.md ./build/;
