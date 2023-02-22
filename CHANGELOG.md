@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - interface for copying dashboard link
 - download logo
 
+### Changed
+
+- positioning of bottom notifications
+
 ### Fixed
 
 - notification behavior after mouseover

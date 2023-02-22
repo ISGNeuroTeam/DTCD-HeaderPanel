@@ -404,7 +404,7 @@ export default {
       box-shadow: none;
       max-height: 100%;
       right: 0;
-      bottom: 0;
+      bottom: 20px;
       &.top {
         bottom: auto;
         top: 20px;
