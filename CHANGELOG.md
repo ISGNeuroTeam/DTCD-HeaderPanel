@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - plugins version sorting
 - interface for copying dashboard link
 - download logo
+- only priority notification class is reflected
 
 ### Changed
 
@@ -20,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - notification behavior after mouseover
+- incorrect coloring of the bell
 
 ## [0.7.0]
 
