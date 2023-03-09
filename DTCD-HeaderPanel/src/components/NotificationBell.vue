@@ -202,17 +202,20 @@ export default {
       const {
         notifications,
       } = this;
+
+      let checkСondition = !!notifications.length ? 'indication' : '';
+
       if (notifications.findIndex(({options}) => options.type === 'error') !== -1) {
-        return `${!!notifications.length ? 'indication' : ''} has-error`
+        return `${checkСondition} type_error`
       }
       if (notifications.findIndex(({options}) => options.type === 'warning') !== -1) {
-        return `${!!notifications.length ? 'indication' : ''} has-warning`
+        return `${checkСondition} type_warning`
       }
       if (notifications.findIndex(({options}) => options.type === 'success') !== -1) {
-        return `${!!notifications.length ? 'indication' : ''} has-success`
+        return `${checkСondition} type_success`
       }
 
-      return `${!!notifications.length ? 'indication' : ''}`
+      return `${checkСondition}`
     }, 
   },
   mounted() {
@@ -535,19 +538,19 @@ export default {
           top: 0;
         }
 
-        &.has-success {
+        &.type_success {
           &::after {
             background-color: var(--success);
           }
         }
 
-        &.has-warning {
+        &.type_warning {
           &::after {
             background-color: var(--warning);
           }
         }
 
-        &.has-error {
+        &.type_error {
           &::after {
             background-color: var(--danger);
           }
