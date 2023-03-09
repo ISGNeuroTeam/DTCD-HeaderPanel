@@ -202,13 +202,21 @@ export default {
       const {
         notifications,
       } = this;
-      return {
-        indication: !!notifications.length,
-        'has-success': notifications.findIndex(({options}) => options.type === 'success') !== -1,
-        'has-warning': notifications.findIndex(({options}) => options.type === 'warning') !== -1,
-        'has-error': notifications.findIndex(({options}) => options.type === 'error') !== -1,
-      };
-    },
+
+      let className = !!notifications.length ? 'indication' : '';
+
+      if (notifications.findIndex(({options}) => options.type === 'error') !== -1) {
+        return `${className} type_error`
+      }
+      if (notifications.findIndex(({options}) => options.type === 'warning') !== -1) {
+        return `${className} type_warning`
+      }
+      if (notifications.findIndex(({options}) => options.type === 'success') !== -1) {
+        return `${className} type_success`
+      }
+
+      return `${className}`
+    }, 
   },
   mounted() {
     this.notifications = this.$root.notificationSystem.getList();
@@ -530,20 +538,19 @@ export default {
           top: 0;
         }
 
-        &.has-success {
+        &.type_success {
           &::after {
             background-color: var(--success);
           }
         }
 
-        &.has-warning {
+        &.type_warning {
           &::after {
             background-color: var(--warning);
           }
-          color: var(--warning);
         }
 
-        &.has-error {
+        &.type_error {
           &::after {
             background-color: var(--danger);
           }
