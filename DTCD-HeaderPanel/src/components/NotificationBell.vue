@@ -203,19 +203,19 @@ export default {
         notifications,
       } = this;
 
-      let checkСondition = !!notifications.length ? 'indication' : '';
+      let className = !!notifications.length ? 'indication' : '';
 
       if (notifications.findIndex(({options}) => options.type === 'error') !== -1) {
-        return `${checkСondition} type_error`
+        return `${className} type_error`
       }
       if (notifications.findIndex(({options}) => options.type === 'warning') !== -1) {
-        return `${checkСondition} type_warning`
+        return `${className} type_warning`
       }
       if (notifications.findIndex(({options}) => options.type === 'success') !== -1) {
-        return `${checkСondition} type_success`
+        return `${className} type_success`
       }
 
-      return `${checkСondition}`
+      return `${className}`
     }, 
   },
   mounted() {
