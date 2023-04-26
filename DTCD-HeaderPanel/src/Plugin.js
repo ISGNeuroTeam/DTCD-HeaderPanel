@@ -100,6 +100,10 @@ export class Plugin extends AppPanelPlugin {
     this.#vue.$emit('onClearNotifyList')
   }
 
+  showTitle(title) {
+    this.#vue.$children[0].$children[1].title = title;
+  }
+
   setPluginConfig(configuration) {
     for (let setting in configuration) {
       if (this.#settings.hasOwnProperty(setting)) {

@@ -144,6 +144,7 @@ export default {
       widthInnerDropdownContent: 0,
       countOpenedDropdowns: 0,
       visibleShareLink: false,
+      title: '',
     };
   },
   mounted() {
@@ -163,7 +164,10 @@ export default {
   },
   computed: {
     routeTitle() {
-      return this.router.getRouteTitle();
+      if (this.router.getRouteTitle() == 'Рабочий стол') {
+        return this.title;
+      }
+      return this.router.getRouteTitle(); 
     },
     sortedPanels() {
       return Object.keys(this.panels).sort((a, b) => {
