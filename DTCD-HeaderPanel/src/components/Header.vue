@@ -14,10 +14,10 @@
 
     <div class="HeaderUser">
       <NotificationBell class="NotificationBell"/>
-      <base-dropdown class="DropdownUserSelect" alignment="right">   
-        <span class="DropdownUsername" slot="toggle-btn">     
+      <base-dropdown class="DropdownUserSelect" alignment="right">
+        <span class="DropdownUsername" slot="toggle-btn">
           <div class="IconUser" ref="userPhoto"></div>
-          <div class="UsernameWrapper" v-text="userData.username" />         
+          <div class="UsernameWrapper" v-text="userData.username" />
         </span>
         <span slot="icon-arrow" class="FontIcon name_chevronBigDown size_xs"></span>
         <nav class="UserNavList">
@@ -87,6 +87,7 @@ export default {
     return {
       router: $root.router,
       interactionSystem: $root.interactionSystem,
+      storageSystem: $root.storageSystem,
       burgerVisibility: false,
       userData: {
         username: '',
@@ -127,6 +128,7 @@ export default {
         if (key in this.userData) {
           this.userData[key] = value;
           if (key === 'photo') this.setUserPhotoBackground(value);
+          if (key === 'username') this.storageSystem.session.system.putRecord('_username', value);
         }
       }
     },
@@ -269,7 +271,7 @@ export default {
   color: var(--general_white);
 }
 
-.UserNavList { 
+.UserNavList {
   background-color: var(--background_main);
   border: 1px solid var(--border);
   display: flex;

@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - download logo
 - only priority notification class is reflected
 - displaying of workspace title when it's opened
+- current username is put into storage
 
 ### Changed
 
