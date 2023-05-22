@@ -5,11 +5,35 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.8.0]
+
+### Added
+
+- plugins version sorting
+- interface for copying dashboard link
+- download logo
+- only priority notification class is reflected
+- displaying of workspace title when it's opened
+- current username is put into storage
+
+### Changed
+
+- positioning of bottom notifications
+
+### Fixed
+
+- notification behavior after mouseover
+- incorrect coloring of the bell
+
 ## [0.7.0]
 
 ### Added
 
 - saving setting of notification position to localStorage
+
+### Changed
+
+- margin and padding for deletes all notifications button
 
 ## [0.6.1]
 

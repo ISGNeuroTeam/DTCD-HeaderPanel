@@ -10,12 +10,16 @@ import {
   RouteSystemAdapter,
   AppGUISystemAdapter,
   NotificationSystemAdapter,
+  LogSystemAdapter,
+  StorageSystemAdapter,
 } from './../../DTCD-SDK/index';
 
 export class Plugin extends AppPanelPlugin {
   #vue;
   #workspaceSystem;
   #interactionSystem;
+  #storageSystem;
+  #logSystem;
   #idAuthorizedUser = null;
   static userEndpoint = '/dtcd_utils/v1/user?photo_quality=low';
 
@@ -38,10 +42,12 @@ export class Plugin extends AppPanelPlugin {
     const eventSystem = new EventSystemAdapter('0.4.0', guid);
     this.#interactionSystem = new InteractionSystemAdapter('0.4.0');
     this.#workspaceSystem = new WorkspaceSystemAdapter('0.4.0');
+    this.#storageSystem = new StorageSystemAdapter('0.9.0');
     const styleSystem = new StyleSystemAdapter('0.4.0');
     const router = new RouteSystemAdapter('0.1.0');
     const appGUI = new AppGUISystemAdapter('0.1.0');
     const notificationSystem = new NotificationSystemAdapter('0.1.0');
+    this.#logSystem = new LogSystemAdapter('0.7.0', guid, Plugin.getRegistrationMeta().name);
 
     eventSystem.registerPluginInstance(this, [
       'newNotify',
@@ -62,10 +68,12 @@ export class Plugin extends AppPanelPlugin {
       interactionSystem: this.#interactionSystem,
       eventSystem,
       workspaceSystem: this.#workspaceSystem,
+      storageSystem: this.#storageSystem,
       styleSystem,
       router,
       appGUI,
       notificationSystem,
+      logSystem: this.#logSystem,
       settings: this.#settings,
     };
 
@@ -94,6 +102,10 @@ export class Plugin extends AppPanelPlugin {
 
   onClearNotifyList(id) {
     this.#vue.$emit('onClearNotifyList')
+  }
+
+  showTitle(title) {
+    this.#vue.$children[0].$children[1].title = title;
   }
 
   setPluginConfig(configuration) {

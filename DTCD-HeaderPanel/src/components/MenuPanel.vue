@@ -6,7 +6,7 @@
           <span class="FontIcon name_homeFill"></span>
         </button>
       </div>
-      <button v-if="showBackButton" class="ButtonIcon type_buttonBack" @click="goBack">
+      <button v-if="showBackButton" class="ButtonIcon type_back" @click="goBack">
         <span class="FontIcon name_arrowBack"></span>
       </button>
 
@@ -17,23 +17,10 @@
       <div class="AdditionalPages">
         <base-dropdown
           v-if="settingsMode && showPanelSelect"
-          class="DropdownSelect"
+          class="PanelDropdownSelect"
           ref="panelDropdown"
         >
           <span class="DropdownGroup" slot="toggle-btn"> Панели </span>
-          <svg
-            slot="icon-arrow"
-            width="14"
-            height="14"
-            viewBox="0 0 14 14"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M7.00022 9.16572L10.5061 5.65989L9.6818 4.83447L7.00022 7.51781L4.31922 4.83447L3.49438 5.65931L7.00022 9.16572Z"
-              fill="#51515C"
-            />
-          </svg>
           <div
             class="DropdownScrollContainer"
             :style="{ paddingRight: `${widthInnerDropdownContent}px` }"
@@ -42,7 +29,7 @@
               <li class="NavItem" v-for="panel in sortedPanels" :key="panels[panel].title">
                 <base-dropdown
                   placement="rightStart"
-                  class="DropdownSelect"
+                  class="PanelDropdownSelect"
                   @toggle="handleTypePanelDropdownToggle"
                 >
                   <span class="DropdownTitle" slot="toggle-btn">
@@ -67,11 +54,11 @@
                   <nav class="NavList type_dropdown">
                     <a
                       class="NavButton without_dropdown"
-                      v-for="version in panels[panel].versions.sort()"
+                      v-for="version in panels[panel].versions.sort(sortedVersions)"
                       :key="version"
                       @click="addPanel(panel, version)"
                     >
-                      <span class="Text">{{ version }}</span>
+                      <span class="PanelVersion">{{ version }}</span>
                     </a>
                   </nav>
                 </base-dropdown>
@@ -83,15 +70,36 @@
     </div>
 
     <div class="EditMenuPanel">
+      <base-dropdown
+        v-if="showWorkspaceSettings"
+        v-show="false"
+        alignment="right"
+        class="ShareLinkDropdown"
+        @toggle="(event) => this.visibleShareLink = event.detail.opened"
+      >
+        <button
+          class="ButtonIcon type_edit"
+          slot="toggle-btn"
+        >
+          <span class="FontIcon name_share"></span>
+        </button>
+        <span slot="icon-arrow"></span>
+        <share-link v-if="visibleShareLink"/>
+      </base-dropdown>
+
       <button
         v-if="settingsMode && showWorkspaceSettings"
+        class="ButtonIcon type_edit"
         @click.stop="openWorkspaceSettings"
-        class="ButtonIcon type_settings"
       >
         <span class="FontIcon name_dashboard"></span>
       </button>
 
-      <button v-if="showSettingsButton" @click="toggleSetting" class="ButtonIcon type_settings">
+      <button 
+        v-if="showSettingsButton"
+        class="ButtonIcon type_edit"
+        @click="toggleSetting"
+      >
         <span class="FontIcon name_settingsFilled"></span>
       </button>
     </div>
@@ -115,12 +123,13 @@
 </template>
 
 <script>
+import ShareLink from './ShareLink.vue';
 export default {
+  components: { ShareLink },
   name: 'MenuPanelComponent',
   data({ $root }) {
     return {
       settingsMode: false,
-      workspaceSystem: $root.workspaceSystem,
       eventSystem: $root.eventSystem,
       router: $root.router,
       appGUI: $root.appGUI,
@@ -134,6 +143,8 @@ export default {
       panels: {},
       widthInnerDropdownContent: 0,
       countOpenedDropdowns: 0,
+      visibleShareLink: false,
+      title: '',
     };
   },
   mounted() {
@@ -153,7 +164,10 @@ export default {
   },
   computed: {
     routeTitle() {
-      return this.router.getRouteTitle();
+      if (this.router.getRouteTitle() == 'Рабочий стол') {
+        return this.title;
+      }
+      return this.router.getRouteTitle(); 
     },
     sortedPanels() {
       return Object.keys(this.panels).sort((a, b) => {
@@ -169,7 +183,7 @@ export default {
       this.$refs.panelDropdown.toggle();
     },
     openWorkspaceSettings() {
-      const workspaceGuid = this.workspaceSystem.getGUID();
+      const workspaceGuid = this.$root.workspaceSystem.getGUID();
       Application.getSystem('EventSystem', '0.4.0').publishEvent(
         workspaceGuid,
         'WorkspaceCellClicked',
@@ -190,21 +204,21 @@ export default {
       history.back();
     },
     // switchWorkspaceMode() {
-    //   this.workspaceSystem.changeMode();
+    //   this.$root.workspaceSystem.changeMode();
     // },
     toggleSetting() {
       this.settingsMode = !this.settingsMode;
       this.appGUI.toggleSidebar('right', this.settingsMode);
     },
     // applySetting() {
-    //   this.workspaceSystem.saveConfiguration();
+    //   this.$root.workspaceSystem.saveConfiguration();
     //   this.cancelSettings();
     // },
     // cancelSettings() {
     //   this.settingsMode = false;
 
     //   // if (this.$refs.workspaceModeSwitch.value) {
-    //   //   this.workspaceSystem.changeMode();
+    //   //   this.$root.workspaceSystem.changeMode();
     //   // }
 
     //   this.appGUI.toggleSidebar('right');
@@ -221,6 +235,20 @@ export default {
       } else {
         if (this.countOpenedDropdowns < 1) this.widthInnerDropdownContent = 0;
       }
+    },
+    sortedVersions(a, b) {
+      const param1 = a.split('.');
+      const param2 = b.split('.');
+
+      const length = Math.max(param1.length, param2.length);
+
+      for (let i = 0; i < length; i++) {
+        const value = (Number(param1[i]) || 0) - (Number(param2[i]) || 0);
+        if (value < 0) return -1;
+        if (value > 0) return 1;
+      }
+
+      return 0;
     },
   },
 };
@@ -249,6 +277,9 @@ export default {
     &.name_dashboard::before
       color: var(--accent)
 
+    &.name_copy
+      color: var(--button_primary)
+
   .MenuPanel
     display: flex
 
@@ -265,13 +296,13 @@ export default {
     padding: 0 12px
     align-items: center
     display: flex
+    height: 100%
 
-    &.type_buttonBack
+    &.type_back
       width: auto
       margin-left: 9px
 
-    &.type_settings
-      height: 100%
+    &.type_edit
 
       @media (max-width: 576px)
         display: none
@@ -315,8 +346,7 @@ export default {
     & > .NavList.type_dropdown
       direction: ltr
 
-  .DropdownSelect
-    fill: var(--text_main)
+  .PanelDropdownSelect
     display: contents
 
     & > *
@@ -380,12 +410,12 @@ export default {
         &:not(:last-child)
           margin-bottom: $nav-item-margin
 
-    .Text
-      padding-left: 8px
+  .PanelVersion
+    padding-left: 8px
 
-    svg
-      path
-        fill: var(--accent)
+  svg
+    path
+      fill: var(--accent)
 
   .IconArrow
     margin-right: 16px
@@ -397,4 +427,7 @@ export default {
   .ButtonsGroup
     .ButtonCancel
       padding-right: 20px
+
+  .ShareLinkDropdown
+    height: 100%
 </style>
