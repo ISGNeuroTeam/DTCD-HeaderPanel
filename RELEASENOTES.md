@@ -1,3 +1,20 @@
+# [0.8.0]
+
+## Added
+
+- plugins version sorting in dropdown selection of panels
+- interface for copying dashboard link
+- displaying of workspace title when it's opened
+
+## Changed
+
+- positioning of bottom notifications
+
+## Fixed
+
+- notification behavior after mouseover
+- incorrect coloring of the bell
+
 # [0.7.0]
 
 ## Added
