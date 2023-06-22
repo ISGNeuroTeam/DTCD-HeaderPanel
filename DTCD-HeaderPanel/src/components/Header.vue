@@ -2,18 +2,14 @@
   <div class="HeaderTop">
     <nav class="HeaderNav">
       <div ref="logoWrapper" class="LogoWrapper">
-        <img
-          @error="handleLogoErrorLoad"
-          src="/logo/logo.svg"
-          alt="logo"
-        >
+        <img @error="handleLogoErrorLoad" src="/logo/logo.svg" alt="logo" />
       </div>
-      <div class="HeaderNavItem">Дашборды</div>
-      <div class="HeaderNavItem">Помощь</div>
+      <!-- <div class="HeaderNavItem">Дашборды</div> -->
+      <!-- <div class="HeaderNavItem">Помощь</div> -->
     </nav>
 
     <div class="HeaderUser">
-      <NotificationBell class="NotificationBell"/>
+      <NotificationBell class="NotificationBell" />
       <base-dropdown class="DropdownUserSelect" alignment="right">
         <span class="DropdownUsername" slot="toggle-btn">
           <div class="IconUser" ref="userPhoto"></div>
@@ -146,7 +142,7 @@ export default {
 
     handleLogoErrorLoad() {
       this.$refs.logoWrapper.innerHTML = LOGO_DATACAD;
-    }
+    },
   },
 };
 </script>
