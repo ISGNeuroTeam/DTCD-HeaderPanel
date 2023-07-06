@@ -1,3 +1,9 @@
+# [0.9.0]
+
+## Removed
+
+- useless sections in header
+
 # [0.8.0]
 
 ## Added
