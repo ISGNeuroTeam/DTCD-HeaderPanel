@@ -87,21 +87,64 @@
         <share-link v-if="visibleShareLink"/>
       </base-dropdown>
 
-      <button
+      <!-- <button
         v-if="settingsMode && showWorkspaceSettings"
         class="ButtonIcon type_edit"
         @click.stop="openWorkspaceSettings"
       >
         <span class="FontIcon name_dashboard"></span>
-      </button>
+      </button> -->
 
-      <button 
+      <base-tooltip
         v-if="showSettingsButton"
-        class="ButtonIcon type_edit"
-        @click="toggleSetting"
+        content="Редактировать"
+        placement="bottom"
+        class="BtnWrapper"
       >
-        <span class="FontIcon name_settingsFilled"></span>
-      </button>
+        <base-switch
+          v-if="showWorkspaceSettings"
+          @click.stop=""
+        ></base-switch>
+      </base-tooltip>
+
+      <base-tooltip
+        v-if="showSettingsButton"
+        content="Сохранить"
+        placement="bottom"
+        class="BtnWrapper"
+      >
+        <button 
+          class="ButtonIcon type_edit"
+          @click.stop=""
+        >
+          <span class="FontIcon name_save"></span>
+        </button>
+      </base-tooltip>
+
+      <base-tooltip
+        v-if="showSettingsButton"
+        content="Настройки"
+        placement="bottom"
+        class="BtnWrapper"
+      >
+        <button 
+          v-if="showWorkspaceSettings"
+          class="ButtonIcon type_edit"
+          :class="settingsMode && 'active'"
+          @click.stop="openWorkspaceSettings"
+        >
+          <span class="FontIcon name_settingsFilled"></span>
+        </button>
+
+        <button 
+          v-if="!showWorkspaceSettings"
+          class="ButtonIcon type_edit"
+          :class="settingsMode && 'active'"
+          @click="toggleSetting"
+        >
+          <span class="FontIcon name_settingsFilled"></span>
+        </button>
+      </base-tooltip>
     </div>
 
     <!-- <div class="ButtonsGroup">
@@ -130,10 +173,6 @@ export default {
   data({ $root }) {
     return {
       settingsMode: false,
-      eventSystem: $root.eventSystem,
-      router: $root.router,
-      appGUI: $root.appGUI,
-      plugin: $root.plugin,
       showPageTitle: false,
       showAddPanelButton: false,
       showBackButton: false,
@@ -176,6 +215,15 @@ export default {
         return 0;
       });
     },
+    router(){
+      return this.$root.router;
+    },
+    appGUI(){
+      return this.$root.appGUI;
+    },
+    plugin(){
+      return this.$root.plugin;
+    },
   },
   methods: {
     addPanel(name, version) {
@@ -183,14 +231,17 @@ export default {
       this.$refs.panelDropdown.toggle();
     },
     openWorkspaceSettings() {
+      this.settingsMode = true;
       const workspaceGuid = this.$root.workspaceSystem.getGUID();
-      Application.getSystem('EventSystem', '0.4.0').publishEvent(
+      
+      window.Application.getSystem('EventSystem', '0.4.0').publishEvent(
         workspaceGuid,
         'WorkspaceCellClicked',
         {
           guid: workspaceGuid,
         }
       );
+      this.appGUI.toggleSidebar('right', true);
     },
     setPanelSettings(settings) {
       for (let key in settings) {
@@ -293,20 +344,21 @@ export default {
     border: none
     cursor: pointer
     background-color: transparent
-    padding: 0 12px
+    // padding: 0 12px
     align-items: center
     display: flex
-    height: 100%
+    width: 40px
+    height: 40px
 
     &.type_back
-      width: auto
+      // width: auto
       margin-left: 9px
 
     &.type_edit
-
       @media (max-width: 576px)
         display: none
 
+    &.active,
     &:hover
       background: rgba(198, 198, 212, 0.2)
 
@@ -423,6 +475,13 @@ export default {
   .EditMenuPanel
     display: flex
     align-items: center
+
+    .BtnWrapper
+      display: inline-flex
+      align-items: center
+      justify-content: center
+      width: 40px
+      height: 40px
 
   .ButtonsGroup
     .ButtonCancel
