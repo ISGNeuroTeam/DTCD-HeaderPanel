@@ -99,23 +99,25 @@
         v-if="showSettingsButton"
         content="Редактировать"
         placement="bottom"
-        class="BtnWrapper"
+        class="UIElementWrapper with_switch"
       >
         <base-switch
           v-if="showWorkspaceSettings"
+          :checked="isWorkspaceInEditMode"
           @click.stop=""
+          @input="handleSettingsModeChange"
         ></base-switch>
       </base-tooltip>
 
       <base-tooltip
-        v-if="showSettingsButton"
-        content="Сохранить"
+        v-if="showWorkspaceSettings"
+        content="Сохранить рабочий стол"
         placement="bottom"
-        class="BtnWrapper"
+        class="UIElementWrapper"
       >
         <button 
           class="ButtonIcon type_edit"
-          @click.stop=""
+          @click.stop="handleSaveWorkspaceClick"
         >
           <span class="FontIcon name_save"></span>
         </button>
@@ -125,7 +127,7 @@
         v-if="showSettingsButton"
         content="Настройки"
         placement="bottom"
-        class="BtnWrapper"
+        class="UIElementWrapper"
       >
         <button 
           v-if="showWorkspaceSettings"
@@ -173,6 +175,7 @@ export default {
   data({ $root }) {
     return {
       settingsMode: false,
+      isWorkspaceInEditMode: false,
       showPageTitle: false,
       showAddPanelButton: false,
       showBackButton: false,
@@ -200,6 +203,10 @@ export default {
           };
         }
       });
+
+    this.$root.$on('onWorkspaceEditModeChange', (event) => {
+      this.isWorkspaceInEditMode = event.editMode;
+    });
   },
   computed: {
     routeTitle() {
@@ -214,6 +221,9 @@ export default {
         if (this.panels[a].title < this.panels[b].title) return -1;
         return 0;
       });
+    },
+    eventSystem() {
+      return window.Application.getSystem('EventSystem', '0.4.0');
     },
     router(){
       return this.$root.router;
@@ -234,13 +244,14 @@ export default {
       this.settingsMode = true;
       const workspaceGuid = this.$root.workspaceSystem.getGUID();
       
-      window.Application.getSystem('EventSystem', '0.4.0').publishEvent(
+      this.eventSystem.publishEvent(
         workspaceGuid,
         'WorkspaceCellClicked',
         {
           guid: workspaceGuid,
         }
       );
+
       this.appGUI.toggleSidebar('right', true);
     },
     setPanelSettings(settings) {
@@ -258,8 +269,10 @@ export default {
     //   this.$root.workspaceSystem.changeMode();
     // },
     toggleSetting() {
-      this.settingsMode = !this.settingsMode;
-      this.appGUI.toggleSidebar('right', this.settingsMode);
+      // this.settingsMode = !this.settingsMode;
+      // this.appGUI.toggleSidebar('right', this.settingsMode);
+      this.settingsMode = true;
+      this.appGUI.toggleSidebar('right', true);
     },
     // applySetting() {
     //   this.$root.workspaceSystem.saveConfiguration();
@@ -301,6 +314,12 @@ export default {
 
       return 0;
     },
+    handleSaveWorkspaceClick() {
+      this.$root.workspaceSystem.saveConfiguration();
+    },
+    handleSettingsModeChange() {
+      this.$root.workspaceSystem.changeMode();
+    }
   },
 };
 </script>
@@ -344,9 +363,10 @@ export default {
     border: none
     cursor: pointer
     background-color: transparent
-    // padding: 0 12px
+    padding: 3px
+    display: inline-flex
     align-items: center
-    display: flex
+    justify-content: center
     width: 40px
     height: 40px
 
@@ -476,12 +496,15 @@ export default {
     display: flex
     align-items: center
 
-    .BtnWrapper
+    .UIElementWrapper
       display: inline-flex
       align-items: center
       justify-content: center
       width: 40px
       height: 40px
+
+      &.with_switch
+        justify-content: start
 
   .ButtonsGroup
     .ButtonCancel
