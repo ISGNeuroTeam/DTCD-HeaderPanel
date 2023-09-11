@@ -87,14 +87,6 @@
         <share-link v-if="visibleShareLink"/>
       </base-dropdown>
 
-      <!-- <button
-        v-if="settingsMode && showWorkspaceSettings"
-        class="ButtonIcon type_edit"
-        @click.stop="openWorkspaceSettings"
-      >
-        <span class="FontIcon name_dashboard"></span>
-      </button> -->
-
       <base-tooltip
         v-if="showSettingsButton"
         content="Редактировать"
@@ -207,6 +199,9 @@ export default {
     this.$root.$on('onWorkspaceEditModeChange', (event) => {
       this.isWorkspaceInEditMode = event.editMode;
     });
+    this.$root.$on('onToggledRightSidebar', (event) => {
+      this.settingsMode = event.isOpened;
+    });
   },
   computed: {
     routeTitle() {
@@ -241,7 +236,6 @@ export default {
       this.$refs.panelDropdown.toggle();
     },
     openWorkspaceSettings() {
-      this.settingsMode = true;
       const workspaceGuid = this.$root.workspaceSystem.getGUID();
       
       this.eventSystem.publishEvent(
@@ -269,9 +263,6 @@ export default {
     //   this.$root.workspaceSystem.changeMode();
     // },
     toggleSetting() {
-      // this.settingsMode = !this.settingsMode;
-      // this.appGUI.toggleSidebar('right', this.settingsMode);
-      this.settingsMode = true;
       this.appGUI.toggleSidebar('right', true);
     },
     // applySetting() {

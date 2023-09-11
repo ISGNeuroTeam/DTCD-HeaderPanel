@@ -84,6 +84,13 @@ export class Plugin extends AppPanelPlugin {
       actionName: 'onWorkspaceEditModeChange',
       subsctiptionType: 'system',
     });
+    eventSystem.subscribe({
+      eventGUID: appGUI.instance.guid,
+      eventName: 'ToggledRightSidebar',
+      actionGUID: guid,
+      actionName: 'onToggledRightSidebar',
+      subsctiptionType: 'system',
+    });
 
     const VueJS = this.getDependence('Vue');
 
@@ -131,6 +138,10 @@ export class Plugin extends AppPanelPlugin {
 
   onWorkspaceEditModeChange(event) {
     this.#vue.$emit('onWorkspaceEditModeChange', event);
+  }
+
+  onToggledRightSidebar(event) {
+    this.#vue.$emit('onToggledRightSidebar', event);
   }
 
   showTitle(title) {
