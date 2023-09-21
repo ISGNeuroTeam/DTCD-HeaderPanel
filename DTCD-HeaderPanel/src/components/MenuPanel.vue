@@ -87,21 +87,58 @@
         <share-link v-if="visibleShareLink"/>
       </base-dropdown>
 
-      <button
-        v-if="settingsMode && showWorkspaceSettings"
-        class="ButtonIcon type_edit"
-        @click.stop="openWorkspaceSettings"
-      >
-        <span class="FontIcon name_dashboard"></span>
-      </button>
-
-      <button 
+      <base-tooltip
         v-if="showSettingsButton"
-        class="ButtonIcon type_edit"
-        @click="toggleSetting"
+        content="Редактировать"
+        placement="bottom"
+        class="UIElementWrapper with_switch"
       >
-        <span class="FontIcon name_settingsFilled"></span>
-      </button>
+        <base-switch
+          v-if="showWorkspaceSettings"
+          :checked="isWorkspaceInEditMode"
+          @click.stop=""
+          @input="handleSettingsModeChange"
+        ></base-switch>
+      </base-tooltip>
+
+      <base-tooltip
+        v-if="showWorkspaceSettings"
+        content="Сохранить рабочий стол"
+        placement="bottom"
+        class="UIElementWrapper"
+      >
+        <button 
+          class="ButtonIcon type_edit"
+          @click.stop="handleSaveWorkspaceClick"
+        >
+          <span class="FontIcon name_save"></span>
+        </button>
+      </base-tooltip>
+
+      <base-tooltip
+        v-if="showSettingsButton"
+        content="Настройки"
+        placement="bottom"
+        class="UIElementWrapper"
+      >
+        <button 
+          v-if="showWorkspaceSettings"
+          class="ButtonIcon type_edit"
+          :class="settingsMode && 'active'"
+          @click.stop="openWorkspaceSettings"
+        >
+          <span class="FontIcon name_settingsFilled"></span>
+        </button>
+
+        <button 
+          v-if="!showWorkspaceSettings"
+          class="ButtonIcon type_edit"
+          :class="settingsMode && 'active'"
+          @click="toggleSetting"
+        >
+          <span class="FontIcon name_settingsFilled"></span>
+        </button>
+      </base-tooltip>
     </div>
 
     <!-- <div class="ButtonsGroup">
@@ -130,10 +167,7 @@ export default {
   data({ $root }) {
     return {
       settingsMode: false,
-      eventSystem: $root.eventSystem,
-      router: $root.router,
-      appGUI: $root.appGUI,
-      plugin: $root.plugin,
+      isWorkspaceInEditMode: false,
       showPageTitle: false,
       showAddPanelButton: false,
       showBackButton: false,
@@ -161,6 +195,13 @@ export default {
           };
         }
       });
+
+    this.$root.$on('onWorkspaceEditModeChange', (event) => {
+      this.isWorkspaceInEditMode = event.editMode;
+    });
+    this.$root.$on('onToggledRightSidebar', (event) => {
+      this.settingsMode = event.isOpened;
+    });
   },
   computed: {
     routeTitle() {
@@ -176,6 +217,18 @@ export default {
         return 0;
       });
     },
+    eventSystem() {
+      return window.Application.getSystem('EventSystem', '0.4.0');
+    },
+    router(){
+      return this.$root.router;
+    },
+    appGUI(){
+      return this.$root.appGUI;
+    },
+    plugin(){
+      return this.$root.plugin;
+    },
   },
   methods: {
     addPanel(name, version) {
@@ -184,13 +237,16 @@ export default {
     },
     openWorkspaceSettings() {
       const workspaceGuid = this.$root.workspaceSystem.getGUID();
-      Application.getSystem('EventSystem', '0.4.0').publishEvent(
+      
+      this.eventSystem.publishEvent(
         workspaceGuid,
         'WorkspaceCellClicked',
         {
           guid: workspaceGuid,
         }
       );
+
+      this.appGUI.toggleSidebar('right', true);
     },
     setPanelSettings(settings) {
       for (let key in settings) {
@@ -207,8 +263,7 @@ export default {
     //   this.$root.workspaceSystem.changeMode();
     // },
     toggleSetting() {
-      this.settingsMode = !this.settingsMode;
-      this.appGUI.toggleSidebar('right', this.settingsMode);
+      this.appGUI.toggleSidebar('right', true);
     },
     // applySetting() {
     //   this.$root.workspaceSystem.saveConfiguration();
@@ -250,6 +305,12 @@ export default {
 
       return 0;
     },
+    handleSaveWorkspaceClick() {
+      this.$root.workspaceSystem.saveConfiguration();
+    },
+    handleSettingsModeChange() {
+      this.$root.workspaceSystem.changeMode();
+    }
   },
 };
 </script>
@@ -293,20 +354,22 @@ export default {
     border: none
     cursor: pointer
     background-color: transparent
-    padding: 0 12px
+    padding: 3px
+    display: inline-flex
     align-items: center
-    display: flex
-    height: 100%
+    justify-content: center
+    width: 40px
+    height: 40px
 
     &.type_back
-      width: auto
+      // width: auto
       margin-left: 9px
 
     &.type_edit
-
       @media (max-width: 576px)
         display: none
 
+    &.active,
     &:hover
       background: rgba(198, 198, 212, 0.2)
 
@@ -423,6 +486,16 @@ export default {
   .EditMenuPanel
     display: flex
     align-items: center
+
+    .UIElementWrapper
+      display: inline-flex
+      align-items: center
+      justify-content: center
+      width: 40px
+      height: 40px
+
+      &.with_switch
+        justify-content: start
 
   .ButtonsGroup
     .ButtonCancel

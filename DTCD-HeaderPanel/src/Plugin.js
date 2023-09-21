@@ -41,7 +41,7 @@ export class Plugin extends AppPanelPlugin {
     super(guid, selector);
     const eventSystem = new EventSystemAdapter('0.4.0', guid);
     this.#interactionSystem = new InteractionSystemAdapter('0.4.0');
-    this.#workspaceSystem = new WorkspaceSystemAdapter('0.4.0');
+    this.#workspaceSystem = new WorkspaceSystemAdapter('0.17.0');
     this.#storageSystem = new StorageSystemAdapter('0.9.0');
     const styleSystem = new StyleSystemAdapter('0.4.0');
     const router = new RouteSystemAdapter('0.1.0');
@@ -56,9 +56,41 @@ export class Plugin extends AppPanelPlugin {
     ]);
 
     const guidNotifySystem = this.getGUID(this.getSystem('NotificationSystem', '0.1.0'));
-    eventSystem.subscribe(guidNotifySystem, 'newNotify', guid, 'onNewNotify');
-    eventSystem.subscribe(guidNotifySystem, 'removeNotify', guid, 'onRemoveNotify');
-    eventSystem.subscribe(guidNotifySystem, 'clearNotifyList', guid, 'onClearNotifyList');
+    eventSystem.subscribe({
+      eventGUID: guidNotifySystem,
+      eventName: 'newNotify',
+      actionGUID: guid,
+      actionName: 'onNewNotify',
+      subsctiptionType: 'system',
+    });
+    eventSystem.subscribe({
+      eventGUID: guidNotifySystem,
+      eventName: 'removeNotify',
+      actionGUID: guid,
+      actionName: 'onRemoveNotify',
+      subsctiptionType: 'system',
+    });
+    eventSystem.subscribe({
+      eventGUID: guidNotifySystem,
+      eventName: 'clearNotifyList',
+      actionGUID: guid,
+      actionName: 'onClearNotifyList',
+      subsctiptionType: 'system',
+    });
+    eventSystem.subscribe({
+      eventGUID: this.#workspaceSystem.getGUID(),
+      eventName: 'WorkspaceEditModeChanged',
+      actionGUID: guid,
+      actionName: 'onWorkspaceEditModeChange',
+      subsctiptionType: 'system',
+    });
+    eventSystem.subscribe({
+      eventGUID: appGUI.instance.guid,
+      eventName: 'ToggledRightSidebar',
+      actionGUID: guid,
+      actionName: 'onToggledRightSidebar',
+      subsctiptionType: 'system',
+    });
 
     const VueJS = this.getDependence('Vue');
 
@@ -102,6 +134,14 @@ export class Plugin extends AppPanelPlugin {
 
   onClearNotifyList(id) {
     this.#vue.$emit('onClearNotifyList')
+  }
+
+  onWorkspaceEditModeChange(event) {
+    this.#vue.$emit('onWorkspaceEditModeChange', event);
+  }
+
+  onToggledRightSidebar(event) {
+    this.#vue.$emit('onToggledRightSidebar', event);
   }
 
   showTitle(title) {
