@@ -364,10 +364,6 @@ export default {
       // width: auto
       margin-left: 9px
 
-    &.type_edit
-      @media (max-width: 576px)
-        display: none
-
     &.active,
     &:hover
       background: rgba(198, 198, 212, 0.2)
@@ -485,6 +481,9 @@ export default {
   .EditMenuPanel
     display: flex
     align-items: center
+
+    @media (max-width: 576px)
+      display: none
 
     .UIElementWrapper
       display: inline-flex
