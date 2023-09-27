@@ -16,7 +16,7 @@
 
       <div class="AdditionalPages">
         <base-dropdown
-          v-if="settingsMode && showPanelSelect"
+          v-if="(settingsMode || isWorkspaceInEditMode) && showPanelSelect"
           class="PanelDropdownSelect"
           ref="panelDropdown"
         >
@@ -88,13 +88,12 @@
       </base-dropdown>
 
       <base-tooltip
-        v-if="showSettingsButton"
+        v-if="showWorkspaceSettings"
         content="Редактировать"
         placement="bottom"
         class="UIElementWrapper with_switch"
       >
         <base-switch
-          v-if="showWorkspaceSettings"
           :checked="isWorkspaceInEditMode"
           @click.stop=""
           @input="handleSettingsModeChange"
