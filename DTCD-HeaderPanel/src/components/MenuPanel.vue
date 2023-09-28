@@ -28,7 +28,7 @@
             <nav class="NavList type_dropdown">
               <li class="NavItem" v-for="panel in sortedPanels" :key="panels[panel].title">
                 <base-dropdown
-                  placement="rightStart"
+                  placement="right"
                   class="PanelDropdownSelect"
                   @toggle="handleTypePanelDropdownToggle"
                 >
