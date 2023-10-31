@@ -84,6 +84,7 @@ export default {
       router: $root.router,
       interactionSystem: $root.interactionSystem,
       storageSystem: $root.storageSystem,
+      keycloak: $root.keycloak,
       burgerVisibility: false,
       userData: {
         username: '',
@@ -105,14 +106,11 @@ export default {
   },
   methods: {
     async logout() {
-      await Application.getSystem('AuthSystem', '0.1.0').logout();
+      await this.keycloak.logout();
     },
 
     async getUserData() {
-      const fields = ['username', 'photo', 'firstName', 'lastName'];
-      const url = '/dtcd_utils/v1/user?photo_quality=low&' + fields.join('&');
-      const result = await this.interactionSystem.GETRequest(url);
-      return result.data;
+      return await this.keycloak.loadUserProfile();
     },
 
     async goToAdmin() {

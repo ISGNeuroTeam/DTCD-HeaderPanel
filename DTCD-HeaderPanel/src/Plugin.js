@@ -20,8 +20,8 @@ export class Plugin extends AppPanelPlugin {
   #interactionSystem;
   #storageSystem;
   #logSystem;
+  #keycloak;
   #idAuthorizedUser = null;
-  static userEndpoint = '/dtcd_utils/v1/user?photo_quality=low';
 
   #settings = {
     showPageTitle: false,
@@ -47,6 +47,9 @@ export class Plugin extends AppPanelPlugin {
     const router = new RouteSystemAdapter('0.1.0');
     const appGUI = new AppGUISystemAdapter('0.1.0');
     const notificationSystem = new NotificationSystemAdapter('0.1.0');
+    const keycloak = this.getDependence('keycloak');
+
+    this.#keycloak = keycloak;
     this.#logSystem = new LogSystemAdapter('0.7.0', guid, Plugin.getRegistrationMeta().name);
 
     eventSystem.registerPluginInstance(this, [
@@ -105,6 +108,7 @@ export class Plugin extends AppPanelPlugin {
       router,
       appGUI,
       notificationSystem,
+      keycloak,
       logSystem: this.#logSystem,
       settings: this.#settings,
     };
@@ -189,17 +193,8 @@ export class Plugin extends AppPanelPlugin {
   }
 
   #getIdAuthorizedUser = async () => {
-    try {
-      const response = await this.#interactionSystem.GETRequest(Plugin.userEndpoint);
-      if (response?.data) {
-        const { id } = response.data;
-        this.#idAuthorizedUser = id;
-      }
-    } catch (error) {
-      this.#idAuthorizedUser = null;
-      throw error;
-    }
-    return;
+    const userData = await this.#keycloak.loadUserProfile();
+    this.#idAuthorizedUser = userData.id;
   }
 
   #saveConfigToLS = async () => {
