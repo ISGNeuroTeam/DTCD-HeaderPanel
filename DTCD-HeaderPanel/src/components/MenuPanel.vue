@@ -15,57 +15,44 @@
       </div>
 
       <div class="AdditionalPages">
-        <base-dropdown
+        <base-expander
           v-if="(settingsMode || isWorkspaceInEditMode) && showPanelSelect"
-          class="PanelDropdownSelect"
-          ref="panelDropdown"
+          class="ExpanderSelect"
+          ref="panelExpander"
         >
-          <span class="DropdownGroup" slot="toggle-btn"> Панели </span>
+          <span class="ExpanderGroup" slot="summary"> Панели </span>
+          <span class="FontIcon name_chevronDown size_2xs" slot="icon-arrow"></span>
           <div
-            class="DropdownScrollContainer"
-            :style="{ paddingRight: `${widthInnerDropdownContent}px` }"
+            class="ExpanderScrollContainer"
+            :style="{ paddingRight: `${widthInnerExpanderContent}px` }"
           >
-            <nav class="NavList type_dropdown">
+            <nav class="NavList type_expander">
               <li class="NavItem" v-for="panel in sortedPanels" :key="panels[panel].title">
-                <base-dropdown
-                  placement="right"
-                  class="PanelDropdownSelect"
-                  @toggle="handleTypePanelDropdownToggle"
+                <base-expander
+                  class="ExpanderSelect"
+                  @toggle="handleTypePanelExpanderToggle"
                 >
-                  <span class="DropdownTitle" slot="toggle-btn">
+                  <span class="ExpanderTitle" slot="summary">
                     <div class="NavButton">
-                      <span class="Text">{{ panels[panel].title }}</span>
+                      <span>{{ panels[panel].title }}</span>
                     </div>
                   </span>
-                  <svg
-                    class="IconArrow"
-                    slot="icon-arrow"
-                    width="14"
-                    height="14"
-                    viewBox="0 0 14 14"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M9.16597 7.00003L5.66013 3.49419L4.83472 4.31844L7.51805 7.00003L4.83472 9.68103L5.65955 10.5059L9.16597 7.00003Z"
-                      fill="#51515C"
-                    />
-                  </svg>
-                  <nav class="NavList type_dropdown">
+                  <span class="IconArrow FontIcon name_chevronDown size_2xs" slot="icon-arrow"></span>
+                  <nav class="NavList">
                     <a
-                      class="NavButton without_dropdown"
+                      class="NavButton without_expander"
                       v-for="version in panels[panel].versions.sort(sortedVersions)"
                       :key="version"
                       @click="addPanel(panel, version)"
                     >
-                      <span class="PanelVersion">{{ version }}</span>
+                      <span>{{ version }}</span>
                     </a>
                   </nav>
-                </base-dropdown>
+                </base-expander>
               </li>
             </nav>
           </div>
-        </base-dropdown>
+        </base-expander>
       </div>
     </div>
 
@@ -174,8 +161,8 @@ export default {
       showWorkspaceSettings: false,
       showPanelSelect: false,
       panels: {},
-      widthInnerDropdownContent: 0,
-      countOpenedDropdowns: 0,
+      widthInnerExpanderContent: 0,
+      countOpenedExpanders: 0,
       visibleShareLink: false,
       title: '',
     };
@@ -232,7 +219,7 @@ export default {
   methods: {
     addPanel(name, version) {
       this.$root.workspaceSystem.instance.createCell({ name, version });
-      this.$refs.panelDropdown.toggle();
+      this.$refs.panelExpander.toggle();
     },
     openWorkspaceSettings() {
       const workspaceGuid = this.$root.workspaceSystem.getGUID();
@@ -277,17 +264,17 @@ export default {
 
     //   this.appGUI.toggleSidebar('right');
     // },
-    handleTypePanelDropdownToggle(event) {
-      // countOpenedDropdowns нужен, чтобы паддинг не обнулялся,
+    handleTypePanelExpanderToggle(event) {
+      // countOpenedExpanders нужен, чтобы паддинг не обнулялся,
       // когда открывается другой дропдаун.
-      event.detail.opened ? this.countOpenedDropdowns++ : this.countOpenedDropdowns--;
+      event.detail.opened ? this.countOpenedExpanders++ : this.countOpenedExpanders--;
 
       if (event.detail.opened) {
         const innerBlock = event.currentTarget.querySelector('.NavList');
         // 10 прибавляется, чтобы тень внутреннего дропдауна не обрезалась.
-        this.widthInnerDropdownContent = innerBlock?.clientWidth ? innerBlock?.clientWidth + 10 : 0;
+        this.widthInnerExpanderContent = innerBlock?.clientWidth ? innerBlock?.clientWidth + 10 : 0;
       } else {
-        if (this.countOpenedDropdowns < 1) this.widthInnerDropdownContent = 0;
+        if (this.countOpenedExpanders < 1) this.widthInnerExpanderContent = 0;
       }
     },
     sortedVersions(a, b) {
@@ -334,12 +321,6 @@ export default {
     font-size: 19px
     color: var(--text_main)
 
-    &.name_dashboard::before
-      color: var(--accent)
-
-    &.name_copy
-      color: var(--button_primary)
-
   .MenuPanel
     display: flex
 
@@ -384,9 +365,7 @@ export default {
       font-size: 15px
 
   .AdditionalPages
-    display: flex
-    align-items: center
-    column-gap: 30px
+    padding-top: 12px
     z-index: 10
 
     @media (max-width: 768px)
@@ -395,34 +374,26 @@ export default {
     @media (max-width: 576px)
       display: none
 
-  .DropdownScrollContainer
+  .ExpanderScrollContainer
     max-height: 60vh
     overflow-x: visible
     overflow-y: auto
-    direction: rtl
+    position: absolute
+    margin-top: 1px
 
-    & > .NavList.type_dropdown
-      direction: ltr
-
-  .PanelDropdownSelect
-    display: contents
+  .ExpanderSelect
 
     & > *
       cursor: pointer
 
-  .DropdownGroup
-    margin-right: 5px
-
-  .DropdownTitle
+  .ExpanderTitle
     margin: 3px 8px 3px 16px
 
-  .DropdownTitle,
-  .DropdownGroup
+  .ExpanderTitle,
+  .ExpanderGroup
     font-size: 15px
     font-family: 'Proxima Nova'
     color: var(--text_main)
-    display: flex
-    align-items: center
 
     @media (max-width: 768px)
       font-size: 13px
@@ -430,7 +401,7 @@ export default {
   .NavList
     $nav-item-margin: 8px
 
-    &.type_dropdown
+    &.type_expander
       background-color: var(--background_main)
       border: 1px solid var(--border)
       display: flex
@@ -439,9 +410,12 @@ export default {
       border-radius: 8px
       padding: 16px 0
       cursor: default
+      max-height: inherit
+      overflow: auto
 
     .NavItem
       list-style: none
+      padding-right: 14px
 
       &:hover
         background-color: var(--button_primary_12)
@@ -456,27 +430,19 @@ export default {
       font-weight: 400
       color: var(--text_main)
       cursor: pointer
-      align-items: center
-      text-align: initial
 
-      &.without_dropdown
+      &.without_expander
         padding: 3px 16px
 
         &:hover
           background-color: var(--button_primary_12)
+          color: var(--button_primary)
 
         &:not(:last-child)
           margin-bottom: $nav-item-margin
 
-  .PanelVersion
-    padding-left: 8px
-
-  svg
-    path
-      fill: var(--accent)
-
   .IconArrow
-    margin-right: 16px
+    color: var(--accent)
 
   .EditMenuPanel
     display: flex
@@ -495,9 +461,9 @@ export default {
       &.with_switch
         justify-content: start
 
-  .ButtonsGroup
-    .ButtonCancel
-      padding-right: 20px
+  // .ButtonsGroup
+  //   .ButtonCancel
+  //     padding-right: 20px
 
   .ShareLinkDropdown
     height: 100%
