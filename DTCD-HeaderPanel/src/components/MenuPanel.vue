@@ -407,7 +407,7 @@ export default {
       display: flex
       flex-direction: column
       box-shadow: 1px 1px 2px rgba(8, 18, 55, 0.12), 0px 4px 12px rgba(8, 18, 55, 0.12)
-      border-radius: 8px
+      border-radius: 0px 0px 8px 8px
       padding: 16px 0
       cursor: default
       max-height: inherit
@@ -416,12 +416,10 @@ export default {
     .NavItem
       list-style: none
       padding-right: 14px
+      padding-bottom: 8px
 
       &:hover
         background-color: var(--button_primary_12)
-
-      &:not(:last-child)
-        margin-bottom: $nav-item-margin
 
     .NavButton
       display: flex
@@ -432,11 +430,12 @@ export default {
       cursor: pointer
 
       &.without_expander
-        padding: 3px 16px
+        padding: 3px 16px 3px 20px
+        background-color: var(--border_12)
+        margin-left: 16px
 
         &:hover
-          background-color: var(--button_primary_12)
-          color: var(--button_primary)
+          background-color: var(--button_primary_24)
 
         &:not(:last-child)
           margin-bottom: $nav-item-margin
