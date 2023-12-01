@@ -15,44 +15,44 @@
       </div>
 
       <div class="AdditionalPages">
-        <base-expander
+        <base-dropdown
           v-if="(settingsMode || isWorkspaceInEditMode) && showPanelSelect"
-          class="ExpanderSelect"
-          ref="panelExpander"
+          class="PanelDropdownSelect"
+          ref="panelDropdown"
         >
-          <span class="ExpanderGroup" slot="summary"> Панели </span>
+          <span class="DropdownGroup" slot="toggle-btn"> Панели </span>
           <span class="FontIcon name_chevronDown size_2xs" slot="icon-arrow"></span>
           <div
-            class="ExpanderScrollContainer"
-            :style="{ paddingRight: `${widthInnerExpanderContent}px` }"
+            class="DropdownScrollContainer"
+            :style="{ paddingRight: `${widthInnerDropdownContent}px` }"
           >
-            <nav class="NavList type_expander">
+            <nav class="NavList type_dropdown">
               <li class="NavItem" v-for="panel in sortedPanels" :key="panels[panel].title">
                 <base-expander
-                  class="ExpanderSelect"
+                  class="PanelDropdownSelect"
                   @toggle="handleTypePanelExpanderToggle"
                 >
-                  <span class="ExpanderTitle" slot="summary">
+                  <span class="DropdownTitle" slot="summary">
                     <div class="NavButton">
-                      <span>{{ panels[panel].title }}</span>
+                      <span class="Text">{{ panels[panel].title }}</span>
                     </div>
                   </span>
                   <span class="IconArrow FontIcon name_chevronDown size_2xs" slot="icon-arrow"></span>
                   <nav class="NavList">
                     <a
-                      class="NavButton without_expander"
+                      class="NavButton without_dropdown"
                       v-for="version in panels[panel].versions.sort(sortedVersions)"
                       :key="version"
                       @click="addPanel(panel, version)"
                     >
-                      <span>{{ version }}</span>
+                      <base-button class="versionButton" theme="theme_blueSec" size="small">{{ version }}</base-button>
                     </a>
                   </nav>
                 </base-expander>
               </li>
             </nav>
           </div>
-        </base-expander>
+        </base-dropdown>
       </div>
     </div>
 
@@ -142,7 +142,7 @@
       Сохранить
       </base-button>
     </div> -->
-  </div>
+ </div>
 </template>
 
 <script>
@@ -161,8 +161,8 @@ export default {
       showWorkspaceSettings: false,
       showPanelSelect: false,
       panels: {},
-      widthInnerExpanderContent: 0,
-      countOpenedExpanders: 0,
+      widthInnerDropdownContent: 0,
+      countOpenedDropdowns: 0,
       visibleShareLink: false,
       title: '',
     };
@@ -219,7 +219,7 @@ export default {
   methods: {
     addPanel(name, version) {
       this.$root.workspaceSystem.instance.createCell({ name, version });
-      this.$refs.panelExpander.toggle();
+      this.$refs.panelDropdown.toggle();
     },
     openWorkspaceSettings() {
       const workspaceGuid = this.$root.workspaceSystem.getGUID();
@@ -264,17 +264,17 @@ export default {
 
     //   this.appGUI.toggleSidebar('right');
     // },
-    handleTypePanelExpanderToggle(event) {
-      // countOpenedExpanders нужен, чтобы паддинг не обнулялся,
+    handleTypePanelDropdownToggle(event) {
+      // countOpenedDropdowns нужен, чтобы паддинг не обнулялся,
       // когда открывается другой дропдаун.
-      event.detail.opened ? this.countOpenedExpanders++ : this.countOpenedExpanders--;
+      event.detail.opened ? this.countOpenedDropdowns++ : this.countOpenedDropdowns--;
 
       if (event.detail.opened) {
         const innerBlock = event.currentTarget.querySelector('.NavList');
         // 10 прибавляется, чтобы тень внутреннего дропдауна не обрезалась.
-        this.widthInnerExpanderContent = innerBlock?.clientWidth ? innerBlock?.clientWidth + 10 : 0;
+        this.widthInnerDropdownContent = innerBlock?.clientWidth ? innerBlock?.clientWidth + 10 : 0;
       } else {
-        if (this.countOpenedExpanders < 1) this.widthInnerExpanderContent = 0;
+        if (this.countOpenedDropdowns < 1) this.widthInnerDropdownContent = 0;
       }
     },
     sortedVersions(a, b) {
@@ -365,7 +365,9 @@ export default {
       font-size: 15px
 
   .AdditionalPages
-    padding-top: 12px
+    display: flex
+    align-items: center
+    column-gap: 30px
     z-index: 10
 
     @media (max-width: 768px)
@@ -374,26 +376,32 @@ export default {
     @media (max-width: 576px)
       display: none
 
-  .ExpanderScrollContainer
+  .DropdownScrollContainer
     max-height: 60vh
     overflow-x: visible
     overflow-y: auto
-    position: absolute
-    margin-top: 1px
 
-  .ExpanderSelect
+  .PanelDropdownSelect
+    display: contents
 
     & > *
       cursor: pointer
+      padding-top: 2px
+      overflow: hidden
 
-  .ExpanderTitle
+  .DropdownGroup
+    margin-right: 5px
+
+  .DropdownTitle
     margin: 3px 8px 3px 16px
 
-  .ExpanderTitle,
-  .ExpanderGroup
+  .DropdownTitle,
+  .DropdownGroup
     font-size: 15px
     font-family: 'Proxima Nova'
     color: var(--text_main)
+    display: flex
+    align-items: center
 
     @media (max-width: 768px)
       font-size: 13px
@@ -401,7 +409,7 @@ export default {
   .NavList
     $nav-item-margin: 8px
 
-    &.type_expander
+    &.type_dropdown
       background-color: var(--background_main)
       border: 1px solid var(--border)
       display: flex
@@ -411,15 +419,17 @@ export default {
       padding: 16px 0
       cursor: default
       max-height: inherit
-      overflow: auto
+      overflow-y: auto
+      overflow-x: hidden
 
     .NavItem
       list-style: none
-      padding-right: 14px
-      padding-bottom: 8px
 
       &:hover
         background-color: var(--button_primary_12)
+
+      &:not(:last-child)
+        margin-bottom: $nav-item-margin
 
     .NavButton
       display: flex
@@ -429,18 +439,24 @@ export default {
       color: var(--text_main)
       cursor: pointer
 
-      &.without_expander
-        padding: 3px 16px 3px 20px
-        background-color: var(--border_12)
-        margin-left: 16px
-
+      &.without_dropdown
+        padding: 3px 16px 5px 16px
+        background-color: var(--background_main)
+        display: flex
+        flex-direction: column
+        cursor: default
+        
         &:hover
-          background-color: var(--button_primary_24)
+          background-color: var(--button_primary_12)
 
         &:not(:last-child)
           margin-bottom: $nav-item-margin
 
+    .versionButton 
+      width: fit-content
+
   .IconArrow
+    margin-right: 16px
     color: var(--accent)
 
   .EditMenuPanel
@@ -466,4 +482,4 @@ export default {
 
   .ShareLinkDropdown
     height: 100%
-</style>
+</style> 
