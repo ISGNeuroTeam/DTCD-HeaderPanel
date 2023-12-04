@@ -21,47 +21,40 @@
           ref="panelDropdown"
         >
           <span class="DropdownGroup" slot="toggle-btn"> Панели </span>
+          <span class="FontIcon name_chevronDown size_2xs" slot="icon-arrow"></span>
           <div
             class="DropdownScrollContainer"
             :style="{ paddingRight: `${widthInnerDropdownContent}px` }"
           >
             <nav class="NavList type_dropdown">
               <li class="NavItem" v-for="panel in sortedPanels" :key="panels[panel].title">
-                <base-dropdown
-                  placement="right"
+                <base-expander
                   class="PanelDropdownSelect"
-                  @toggle="handleTypePanelDropdownToggle"
+                  @toggle="handleTypePanelExpanderToggle"
                 >
-                  <span class="DropdownTitle" slot="toggle-btn">
+                  <span class="DropdownTitle" slot="summary">
                     <div class="NavButton">
                       <span class="Text">{{ panels[panel].title }}</span>
                     </div>
                   </span>
-                  <svg
-                    class="IconArrow"
-                    slot="icon-arrow"
-                    width="14"
-                    height="14"
-                    viewBox="0 0 14 14"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M9.16597 7.00003L5.66013 3.49419L4.83472 4.31844L7.51805 7.00003L4.83472 9.68103L5.65955 10.5059L9.16597 7.00003Z"
-                      fill="#51515C"
-                    />
-                  </svg>
-                  <nav class="NavList type_dropdown">
-                    <a
+                  <span class="IconArrow FontIcon name_chevronDown size_2xs" slot="icon-arrow"></span>
+                  <nav class="NavList">
+                    <li
                       class="NavButton without_dropdown"
                       v-for="version in panels[panel].versions.sort(sortedVersions)"
                       :key="version"
-                      @click="addPanel(panel, version)"
                     >
-                      <span class="PanelVersion">{{ version }}</span>
-                    </a>
+                      <base-button 
+                        @click="addPanel(panel, version)" 
+                        class="versionButton" 
+                        theme="theme_blueSec" 
+                        size="small"
+                      >
+                      {{ version }}
+                    </base-button>
+                  </li>
                   </nav>
-                </base-dropdown>
+                </base-expander>
               </li>
             </nav>
           </div>
@@ -155,7 +148,7 @@
       Сохранить
       </base-button>
     </div> -->
-  </div>
+ </div>
 </template>
 
 <script>
@@ -334,12 +327,6 @@ export default {
     font-size: 19px
     color: var(--text_main)
 
-    &.name_dashboard::before
-      color: var(--accent)
-
-    &.name_copy
-      color: var(--button_primary)
-
   .MenuPanel
     display: flex
 
@@ -399,16 +386,14 @@ export default {
     max-height: 60vh
     overflow-x: visible
     overflow-y: auto
-    direction: rtl
-
-    & > .NavList.type_dropdown
-      direction: ltr
 
   .PanelDropdownSelect
     display: contents
 
     & > *
       cursor: pointer
+      padding-top: 2px
+      overflow: hidden
 
   .DropdownGroup
     margin-right: 5px
@@ -436,9 +421,12 @@ export default {
       display: flex
       flex-direction: column
       box-shadow: 1px 1px 2px rgba(8, 18, 55, 0.12), 0px 4px 12px rgba(8, 18, 55, 0.12)
-      border-radius: 8px
+      border-radius: 0px 0px 8px 8px
       padding: 16px 0
       cursor: default
+      max-height: inherit
+      overflow-y: auto
+      overflow-x: hidden
 
     .NavItem
       list-style: none
@@ -456,27 +444,26 @@ export default {
       font-weight: 400
       color: var(--text_main)
       cursor: pointer
-      align-items: center
-      text-align: initial
 
       &.without_dropdown
-        padding: 3px 16px
-
+        padding: 3px 16px 5px 16px
+        background-color: var(--background_main)
+        display: flex
+        flex-direction: column
+        cursor: default
+        
         &:hover
           background-color: var(--button_primary_12)
 
         &:not(:last-child)
           margin-bottom: $nav-item-margin
 
-  .PanelVersion
-    padding-left: 8px
-
-  svg
-    path
-      fill: var(--accent)
+    .versionButton 
+      width: fit-content
 
   .IconArrow
     margin-right: 16px
+    color: var(--accent)
 
   .EditMenuPanel
     display: flex
@@ -495,10 +482,10 @@ export default {
       &.with_switch
         justify-content: start
 
-  .ButtonsGroup
-    .ButtonCancel
-      padding-right: 20px
+  // .ButtonsGroup
+  //   .ButtonCancel
+  //     padding-right: 20px
 
   .ShareLinkDropdown
     height: 100%
-</style>
+</style> 
