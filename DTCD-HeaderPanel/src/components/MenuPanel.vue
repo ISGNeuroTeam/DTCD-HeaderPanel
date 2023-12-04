@@ -39,14 +39,20 @@
                   </span>
                   <span class="IconArrow FontIcon name_chevronDown size_2xs" slot="icon-arrow"></span>
                   <nav class="NavList">
-                    <a
+                    <li
                       class="NavButton without_dropdown"
                       v-for="version in panels[panel].versions.sort(sortedVersions)"
                       :key="version"
-                      @click="addPanel(panel, version)"
                     >
-                      <base-button class="versionButton" theme="theme_blueSec" size="small">{{ version }}</base-button>
-                    </a>
+                      <base-button 
+                        @click="addPanel(panel, version)" 
+                        class="versionButton" 
+                        theme="theme_blueSec" 
+                        size="small"
+                      >
+                      {{ version }}
+                    </base-button>
+                  </li>
                   </nav>
                 </base-expander>
               </li>
